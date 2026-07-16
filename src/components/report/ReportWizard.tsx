@@ -50,7 +50,15 @@ export function ReportWizard() {
       if (file) body.set('photo', file);
       const response = await fetch('/api/sightings', {method: 'POST', body});
       const data = await response.json();
-      if (!response.ok) throw new Error(data.error ?? 'submission-failed');
+      if (!response.ok) {
+        const messageKey = data.error === 'rate-limit-exceeded'
+          ? 'rateLimitError'
+          : ['request-too-large', 'file-too-large'].includes(data.error)
+            ? 'requestTooLargeError'
+            : 'submitError';
+        setSubmitError(t(messageKey));
+        return;
+      }
       setResult({
         occurrenceId: data.occurrenceId,
         persisted: Boolean(data.persisted),

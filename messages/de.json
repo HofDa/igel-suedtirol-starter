@@ -62,6 +62,8 @@
     "next": "Weiter",
     "submit": "Meldung abschicken",
     "submitError": "Die Meldung konnte nicht übertragen werden. Dein Entwurf bleibt lokal gespeichert.",
+    "rateLimitError": "Von dieser Verbindung wurden zu viele Meldungen gesendet. Bitte versuche es später erneut; dein Entwurf bleibt gespeichert.",
+    "requestTooLargeError": "Die Meldung ist für die Übertragung zu groß. Bitte entferne das Foto oder wähle eine kleinere Datei.",
     "draft": {
       "restored": "Dein Entwurf vom {date} wurde wiederhergestellt. Du kannst weitermachen oder neu beginnen.",
       "discard": "Neu beginnen"

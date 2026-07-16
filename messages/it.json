@@ -62,6 +62,8 @@
     "next": "Avanti",
     "submit": "Invia segnalazione",
     "submitError": "La segnalazione non è stata inviata. La bozza resta salvata sul dispositivo.",
+    "rateLimitError": "Da questa connessione sono state inviate troppe segnalazioni. Riprova più tardi; la bozza resta salvata.",
+    "requestTooLargeError": "La segnalazione è troppo grande per l’invio. Rimuovi la foto o scegli un file più piccolo.",
     "draft": {
       "restored": "La bozza del {date} è stata ripristinata. Puoi continuare o ricominciare.",
       "discard": "Ricomincia"
