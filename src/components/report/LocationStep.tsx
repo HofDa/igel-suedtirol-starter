@@ -20,7 +20,6 @@ export function LocationStep() {
   const latitude = watch('latitude');
   const longitude = watch('longitude');
   const accuracy = watch('accuracy');
-  const hasPosition = isFiniteNumber(latitude) && isFiniteNumber(longitude);
 
   const container = useRef<HTMLDivElement>(null);
   const mapRef = useRef<MapLibreMap | null>(null);
@@ -124,7 +123,7 @@ export function LocationStep() {
         </label>
       </div>
       <div className="mt-5 rounded-xl bg-emerald-50 p-4 text-sm" aria-live="polite">
-        {hasPosition && isFiniteNumber(latitude) && isFiniteNumber(longitude) ? (
+        {isFiniteNumber(latitude) && isFiniteNumber(longitude) ? (
           <>
             <strong>{t('steps.location.current')}:</strong> {latitude.toFixed(5)}, {longitude.toFixed(5)}
             {accuracy ? ` · ±${Math.round(accuracy)} m` : ''}

@@ -346,6 +346,7 @@
       "photos": "mit Foto",
       "duplicates": "mögliche Duplikate"
     },
+    "statsDemoNote": "Beispielwerte – echte Kennzahlen erscheinen mit der Datenanbindung.",
     "loginTitle": "Admin-Anmeldung",
     "email": "E-Mail",
     "password": "Passwort",

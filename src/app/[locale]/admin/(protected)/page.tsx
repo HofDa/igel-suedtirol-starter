@@ -18,6 +18,7 @@ export default async function AdminPage({params}: Props) {
         <StatCard value="31" label={t('stats.photos')} />
         <StatCard value="4" label={t('stats.duplicates')} />
       </div>
+      <p className="mt-3 text-sm font-semibold text-emerald-950/60">{t('statsDemoNote')}</p>
       <p className="mt-8 rounded-xl bg-amber-100 p-4 font-semibold">{t('starterNotice')}</p>
     </section>
   );

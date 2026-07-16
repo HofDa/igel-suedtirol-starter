@@ -346,6 +346,7 @@
       "photos": "con foto",
       "duplicates": "possibili duplicati"
     },
+    "statsDemoNote": "Valori di esempio: i dati reali appariranno con il collegamento al database.",
     "loginTitle": "Accesso amministrazione",
     "email": "E-mail",
     "password": "Password",
