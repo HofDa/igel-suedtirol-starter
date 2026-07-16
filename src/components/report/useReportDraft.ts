@@ -32,13 +32,18 @@ export function useReportDraft({methods, defaults, locale, step, restoreStep, re
     loadDraft()
       .then((draft) => {
         if (!draft) return;
-        methods.reset({...draft.values, submittedLocale: locale});
+        methods.reset({
+          ...defaults,
+          ...draft.values,
+          features: {...defaults.features, ...draft.values.features},
+          submittedLocale: locale
+        });
         restoreStep(draft.step);
         setRestoredAt(draft.updatedAt);
       })
       .catch(() => undefined)
       .finally(() => setHydrated(true));
-  }, [locale, methods, restoreStep]);
+  }, [defaults, locale, methods, restoreStep]);
 
   const scheduleSave = useCallback(
     (values: ReportDraftValues) => {
@@ -85,7 +90,7 @@ export function useReportDraft({methods, defaults, locale, step, restoreStep, re
   async function discard() {
     suspended.current = true;
     clearTimeout(saveTimer.current);
-    methods.reset(defaults);
+    methods.reset({...defaults, clientSubmissionId: crypto.randomUUID()});
     resetStep();
     setRestoredAt(undefined);
     await clearDraft().catch(() => undefined);

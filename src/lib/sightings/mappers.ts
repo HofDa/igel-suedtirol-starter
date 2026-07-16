@@ -29,6 +29,7 @@ export function toSightingInsert(values: ReportSubmission) {
     photo_publication_consent: values.photoPublicationConsent,
     contact_consent: values.contactConsent,
     newsletter_consent: values.newsletterConsent,
+    client_submission_id: values.clientSubmissionId,
     submitted_locale: values.submittedLocale
   };
 }

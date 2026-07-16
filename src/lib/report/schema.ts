@@ -31,6 +31,7 @@ const completeReportSchema = z.object({
   scientificUseConsent: z.boolean().refine(Boolean, 'consent-required'),
   photoPublicationConsent: z.boolean(),
   newsletterConsent: z.boolean(),
+  clientSubmissionId: z.uuid(),
   submittedLocale: z.enum(['de', 'it'])
 });
 

@@ -37,18 +37,20 @@ export async function listPublishedSightings(): Promise<RepositoryResult<PublicS
 
 type CreatedSighting = {occurrenceId: string; photoStored: boolean};
 
-export async function createSighting(values: ReportSubmission, photo?: File): Promise<RepositoryResult<CreatedSighting>> {
+export async function createSighting(values: ReportSubmission, sourceHash: string, photo?: File): Promise<RepositoryResult<CreatedSighting>> {
   const client = getAdminClient();
   if (!client.success) return client;
 
   const {data, error: sightingError} = await client.data
     .rpc('create_sighting_with_contact', {
       p_sighting: toSightingInsert(values),
-      p_contact: toReporterContact(values)
+      p_contact: toReporterContact(values),
+      p_submission_ip_hash: sourceHash
     })
     .single();
   const sighting = data as {id: string; occurrence_id: string} | null;
 
+  if (sightingError?.message.includes('rate_limit_exceeded')) return {success: false, error: 'rate-limit-exceeded'};
   if (sightingError || !sighting) return {success: false, error: 'database-insert-failed'};
 
   const photoStored = photo ? await storePhoto(client.data, sighting.id, photo) : true;

@@ -34,6 +34,7 @@ export function createDefaultReportValues(locale: Locale): ReportDraftValues {
     scientificUseConsent: false,
     photoPublicationConsent: false,
     newsletterConsent: false,
+    clientSubmissionId: crypto.randomUUID(),
     submittedLocale: locale
   };
 }

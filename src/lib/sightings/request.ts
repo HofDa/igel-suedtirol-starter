@@ -1,6 +1,7 @@
 import {reportSchema, type ReportSubmission} from '@/lib/report/schema';
 
 const MAX_PHOTO_SIZE = 8 * 1024 * 1024;
+const MAX_REQUEST_SIZE = 9 * 1024 * 1024;
 const SUPPORTED_PHOTO_TYPES = ['image/jpeg', 'image/png', 'image/webp', 'image/heic'];
 
 type ParsedRequest =
@@ -8,6 +9,11 @@ type ParsedRequest =
   | {success: false; error: string; status: number; issues?: unknown};
 
 export async function parseSightingRequest(request: Request): Promise<ParsedRequest> {
+  const contentLength = Number(request.headers.get('content-length'));
+  if (Number.isFinite(contentLength) && contentLength > MAX_REQUEST_SIZE) {
+    return {success: false, error: 'request-too-large', status: 413};
+  }
+
   const formData = await request.formData();
   const payloadRaw = formData.get('payload');
   if (typeof payloadRaw !== 'string') return {success: false, error: 'invalid-payload', status: 400};

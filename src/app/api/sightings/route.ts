@@ -3,6 +3,7 @@ import {publicEnv} from '@/lib/env';
 import {demoSightings} from '@/lib/sightings/demo';
 import {createSighting, listPublishedSightings} from '@/lib/sightings/repository';
 import {parseSightingRequest} from '@/lib/sightings/request';
+import {getSubmissionSecurity} from '@/lib/sightings/submission-security';
 
 export const runtime = 'nodejs';
 
@@ -22,8 +23,14 @@ export async function POST(request: Request) {
       return NextResponse.json({occurrenceId: `DEMO-${Date.now()}`, persisted: false, photoStored: true});
     }
 
-    const result = await createSighting(parsed.values, parsed.photo);
-    if (!result.success) return NextResponse.json({error: result.error}, {status: result.error === 'backend-not-configured' ? 503 : 500});
+    const security = getSubmissionSecurity(request);
+    if (!security.success) return NextResponse.json({error: security.error}, {status: 503});
+
+    const result = await createSighting(parsed.values, security.sourceHash, parsed.photo);
+    if (!result.success) {
+      const status = result.error === 'backend-not-configured' ? 503 : result.error === 'rate-limit-exceeded' ? 429 : 500;
+      return NextResponse.json({error: result.error}, {status});
+    }
     return NextResponse.json({occurrenceId: result.data.occurrenceId, persisted: true, photoStored: result.data.photoStored}, {status: 201});
   } catch {
     return NextResponse.json({error: 'unexpected-error'}, {status: 500});
