@@ -1,0 +1,332 @@
+{
+  "metadata": {
+    "title": "Igel Südtirol",
+    "description": "Citizen Science für Igelbeobachtungen in Südtirol"
+  },
+  "navigation": {
+    "mainLabel": "Hauptnavigation",
+    "map": "Karte",
+    "hedgehog": "Der Igel",
+    "protect": "Igel schützen",
+    "help": "Igel gefunden",
+    "results": "Ergebnisse",
+    "project": "Projekt",
+    "report": "Igel melden",
+    "openMenu": "Menü öffnen",
+    "closeMenu": "Menü schließen",
+    "switchLanguage": "Sprache wechseln"
+  },
+  "footer": {
+    "claim": "Igel beobachten, Gefahren erkennen und Lebensräume verbessern.",
+    "project": "Über das Projekt",
+    "help": "Hilfe für Igel",
+    "contact": "Kontakt",
+    "privacyPlaceholder": "Datenschutz- und Impressumstexte müssen vor Veröffentlichung redaktionell ergänzt werden."
+  },
+  "system": {
+    "offline": "Du bist offline. Dein Meldeentwurf wird lokal gespeichert."
+  },
+  "home": {
+    "eyebrow": "Citizen Science in Südtirol",
+    "title": "Hast du einen Igel gesehen?",
+    "intro": "Melde deine Beobachtung und hilf mit, Verbreitung, Gefahren und Lebensräume der Igel in Südtirol besser zu verstehen.",
+    "reportButton": "Igel melden",
+    "helpButton": "Igel braucht Hilfe",
+    "cardTitle": "Jede Beobachtung zählt",
+    "cardText": "Auch tote Tiere, Spuren und unsichere Beobachtungen liefern wichtige Hinweise.",
+    "stats": {
+      "sightings": "gemeldete Igel",
+      "municipalities": "Gemeinden",
+      "roadkills": "Verkehrsopfer"
+    },
+    "features": {
+      "mapTitle": "Gemeinsam kartieren",
+      "mapText": "Verschleierte Fundpunkte zeigen, wo Beobachtungen eingehen, ohne private Standorte offenzulegen.",
+      "protectTitle": "Gefahren erkennen",
+      "protectText": "Meldungen zu Straßen, Mährobotern und Barrieren helfen, Schutzmaßnahmen gezielt zu planen.",
+      "scienceTitle": "Saubere Daten",
+      "scienceText": "Validierung, Unsicherheiten und standardisierte Erhebungen machen Citizen Science wissenschaftlich nutzbar."
+    }
+  },
+  "reportPage": {
+    "eyebrow": "In etwa 60 Sekunden",
+    "title": "Igelbeobachtung melden",
+    "description": "Das Formular funktioniert am Smartphone, speichert Entwürfe offline und fragt nur Daten ab, die für das Projekt nützlich sind."
+  },
+  "report": {
+    "progress": "Schritt {current} von {total}",
+    "back": "Zurück",
+    "next": "Weiter",
+    "submit": "Meldung abschicken",
+    "submitError": "Die Meldung konnte nicht übertragen werden. Dein Entwurf bleibt lokal gespeichert.",
+    "observationTypes": {
+      "alive": "Lebender Igel",
+      "injured": "Verletzter oder geschwächter Igel",
+      "dead": "Toter Igel",
+      "trace": "Spuren oder Kot",
+      "uncertain": "Ich bin unsicher"
+    },
+    "behaviors": {
+      "moving": "unterwegs",
+      "foraging": "Nahrungssuche",
+      "roadCrossing": "Straße überquerend",
+      "resting": "ruhend",
+      "dayActive": "tagsüber aktiv",
+      "curled": "zusammengerollt",
+      "visibleInjury": "sichtbare Verletzung",
+      "motionless": "bewegte sich kaum",
+      "trapped": "eingeklemmt"
+    },
+    "habitats": {
+      "private_garden": "Privatgarten",
+      "settlement": "Dorf oder Siedlung",
+      "public_park": "Öffentlicher Park",
+      "road": "Straße",
+      "parking_area": "Parkplatz",
+      "orchard": "Obstbaufläche",
+      "vineyard": "Weinbaufläche",
+      "meadow": "Wiese",
+      "forest_edge": "Waldrand",
+      "forest": "Wald",
+      "water_edge": "Gewässernähe",
+      "other": "Sonstiges",
+      "unknown": "Nicht bekannt"
+    },
+    "features": {
+      "robotMowerNearby": "Mähroboter in der Nähe",
+      "fenceNearby": "Zaun oder Mauer",
+      "roadNearby": "Straße in der Nähe",
+      "poolOrShaftNearby": "Pool oder Schacht",
+      "gardenPassagePresent": "Durchgang zwischen Gärten",
+      "shelterPresent": "Laub-, Reisig- oder Versteckstruktur",
+      "waterSourcePresent": "Wasserstelle"
+    },
+    "steps": {
+      "type": {
+        "title": "Was hast du gesehen?",
+        "injuredNotice": "Die Meldung ersetzt keine Hilfeleistung. Sichere zuerst die Situation und nutze die geprüften Kontaktwege auf der Hilfeseite."
+      },
+      "location": {
+        "title": "Wo war die Beobachtung?",
+        "text": "Nutze GPS oder korrigiere die Koordinaten manuell. Exakte Privatstandorte werden niemals öffentlich angezeigt.",
+        "button": "Standort automatisch bestimmen",
+        "latitude": "Breitengrad",
+        "longitude": "Längengrad",
+        "current": "Aktueller Punkt",
+        "unsupported": "Dieses Gerät unterstützt keine Standortbestimmung.",
+        "locating": "Standort wird bestimmt …",
+        "success": "Standort übernommen.",
+        "failed": "Standort konnte nicht bestimmt werden. Bitte Koordinaten manuell setzen."
+      },
+      "time": {
+        "title": "Wann war die Beobachtung?",
+        "date": "Datum",
+        "time": "Uhrzeit",
+        "unknown": "Uhrzeit ist nicht bekannt"
+      },
+      "condition": {
+        "title": "Zustand und Verhalten",
+        "count": "Anzahl der Igel",
+        "behavior": "Was hast du beobachtet? Mehrfachauswahl möglich."
+      },
+      "habitat": {
+        "title": "Wie sah die Umgebung aus?",
+        "features": "Was gab es in unmittelbarer Nähe?"
+      },
+      "photo": {
+        "title": "Hast du ein Foto?",
+        "text": "Ein Foto erleichtert die fachliche Prüfung, ist aber nicht verpflichtend.",
+        "camera": "Kamera öffnen",
+        "choose": "Foto auswählen",
+        "remove": "Entfernen",
+        "welfare": "Bitte das Tier nicht anfassen, umsetzen oder für ein Foto bedrängen."
+      },
+      "consent": {
+        "title": "Kontakt und Einwilligung",
+        "text": "Name und E-Mail sind freiwillig und werden getrennt von den Beobachtungsdaten gespeichert.",
+        "name": "Name, freiwillig",
+        "email": "E-Mail, freiwillig",
+        "science": "Ich stimme der wissenschaftlichen Nutzung dieser Beobachtung zu. Pflichtfeld.",
+        "contactConsent": "Ich darf bei fachlichen Rückfragen kontaktiert werden.",
+        "photoPublicationConsent": "Mein Foto darf nach Prüfung auf der Projektseite veröffentlicht werden.",
+        "newsletterConsent": "Ich möchte getrennte Projektinformationen erhalten.",
+        "notes": "Zusätzliche Beobachtung, freiwillig"
+      }
+    },
+    "validation": {
+      "coordinates": "Bitte plausible Koordinaten in Südtirol angeben.",
+      "consent": "Diese Einwilligung ist für die Meldung erforderlich."
+    },
+    "success": {
+      "title": "Danke für deine Meldung!",
+      "text": "Deine Beobachtung wurde unter {id} erfasst.",
+      "demo": "Demo-Modus: Die Meldung wurde noch nicht dauerhaft in einer Datenbank gespeichert.",
+      "another": "Weitere Meldung",
+      "map": "Karte ansehen"
+    }
+  },
+  "mapPage": {
+    "eyebrow": "Öffentliche Beobachtungen",
+    "title": "Igelkarte Südtirol",
+    "description": "Die Karte zeigt ausschließlich freigegebene und räumlich verschleierte Meldungen."
+  },
+  "map": {
+    "ariaLabel": "Karte mit Igelbeobachtungen",
+    "loadError": "Die Kartendaten konnten nicht geladen werden.",
+    "listTitle": "Aktuelle Meldungen",
+    "unknownMunicipality": "Gemeinde unbekannt",
+    "blurNotice": "Der Ort wurde zum Schutz der Privatsphäre verschleiert.",
+    "types": {
+      "alive": "Lebender Igel",
+      "injured": "Verletzter Igel",
+      "dead": "Toter Igel",
+      "trace": "Spur",
+      "uncertain": "Unsichere Meldung"
+    }
+  },
+  "hedgehogPage": {
+    "eyebrow": "Artwissen",
+    "title": "Der Igel in Südtirol",
+    "description": "Ein kompakter Einstieg in Lebensweise, Jahreszyklus und Lebensräume.",
+    "items": [
+      {
+        "title": "Nachtaktiver Wanderer",
+        "text": "Igel legen auf der Nahrungssuche erstaunliche Strecken zurück und benötigen durchlässige, strukturreiche Landschaften."
+      },
+      {
+        "title": "Jahreszyklus",
+        "text": "Aktivität, Fortpflanzung und Winterschlaf unterscheiden sich je nach Höhenlage und Witterung."
+      },
+      {
+        "title": "Nahrung",
+        "text": "Auf dem Speiseplan stehen vor allem wirbellose Tiere. Milch und ungeeignetes Zufüttern können schaden."
+      },
+      {
+        "title": "Wissenslücken",
+        "text": "Für Südtirol fehlen weiterhin flächendeckende, methodisch vergleichbare Daten zur Verbreitung und Bestandsentwicklung."
+      }
+    ]
+  },
+  "protectionPage": {
+    "eyebrow": "Konkrete Maßnahmen",
+    "title": "Igel schützen",
+    "description": "Kleine Veränderungen in Gärten und Siedlungen können große Wirkung haben.",
+    "items": [
+      {
+        "title": "Durchgänge schaffen",
+        "text": "Bodennahe Öffnungen verbinden Gärten und reduzieren gefährliche Umwege über Straßen."
+      },
+      {
+        "title": "Mähroboter nur tagsüber",
+        "text": "Nachts aktive Geräte können Igel schwer verletzen. Vor jedem Einsatz Flächen kontrollieren."
+      },
+      {
+        "title": "Fallen entschärfen",
+        "text": "Schächte, steile Teiche und Pools brauchen Ausstiegshilfen; Netze dürfen nicht lose am Boden liegen."
+      },
+      {
+        "title": "Wilde Ecken zulassen",
+        "text": "Laub, Reisig, Hecken und ungestörte Randbereiche bieten Nahrung und Quartiere."
+      }
+    ]
+  },
+  "helpPage": {
+    "eyebrow": "Tierwohl zuerst",
+    "title": "Igel gefunden – was tun?",
+    "description": "Diese Seite ist ein redaktionelles Grundgerüst. Kontaktdaten und Entscheidungshilfen müssen vor Veröffentlichung fachlich geprüft werden.",
+    "items": [
+      {
+        "title": "Akute Verletzung",
+        "text": "Tier sichern, Stress minimieren und eine offiziell zuständige Fachstelle kontaktieren. Keine eigenmächtige Behandlung."
+      },
+      {
+        "title": "Igel am Tag",
+        "text": "Tagesaktivität allein beweist keine Notlage. Verhalten, Verletzungen, Jahreszeit und Körperzustand müssen gemeinsam beurteilt werden."
+      },
+      {
+        "title": "Verkehrsopfer",
+        "text": "Tote und verletzte Igel melden. Bei Gefahr im Straßenraum die offiziell vorgesehenen Notfallwege verwenden."
+      },
+      {
+        "title": "Jungigel",
+        "text": "Nicht vorschnell mitnehmen. Beobachtung und fachlicher Rat verhindern, dass gesunde Tiere unnötig von Mutter oder Lebensraum getrennt werden."
+      }
+    ]
+  },
+  "resultsPage": {
+    "eyebrow": "Transparente Wissenschaft",
+    "title": "Ergebnisse",
+    "description": "Hier entstehen Karten, Jahresberichte und methodisch vorsichtige Auswertungen.",
+    "items": [
+      {
+        "title": "Verbreitung",
+        "text": "Opportunistische Meldungen zeigen Nachweise, aber nicht automatisch Populationsdichten."
+      },
+      {
+        "title": "Verkehrs-Hotspots",
+        "text": "Wiederholte Totfunde können prioritäre Straßenabschnitte für Maßnahmen sichtbar machen."
+      },
+      {
+        "title": "Saisonale Aktivität",
+        "text": "Meldungen nach Monat und Höhenlage liefern Hypothesen, müssen aber mit Beobachtungsaufwand interpretiert werden."
+      },
+      {
+        "title": "Offene Methodik",
+        "text": "Validierungsregeln, Datenlücken und Verzerrungen werden gemeinsam mit den Ergebnissen veröffentlicht."
+      }
+    ]
+  },
+  "projectPage": {
+    "eyebrow": "b*nature Citizen Science",
+    "title": "Über das Projekt",
+    "description": "Die Plattform verbindet lokale Naturbeobachtung, Igelschutz und auswertbare Biodiversitätsdaten.",
+    "items": [
+      {
+        "title": "Projektziel",
+        "text": "Verbreitung dokumentieren, Gefahren erkennen und Menschen zu wirksamen Schutzmaßnahmen befähigen."
+      },
+      {
+        "title": "Datenqualität",
+        "text": "Fotos, Prüfstatus, Koordinatenunsicherheit und standardisierte Zusatzprojekte erhöhen den wissenschaftlichen Wert."
+      },
+      {
+        "title": "Datenschutz",
+        "text": "Kontaktdaten werden getrennt gespeichert; öffentliche Positionen werden räumlich verschleiert."
+      },
+      {
+        "title": "Kooperation",
+        "text": "Schnittstellen und Datenübergaben sollen mit Südtiroler Fachinstitutionen abgestimmt werden."
+      }
+    ]
+  },
+  "offlinePage": {
+    "title": "Du bist gerade offline",
+    "description": "Bereits geöffnete Inhalte und der Meldeassistent bleiben teilweise nutzbar. Dein Entwurf wird lokal gespeichert."
+  },
+  "admin": {
+    "eyebrow": "Moderation",
+    "title": "Projekt-Dashboard",
+    "openReports": "Meldungen öffnen",
+    "starterNotice": "Das Admin-Interface ist bewusst nur als Startpunkt angelegt. Rollenprüfung, Mutationen und Audit Trail sind als priorisierte Arbeitspakete dokumentiert.",
+    "stats": {
+      "pending": "noch zu prüfen",
+      "photos": "mit Foto",
+      "duplicates": "mögliche Duplikate"
+    },
+    "loginTitle": "Admin-Anmeldung",
+    "email": "E-Mail",
+    "password": "Passwort",
+    "login": "Anmelden",
+    "loginFailed": "Anmeldung fehlgeschlagen.",
+    "notConfigured": "Supabase ist noch nicht konfiguriert.",
+    "reportsTitle": "Meldungen",
+    "municipality": "Gemeinde",
+    "type": "Typ",
+    "status": "Status"
+  },
+  "common": {
+    "brand": "Igel Südtirol",
+    "organization": "b*nature",
+    "skipToContent": "Zum Inhalt springen"
+  }
+}

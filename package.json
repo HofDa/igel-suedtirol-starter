@@ -1,0 +1,53 @@
+{
+  "name": "igel-suedtirol-starter",
+  "version": "0.1.0",
+  "private": true,
+  "packageManager": "npm@12.0.1",
+  "engines": {
+    "node": ">=22.0.0"
+  },
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint .",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "format": "prettier --write .",
+    "check": "npm run lint && npm run typecheck && npm run test",
+    "supabase:start": "npx supabase start",
+    "supabase:stop": "npx supabase stop",
+    "supabase:reset": "npx supabase db reset",
+    "supabase:types": "npx supabase gen types typescript --local > src/types/database.generated.ts"
+  },
+  "dependencies": {
+    "@hookform/resolvers": "5.4.0",
+    "@supabase/ssr": "0.12.3",
+    "@supabase/supabase-js": "2.110.7",
+    "clsx": "2.1.1",
+    "idb": "8.0.3",
+    "lucide-react": "1.24.0",
+    "maplibre-gl": "5.24.0",
+    "next": "16.2.10",
+    "next-intl": "4.13.2",
+    "react": "19.2.7",
+    "react-dom": "19.2.7",
+    "react-hook-form": "7.81.0",
+    "tailwind-merge": "3.6.0",
+    "zod": "4.4.3"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "4.3.3",
+    "@types/node": "26.1.1",
+    "@types/react": "19.2.17",
+    "@types/react-dom": "19.2.3",
+    "@vitest/coverage-v8": "4.1.10",
+    "eslint": "10.7.0",
+    "eslint-config-next": "16.2.10",
+    "prettier": "3.9.5",
+    "tailwindcss": "4.3.3",
+    "typescript": "5.8.3",
+    "vitest": "4.1.10"
+  }
+}

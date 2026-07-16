@@ -1,0 +1,332 @@
+{
+  "metadata": {
+    "title": "Ricci dell’Alto Adige",
+    "description": "Citizen science per le osservazioni dei ricci in Alto Adige"
+  },
+  "navigation": {
+    "mainLabel": "Navigazione principale",
+    "map": "Mappa",
+    "hedgehog": "Il riccio",
+    "protect": "Proteggere i ricci",
+    "help": "Riccio trovato",
+    "results": "Risultati",
+    "project": "Progetto",
+    "report": "Segnala un riccio",
+    "openMenu": "Apri menu",
+    "closeMenu": "Chiudi menu",
+    "switchLanguage": "Cambia lingua"
+  },
+  "footer": {
+    "claim": "Osservare i ricci, riconoscere i pericoli e migliorare gli habitat.",
+    "project": "Il progetto",
+    "help": "Aiuto per i ricci",
+    "contact": "Contatto",
+    "privacyPlaceholder": "Privacy e note legali devono essere completate prima della pubblicazione."
+  },
+  "system": {
+    "offline": "Sei offline. La bozza viene salvata sul dispositivo."
+  },
+  "home": {
+    "eyebrow": "Citizen science in Alto Adige",
+    "title": "Hai visto un riccio?",
+    "intro": "Segnala l’osservazione e aiutaci a capire meglio distribuzione, pericoli e habitat dei ricci in Alto Adige.",
+    "reportButton": "Segnala un riccio",
+    "helpButton": "Il riccio ha bisogno di aiuto",
+    "cardTitle": "Ogni osservazione conta",
+    "cardText": "Anche animali morti, tracce e osservazioni incerte forniscono informazioni importanti.",
+    "stats": {
+      "sightings": "ricci segnalati",
+      "municipalities": "comuni",
+      "roadkills": "vittime del traffico"
+    },
+    "features": {
+      "mapTitle": "Mappare insieme",
+      "mapText": "I punti oscurati mostrano dove arrivano segnalazioni senza rivelare luoghi privati.",
+      "protectTitle": "Riconoscere i pericoli",
+      "protectText": "Le segnalazioni su strade, robot rasaerba e barriere aiutano a pianificare misure mirate.",
+      "scienceTitle": "Dati affidabili",
+      "scienceText": "Validazione, incertezze e monitoraggi standardizzati rendono utili i dati di citizen science."
+    }
+  },
+  "reportPage": {
+    "eyebrow": "In circa 60 secondi",
+    "title": "Segnala un’osservazione",
+    "description": "Il modulo è pensato per smartphone, salva bozze offline e raccoglie solo dati utili al progetto."
+  },
+  "report": {
+    "progress": "Passo {current} di {total}",
+    "back": "Indietro",
+    "next": "Avanti",
+    "submit": "Invia segnalazione",
+    "submitError": "La segnalazione non è stata inviata. La bozza resta salvata sul dispositivo.",
+    "observationTypes": {
+      "alive": "Riccio vivo",
+      "injured": "Riccio ferito o debole",
+      "dead": "Riccio morto",
+      "trace": "Tracce o escrementi",
+      "uncertain": "Non sono sicuro"
+    },
+    "behaviors": {
+      "moving": "in movimento",
+      "foraging": "alla ricerca di cibo",
+      "roadCrossing": "attraversava la strada",
+      "resting": "a riposo",
+      "dayActive": "attivo di giorno",
+      "curled": "raggomitolato",
+      "visibleInjury": "ferita visibile",
+      "motionless": "quasi immobile",
+      "trapped": "intrappolato"
+    },
+    "habitats": {
+      "private_garden": "Giardino privato",
+      "settlement": "Paese o zona abitata",
+      "public_park": "Parco pubblico",
+      "road": "Strada",
+      "parking_area": "Parcheggio",
+      "orchard": "Frutteto",
+      "vineyard": "Vigneto",
+      "meadow": "Prato",
+      "forest_edge": "Margine del bosco",
+      "forest": "Bosco",
+      "water_edge": "Vicino all’acqua",
+      "other": "Altro",
+      "unknown": "Non noto"
+    },
+    "features": {
+      "robotMowerNearby": "Robot rasaerba vicino",
+      "fenceNearby": "Recinzione o muro",
+      "roadNearby": "Strada vicina",
+      "poolOrShaftNearby": "Piscina o pozzetto",
+      "gardenPassagePresent": "Passaggio tra giardini",
+      "shelterPresent": "Foglie, ramaglie o rifugio",
+      "waterSourcePresent": "Punto d’acqua"
+    },
+    "steps": {
+      "type": {
+        "title": "Che cosa hai visto?",
+        "injuredNotice": "La segnalazione non sostituisce il soccorso. Metti prima in sicurezza la situazione e usa i contatti verificati nella pagina di aiuto."
+      },
+      "location": {
+        "title": "Dove è avvenuta l’osservazione?",
+        "text": "Usa il GPS o correggi le coordinate. Le posizioni private esatte non saranno mai pubbliche.",
+        "button": "Rileva posizione",
+        "latitude": "Latitudine",
+        "longitude": "Longitudine",
+        "current": "Punto attuale",
+        "unsupported": "Il dispositivo non supporta la geolocalizzazione.",
+        "locating": "Rilevamento in corso…",
+        "success": "Posizione acquisita.",
+        "failed": "Impossibile rilevare la posizione. Inserisci le coordinate manualmente."
+      },
+      "time": {
+        "title": "Quando è avvenuta?",
+        "date": "Data",
+        "time": "Ora",
+        "unknown": "Ora non nota"
+      },
+      "condition": {
+        "title": "Condizione e comportamento",
+        "count": "Numero di ricci",
+        "behavior": "Che cosa hai osservato? Sono possibili più risposte."
+      },
+      "habitat": {
+        "title": "Com’era l’ambiente?",
+        "features": "Che cosa si trovava nelle immediate vicinanze?"
+      },
+      "photo": {
+        "title": "Hai una foto?",
+        "text": "Una foto aiuta la verifica, ma non è obbligatoria.",
+        "camera": "Apri fotocamera",
+        "choose": "Scegli foto",
+        "remove": "Rimuovi",
+        "welfare": "Non toccare, spostare o disturbare l’animale per fare una foto."
+      },
+      "consent": {
+        "title": "Contatto e consenso",
+        "text": "Nome ed e-mail sono facoltativi e vengono conservati separatamente dai dati dell’osservazione.",
+        "name": "Nome, facoltativo",
+        "email": "E-mail, facoltativa",
+        "science": "Acconsento all’uso scientifico dell’osservazione. Campo obbligatorio.",
+        "contactConsent": "Posso essere contattato per domande tecniche.",
+        "photoPublicationConsent": "La foto può essere pubblicata dopo la verifica.",
+        "newsletterConsent": "Desidero ricevere informazioni separate sul progetto.",
+        "notes": "Note aggiuntive, facoltative"
+      }
+    },
+    "validation": {
+      "coordinates": "Inserisci coordinate plausibili in Alto Adige.",
+      "consent": "Questo consenso è necessario per inviare la segnalazione."
+    },
+    "success": {
+      "title": "Grazie per la segnalazione!",
+      "text": "L’osservazione è stata registrata con il codice {id}.",
+      "demo": "Modalità demo: la segnalazione non è stata salvata permanentemente.",
+      "another": "Nuova segnalazione",
+      "map": "Vedi mappa"
+    }
+  },
+  "mapPage": {
+    "eyebrow": "Osservazioni pubbliche",
+    "title": "Mappa dei ricci",
+    "description": "La mappa mostra solo segnalazioni approvate e spazialmente oscurate."
+  },
+  "map": {
+    "ariaLabel": "Mappa delle osservazioni di ricci",
+    "loadError": "Impossibile caricare i dati della mappa.",
+    "listTitle": "Segnalazioni recenti",
+    "unknownMunicipality": "Comune non noto",
+    "blurNotice": "La posizione è stata oscurata per proteggere la privacy.",
+    "types": {
+      "alive": "Riccio vivo",
+      "injured": "Riccio ferito",
+      "dead": "Riccio morto",
+      "trace": "Traccia",
+      "uncertain": "Segnalazione incerta"
+    }
+  },
+  "hedgehogPage": {
+    "eyebrow": "Conoscere la specie",
+    "title": "Il riccio in Alto Adige",
+    "description": "Introduzione a biologia, ciclo annuale e habitat.",
+    "items": [
+      {
+        "title": "Viaggiatore notturno",
+        "text": "Durante la ricerca di cibo i ricci percorrono distanze notevoli e necessitano di paesaggi permeabili e strutturati."
+      },
+      {
+        "title": "Ciclo annuale",
+        "text": "Attività, riproduzione e letargo variano con quota e condizioni meteorologiche."
+      },
+      {
+        "title": "Alimentazione",
+        "text": "La dieta comprende soprattutto invertebrati. Latte e alimentazione inadatta possono nuocere."
+      },
+      {
+        "title": "Lacune conoscitive",
+        "text": "Mancano ancora dati comparabili e capillari sulla distribuzione e sull’andamento delle popolazioni altoatesine."
+      }
+    ]
+  },
+  "protectionPage": {
+    "eyebrow": "Misure concrete",
+    "title": "Proteggere i ricci",
+    "description": "Piccoli cambiamenti in giardini e insediamenti possono avere grande effetto.",
+    "items": [
+      {
+        "title": "Creare passaggi",
+        "text": "Aperture a livello del suolo collegano i giardini e riducono deviazioni pericolose sulle strade."
+      },
+      {
+        "title": "Robot rasaerba solo di giorno",
+        "text": "Gli apparecchi notturni possono ferire gravemente i ricci. Controllare sempre l’area."
+      },
+      {
+        "title": "Rendere sicure le trappole",
+        "text": "Pozzetti, vasche e piscine richiedono rampe di uscita; le reti non devono restare a terra."
+      },
+      {
+        "title": "Lasciare angoli selvatici",
+        "text": "Foglie, ramaglie, siepi e margini tranquilli offrono cibo e rifugi."
+      }
+    ]
+  },
+  "helpPage": {
+    "eyebrow": "Prima il benessere animale",
+    "title": "Hai trovato un riccio?",
+    "description": "Questa pagina è una struttura redazionale. Contatti e istruzioni devono essere verificati prima della pubblicazione.",
+    "items": [
+      {
+        "title": "Ferita acuta",
+        "text": "Mettere l’animale al sicuro, ridurre lo stress e contattare una struttura ufficialmente competente. Non curarlo autonomamente."
+      },
+      {
+        "title": "Riccio di giorno",
+        "text": "L’attività diurna da sola non prova un’emergenza. Vanno valutati comportamento, ferite, stagione e condizione corporea."
+      },
+      {
+        "title": "Vittima del traffico",
+        "text": "Segnalare ricci morti e feriti. In presenza di pericolo stradale usare i canali ufficiali previsti."
+      },
+      {
+        "title": "Giovane riccio",
+        "text": "Non raccoglierlo subito. Osservazione e consulenza evitano separazioni inutili dalla madre o dall’habitat."
+      }
+    ]
+  },
+  "resultsPage": {
+    "eyebrow": "Scienza trasparente",
+    "title": "Risultati",
+    "description": "Qui nasceranno mappe, rapporti annuali e analisi prudenti.",
+    "items": [
+      {
+        "title": "Distribuzione",
+        "text": "Le segnalazioni opportunistiche mostrano presenze, non automaticamente densità di popolazione."
+      },
+      {
+        "title": "Punti critici stradali",
+        "text": "Ritrovamenti ripetuti possono evidenziare tratti prioritari per interventi."
+      },
+      {
+        "title": "Attività stagionale",
+        "text": "Segnalazioni per mese e quota generano ipotesi, da interpretare insieme allo sforzo di osservazione."
+      },
+      {
+        "title": "Metodo aperto",
+        "text": "Regole di validazione, lacune e distorsioni saranno pubblicate con i risultati."
+      }
+    ]
+  },
+  "projectPage": {
+    "eyebrow": "b*nature Citizen Science",
+    "title": "Il progetto",
+    "description": "La piattaforma unisce osservazione locale, protezione dei ricci e dati sulla biodiversità.",
+    "items": [
+      {
+        "title": "Obiettivo",
+        "text": "Documentare la distribuzione, riconoscere i pericoli e promuovere misure efficaci."
+      },
+      {
+        "title": "Qualità dei dati",
+        "text": "Foto, stato di verifica, incertezza spaziale e monitoraggi standardizzati aumentano il valore scientifico."
+      },
+      {
+        "title": "Privacy",
+        "text": "I contatti sono separati e le posizioni pubbliche vengono oscurate."
+      },
+      {
+        "title": "Collaborazione",
+        "text": "Interfacce e trasferimenti di dati saranno concordati con le istituzioni altoatesine competenti."
+      }
+    ]
+  },
+  "offlinePage": {
+    "title": "Sei offline",
+    "description": "I contenuti già aperti e il modulo restano parzialmente disponibili. La bozza viene salvata localmente."
+  },
+  "admin": {
+    "eyebrow": "Moderazione",
+    "title": "Dashboard del progetto",
+    "openReports": "Apri segnalazioni",
+    "starterNotice": "L’interfaccia amministrativa è intenzionalmente un punto di partenza. Ruoli, mutazioni e audit trail sono documentati come attività prioritarie.",
+    "stats": {
+      "pending": "da verificare",
+      "photos": "con foto",
+      "duplicates": "possibili duplicati"
+    },
+    "loginTitle": "Accesso amministrazione",
+    "email": "E-mail",
+    "password": "Password",
+    "login": "Accedi",
+    "loginFailed": "Accesso non riuscito.",
+    "notConfigured": "Supabase non è configurato.",
+    "reportsTitle": "Segnalazioni",
+    "municipality": "Comune",
+    "type": "Tipo",
+    "status": "Stato"
+  },
+  "common": {
+    "brand": "Ricci dell’Alto Adige",
+    "organization": "b*nature",
+    "skipToContent": "Vai al contenuto"
+  }
+}
