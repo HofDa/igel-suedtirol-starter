@@ -59,6 +59,10 @@
     "next": "Avanti",
     "submit": "Invia segnalazione",
     "submitError": "La segnalazione non è stata inviata. La bozza resta salvata sul dispositivo.",
+    "draft": {
+      "restored": "La bozza del {date} è stata ripristinata. Puoi continuare o ricominciare.",
+      "discard": "Ricomincia"
+    },
     "observationTypes": {
       "alive": "Riccio vivo",
       "injured": "Riccio ferito o debole",

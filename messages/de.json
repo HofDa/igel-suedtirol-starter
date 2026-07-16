@@ -59,6 +59,10 @@
     "next": "Weiter",
     "submit": "Meldung abschicken",
     "submitError": "Die Meldung konnte nicht übertragen werden. Dein Entwurf bleibt lokal gespeichert.",
+    "draft": {
+      "restored": "Dein Entwurf vom {date} wurde wiederhergestellt. Du kannst weitermachen oder neu beginnen.",
+      "discard": "Neu beginnen"
+    },
     "observationTypes": {
       "alive": "Lebender Igel",
       "injured": "Verletzter oder geschwächter Igel",

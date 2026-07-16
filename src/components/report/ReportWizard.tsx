@@ -36,6 +36,7 @@ export function ReportWizard() {
   const [result, setResult] = useState<{occurrenceId: string; persisted: boolean} | null>(null);
   const [submitError, setSubmitError] = useState<string>();
   const [draftHydrated, setDraftHydrated] = useState(false);
+  const [restoredDraftAt, setRestoredDraftAt] = useState<string>();
   const stepContainer = useRef<HTMLDivElement>(null);
   const stepChangedByUser = useRef(false);
 
@@ -56,6 +57,7 @@ export function ReportWizard() {
         if (draft) {
           methods.reset({...draft.values, submittedLocale: locale});
           setStep(Math.min(Math.max(draft.step, 1), totalSteps));
+          setRestoredDraftAt(draft.updatedAt);
         }
       })
       .catch(() => undefined)
@@ -102,6 +104,14 @@ export function ReportWizard() {
     setStep((value) => Math.max(value - 1, 1));
   }
 
+  function discardDraft() {
+    clearDraft().catch(() => undefined);
+    methods.reset(defaults);
+    setStep(1);
+    setFile(undefined);
+    setRestoredDraftAt(undefined);
+  }
+
   async function submit(values: ReportFormValues) {
     setSubmitting(true);
     setSubmitError(undefined);
@@ -140,6 +150,16 @@ export function ReportWizard() {
     <FormProvider {...methods}>
       <form onSubmit={methods.handleSubmit(submit)} className="card mx-auto max-w-3xl p-6 md:p-10">
         <ReportProgress current={step} total={totalSteps} label={t('progress', {current: step, total: totalSteps})} />
+        {restoredDraftAt && (
+          <div className="mt-5 flex flex-wrap items-center justify-between gap-3 rounded-xl bg-emerald-50 p-4 text-sm" role="status">
+            <span className="font-semibold">
+              {t('draft.restored', {date: new Date(restoredDraftAt).toLocaleDateString(locale)})}
+            </span>
+            <button type="button" onClick={discardDraft} className="rounded-full border border-emerald-900 px-4 py-2 font-bold">
+              {t('draft.discard')}
+            </button>
+          </div>
+        )}
         <div ref={stepContainer} className="mt-9 min-h-[340px] scroll-mt-28">
           {step === 1 && <ObservationTypeStep />}
           {step === 2 && <LocationStep />}
