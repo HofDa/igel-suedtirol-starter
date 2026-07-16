@@ -1,15 +1,22 @@
 @import 'tailwindcss';
 @import 'maplibre-gl/dist/maplibre-gl.css';
 
+/* Markenfarben als Tailwind-Tokens (bg-cream, text-forest, …) statt
+   verstreuter Hex-Werte in den Komponenten. */
+@theme {
+  --color-cream: #f7f4ec;
+  --color-sand: #e8ddc6;
+  --color-sand-light: #efe7d4;
+  --color-forest: #234936;
+  --color-forest-dark: #153326;
+  --color-moss: #6f8b62;
+  --color-brand-amber: #d78b35;
+  --color-danger: #b73d32;
+}
+
 :root {
-  --background: #f7f4ec;
+  --background: var(--color-cream);
   --foreground: #1c2a21;
-  --forest: #234936;
-  --forest-dark: #153326;
-  --moss: #6f8b62;
-  --sand: #e8ddc6;
-  --amber: #d78b35;
-  --danger: #b73d32;
 }
 
 * {
@@ -65,7 +72,7 @@ a {
   margin-top: 2rem;
   font-size: 1.5rem;
   font-weight: 800;
-  color: var(--forest-dark);
+  color: var(--color-forest-dark);
 }
 
 .prose-simple p,

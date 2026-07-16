@@ -22,7 +22,7 @@ export function Header() {
   const [open, setOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 z-50 border-b border-emerald-950/10 bg-[#f7f4ec]/95 backdrop-blur">
+    <header className="sticky top-0 z-50 border-b border-emerald-950/10 bg-cream/95 backdrop-blur">
       <div className="container-page flex min-h-20 items-center justify-between gap-4">
         <Link href="/" className="flex items-center gap-3 font-black text-emerald-950">
           <Image src="/logo-hedgehog.svg" alt="" width={52} height={52} priority />

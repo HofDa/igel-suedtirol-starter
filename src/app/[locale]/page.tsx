@@ -33,7 +33,7 @@ export default async function HomePage({params}: Props) {
               </Link>
             </div>
           </div>
-          <div className="mx-auto w-full max-w-md rounded-[2.5rem] bg-[#f7f4ec] p-8 text-emerald-950 shadow-2xl">
+          <div className="mx-auto w-full max-w-md rounded-[2.5rem] bg-cream p-8 text-emerald-950 shadow-2xl">
             <div className="text-8xl" aria-hidden="true">🦔</div>
             <h2 className="mt-4 text-2xl font-black">{t('cardTitle')}</h2>
             <p className="mt-2 text-emerald-950/70">{t('cardText')}</p>
