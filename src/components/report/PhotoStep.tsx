@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import {Camera, ImagePlus} from 'lucide-react';
 import {useTranslations} from 'next-intl';
 import {useEffect, useMemo, useState} from 'react';
@@ -52,7 +53,7 @@ export function PhotoStep({file, onFile}: Props) {
       {file && (
         <div className="mt-5 flex items-center gap-4 rounded-xl bg-emerald-50 p-4">
           {previewUrl && (
-            <img src={previewUrl} alt={t('steps.photo.previewAlt')} className="h-20 w-20 shrink-0 rounded-lg object-cover" />
+            <Image src={previewUrl} alt={t('steps.photo.previewAlt')} width={80} height={80} unoptimized className="h-20 w-20 shrink-0 rounded-lg object-cover" />
           )}
           <span className="min-w-0 flex-1 truncate font-semibold">{file.name}</span>
           <button type="button" onClick={() => select(undefined)} className="rounded-full px-3 py-2 font-bold hover:bg-white">{t('steps.photo.remove')}</button>

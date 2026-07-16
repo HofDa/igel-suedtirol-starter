@@ -352,9 +352,19 @@
     "loginFailed": "Accesso non riuscito.",
     "notConfigured": "Supabase non è configurato.",
     "reportsTitle": "Segnalazioni",
+    "id": "ID",
     "municipality": "Comune",
     "type": "Tipo",
-    "status": "Stato"
+    "status": "Stato",
+    "types": {
+      "alive": "vivo",
+      "dead": "morto"
+    },
+    "statuses": {
+      "new": "nuovo",
+      "in_review": "in verifica",
+      "validated": "convalidato"
+    }
   },
   "common": {
     "brand": "Ricci dell’Alto Adige",

@@ -352,9 +352,19 @@
     "loginFailed": "Anmeldung fehlgeschlagen.",
     "notConfigured": "Supabase ist noch nicht konfiguriert.",
     "reportsTitle": "Meldungen",
+    "id": "ID",
     "municipality": "Gemeinde",
     "type": "Typ",
-    "status": "Status"
+    "status": "Status",
+    "types": {
+      "alive": "lebend",
+      "dead": "tot"
+    },
+    "statuses": {
+      "new": "neu",
+      "in_review": "in Prüfung",
+      "validated": "validiert"
+    }
   },
   "common": {
     "brand": "Igel Südtirol",
