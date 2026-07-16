@@ -43,7 +43,7 @@ Bei `NEXT_PUBLIC_DEMO_MODE=true` simuliert die API erfolgreiche Meldungen. So k�
 Beobachtungsdatum und -zeit werden in der Projektzeitzone `Europe/Rome` interpretiert und mit dem zum Beobachtungsdatum passenden UTC-Offset gespeichert. Bei unbekannter Uhrzeit wird lokaler Mittag mit der Genauigkeit `date_only` verwendet.
 Nicht existente lokale Uhrzeiten während der Sommerzeitumstellung werden abgelehnt. Kontaktdaten werden nur zusammen mit einer ausdrücklichen Kontakt-Einwilligung gespeichert.
 
-Produktive Meldungen benötigen `SUBMISSION_HASH_SALT`. Die API hasht die vom vertrauenswürdigen Hosting-Proxy gelieferte Quelladresse per HMAC; Rohadressen werden nicht gespeichert. Die Datenbank begrenzt erfolgreiche Meldungen auf fünf pro Hash und Stunde. Eine zufällige `client_submission_id` macht Wiederholungen derselben Meldung idempotent. Zusätzlich muss auf Hosting-Ebene ein Request-Body-Limit von höchstens 9 MiB gesetzt werden, da `multipart/form-data` in der Route vollständig eingelesen wird.
+Produktive Meldungen benötigen `SUBMISSION_HASH_SALT`. Die API hasht die vom vertrauenswürdigen Hosting-Proxy gelieferte Quelladresse per HMAC; Rohadressen werden nicht gespeichert. Die Datenbank begrenzt erfolgreiche Meldungen auf fünf pro Hash und Stunde. Eine zufällige `client_submission_id` macht Wiederholungen derselben Meldung idempotent. Die Route bricht deklarierte und gestreamte Request-Bodies oberhalb von 9 MiB ab; dasselbe Limit sollte zusätzlich am Hosting-Proxy gesetzt werden.
 
 ## PWA und Offline
 

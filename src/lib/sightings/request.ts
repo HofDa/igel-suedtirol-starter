@@ -14,7 +14,11 @@ export async function parseSightingRequest(request: Request): Promise<ParsedRequ
     return {success: false, error: 'request-too-large', status: 413};
   }
 
-  const formData = await request.formData();
+  const body = await readLimitedBody(request.body);
+  if (!body) return {success: false, error: 'request-too-large', status: 413};
+
+  const boundedRequest = new Request(request.url, {method: request.method, headers: request.headers, body});
+  const formData = await boundedRequest.formData();
   const payloadRaw = formData.get('payload');
   if (typeof payloadRaw !== 'string') return {success: false, error: 'invalid-payload', status: 400};
 
@@ -38,4 +42,30 @@ export async function parseSightingRequest(request: Request): Promise<ParsedRequ
   }
 
   return {success: true, values: parsed.data, photo};
+}
+
+async function readLimitedBody(stream: ReadableStream<Uint8Array> | null) {
+  if (!stream) return new Uint8Array();
+  const reader = stream.getReader();
+  const chunks: Uint8Array[] = [];
+  let size = 0;
+
+  while (true) {
+    const {done, value} = await reader.read();
+    if (done) break;
+    size += value.byteLength;
+    if (size > MAX_REQUEST_SIZE) {
+      await reader.cancel();
+      return null;
+    }
+    chunks.push(value);
+  }
+
+  const body = new Uint8Array(size);
+  let offset = 0;
+  for (const chunk of chunks) {
+    body.set(chunk, offset);
+    offset += chunk.byteLength;
+  }
+  return body;
 }

@@ -30,6 +30,15 @@ describe('parseSightingRequest', () => {
     await expect(parseSightingRequest(request)).resolves.toMatchObject({success: false, status: 413});
   });
 
+  it('limits streamed bodies without a content-length header', async () => {
+    const request = new Request('http://localhost/api/sightings', {
+      method: 'POST',
+      headers: {'content-type': 'application/octet-stream'},
+      body: new Uint8Array(10 * 1024 * 1024)
+    });
+    await expect(parseSightingRequest(request)).resolves.toMatchObject({success: false, status: 413});
+  });
+
   it('returns a client error for malformed JSON', async () => {
     const formData = new FormData();
     formData.set('payload', '{');
