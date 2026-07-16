@@ -9,8 +9,9 @@ export function createDefaultReportValues(locale: Locale): ReportFormValues {
   return {
     // Bewusst keine Vorauswahl: die Beobachtungsart muss aktiv gewählt werden.
     observationType: undefined as unknown as ReportFormValues['observationType'],
-    latitude: 46.5,
-    longitude: 11.35,
+    // Keine erfundene Startposition: der Punkt muss aktiv gesetzt werden.
+    latitude: undefined as unknown as number,
+    longitude: undefined as unknown as number,
     locationSource: 'map',
     observedDate: date,
     observedTime: time,

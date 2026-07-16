@@ -5,6 +5,8 @@ import {reportSchema, type ReportFormValues} from './schema';
 function createValidReport(): ReportFormValues {
   const values = createDefaultReportValues('de');
   values.observationType = 'alive';
+  values.latitude = 46.5;
+  values.longitude = 11.35;
   values.scientificUseConsent = true;
   return values;
 }
@@ -23,6 +25,13 @@ describe('reportSchema', () => {
   it('rejects missing scientific consent', () => {
     const values = createValidReport();
     values.scientificUseConsent = false;
+    expect(reportSchema.safeParse(values).success).toBe(false);
+  });
+
+  it('rejects a report without a chosen position', () => {
+    const values = createValidReport();
+    values.latitude = undefined as unknown as number;
+    values.longitude = undefined as unknown as number;
     expect(reportSchema.safeParse(values).success).toBe(false);
   });
 
