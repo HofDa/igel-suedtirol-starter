@@ -4,6 +4,7 @@ import {createPublicClient} from '@/lib/supabase/public';
 import type {ReportSubmission} from '@/lib/report/schema';
 import type {PublicSighting} from '@/types/sighting';
 import {toPublicSighting, toReporterContact, toSightingInsert} from './mappers';
+import {storeSightingPhoto} from './media';
 
 type RepositoryResult<T> = {success: true; data: T} | {success: false; error: string};
 
@@ -53,27 +54,7 @@ export async function createSighting(values: ReportSubmission, sourceHash: strin
   if (sightingError?.message.includes('rate_limit_exceeded')) return {success: false, error: 'rate-limit-exceeded'};
   if (sightingError || !sighting) return {success: false, error: 'database-insert-failed'};
 
-  const photoStored = photo ? await storePhoto(client.data, sighting.id, photo) : true;
+  const photoStored = photo ? await storeSightingPhoto(client.data, sighting.id, photo) : true;
 
   return {success: true, data: {occurrenceId: sighting.occurrence_id, photoStored}};
-}
-
-async function storePhoto(client: SupabaseClient, sightingId: string, photo: File): Promise<boolean> {
-  const extension = photo.name.split('.').pop()?.toLowerCase() || 'bin';
-  const path = `${sightingId}/${crypto.randomUUID()}.${extension}`;
-  const bytes = new Uint8Array(await photo.arrayBuffer());
-  const {error} = await client.storage.from('sighting-media').upload(path, bytes, {
-    contentType: photo.type,
-    upsert: false
-  });
-  if (error) return false;
-
-  const {error: mediaError} = await client.from('sighting_media').insert({
-    sighting_id: sightingId,
-    storage_path: path,
-    mime_type: photo.type,
-    file_size_bytes: photo.size,
-    public_approved: false
-  });
-  return !mediaError;
 }
