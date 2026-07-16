@@ -13,11 +13,11 @@ export async function Footer() {
           <p className="mt-2 max-w-sm text-sm text-emerald-100/80">{t('claim')}</p>
         </div>
         <div className="grid content-start gap-2 text-sm">
-          <Link href="/projekt" className="hover:underline">{t('project')}</Link>
-          <Link href="/hilfe" className="hover:underline">{t('help')}</Link>
-          <Link href="/impressum" className="hover:underline">{t('imprint')}</Link>
-          <Link href="/datenschutz" className="hover:underline">{t('privacy')}</Link>
-          <a href="mailto:projekt@example.org" className="hover:underline">{t('contact')}</a>
+          <Link href="/projekt" className="inline-flex min-h-11 items-center hover:underline">{t('project')}</Link>
+          <Link href="/hilfe" className="inline-flex min-h-11 items-center hover:underline">{t('help')}</Link>
+          <Link href="/impressum" className="inline-flex min-h-11 items-center hover:underline">{t('imprint')}</Link>
+          <Link href="/datenschutz" className="inline-flex min-h-11 items-center hover:underline">{t('privacy')}</Link>
+          <a href="mailto:projekt@example.org" className="inline-flex min-h-11 items-center hover:underline">{t('contact')}</a>
         </div>
         <div className="text-sm text-emerald-100/80">
           <p>{t('privacyPlaceholder')}</p>

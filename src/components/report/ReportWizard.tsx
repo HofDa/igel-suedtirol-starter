@@ -89,7 +89,7 @@ export function ReportWizard() {
             <span className="font-semibold">
               {t('draft.restored', {date: new Date(restoredAt).toLocaleDateString(locale)})}
             </span>
-            <button type="button" onClick={discardDraft} className="rounded-full border border-emerald-900 px-4 py-2 font-bold">
+            <button type="button" onClick={discardDraft} className="min-h-11 rounded-full border border-emerald-900 px-4 py-2 font-bold">
               {t('draft.discard')}
             </button>
           </div>

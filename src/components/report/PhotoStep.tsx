@@ -56,7 +56,7 @@ export function PhotoStep({file, onFile}: Props) {
             <Image src={previewUrl} alt={t('steps.photo.previewAlt')} width={80} height={80} unoptimized className="h-20 w-20 shrink-0 rounded-lg object-cover" />
           )}
           <span className="min-w-0 flex-1 truncate font-semibold">{file.name}</span>
-          <button type="button" onClick={() => select(undefined)} className="rounded-full px-3 py-2 font-bold hover:bg-white">{t('steps.photo.remove')}</button>
+          <button type="button" onClick={() => select(undefined)} className="min-h-11 rounded-full px-3 py-2 font-bold hover:bg-white">{t('steps.photo.remove')}</button>
         </div>
       )}
       <p className="mt-5 text-sm font-semibold text-emerald-950/65">{t('steps.photo.welfare')}</p>

@@ -48,7 +48,7 @@ export function Header() {
               key={key}
               href={href}
               aria-current={pathname === href ? 'page' : undefined}
-              className={`text-sm font-semibold hover:text-amber-700 ${pathname === href ? 'text-amber-700 underline underline-offset-8' : ''}`}
+              className={`inline-flex min-h-11 items-center text-sm font-semibold hover:text-amber-700 ${pathname === href ? 'text-amber-700 underline underline-offset-8' : ''}`}
             >
               {t(key)}
             </Link>

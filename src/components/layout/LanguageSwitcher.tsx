@@ -19,7 +19,7 @@ export function LanguageSwitcher() {
           onClick={() => router.replace(pathname, {locale: candidate})}
           aria-pressed={candidate === locale}
           lang={candidate}
-          className={`min-h-9 rounded-full px-3 text-sm font-bold transition ${
+          className={`min-h-11 min-w-11 rounded-full px-3 text-sm font-bold transition ${
             candidate === locale ? 'bg-emerald-900 text-white' : 'text-emerald-950/70 hover:text-emerald-950'
           }`}
         >

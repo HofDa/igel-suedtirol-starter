@@ -36,6 +36,7 @@ export async function generateMetadata({params}: Props): Promise<Metadata> {
       template: `%s | ${t('title')}`
     },
     description: t('description'),
+    manifest: `/${locale}/manifest.webmanifest`,
     metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? 'http://localhost:3000')
   };
 }
