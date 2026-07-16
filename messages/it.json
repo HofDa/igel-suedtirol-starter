@@ -188,8 +188,11 @@
   },
   "map": {
     "ariaLabel": "Mappa delle osservazioni di ricci",
+    "loading": "Caricamento delle segnalazioni…",
+    "empty": "Non ci sono ancora segnalazioni approvate.",
     "loadError": "Impossibile caricare i dati della mappa.",
     "listTitle": "Segnalazioni recenti",
+    "listCount": "Le {shown} segnalazioni più recenti su {total}",
     "unknownMunicipality": "Comune non noto",
     "blurNotice": "La posizione è stata oscurata per proteggere la privacy.",
     "types": {

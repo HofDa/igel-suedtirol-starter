@@ -188,8 +188,11 @@
   },
   "map": {
     "ariaLabel": "Karte mit Igelbeobachtungen",
+    "loading": "Meldungen werden geladen …",
+    "empty": "Noch keine freigegebenen Meldungen vorhanden.",
     "loadError": "Die Kartendaten konnten nicht geladen werden.",
     "listTitle": "Aktuelle Meldungen",
+    "listCount": "Die {shown} neuesten von insgesamt {total} Meldungen",
     "unknownMunicipality": "Gemeinde unbekannt",
     "blurNotice": "Der Ort wurde zum Schutz der Privatsphäre verschleiert.",
     "types": {
