@@ -28,8 +28,7 @@ export function ObservationMap() {
       container: container.current,
       style: process.env.NEXT_PUBLIC_MAP_STYLE_URL ?? 'https://demotiles.maplibre.org/style.json',
       center: [11.35, 46.5],
-      zoom: 7.2,
-      attributionControl: true
+      zoom: 7.2
     });
     map.addControl(new maplibregl.NavigationControl(), 'top-right');
     mapRef.current = map;
