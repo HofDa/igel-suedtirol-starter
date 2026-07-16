@@ -1,5 +1,6 @@
 import '../globals.css';
 import type {Metadata} from 'next';
+import {Nunito} from 'next/font/google';
 import {NextIntlClientProvider, hasLocale} from 'next-intl';
 import {getMessages, getTranslations, setRequestLocale} from 'next-intl/server';
 import {notFound} from 'next/navigation';
@@ -8,6 +9,12 @@ import {Header} from '@/components/layout/Header';
 import {Footer} from '@/components/layout/Footer';
 import {OfflineStatus} from '@/components/system/OfflineStatus';
 import {ServiceWorkerRegistration} from '@/components/system/ServiceWorkerRegistration';
+
+const nunito = Nunito({
+  subsets: ['latin', 'latin-ext'],
+  display: 'swap',
+  variable: '--font-sans'
+});
 
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({locale}));
@@ -42,7 +49,7 @@ export default async function LocaleLayout({children, params}: Props) {
   const common = await getTranslations({locale, namespace: 'common'});
 
   return (
-    <html lang={locale}>
+    <html lang={locale} className={nunito.variable}>
       <body>
         <NextIntlClientProvider messages={messages}>
           <a
