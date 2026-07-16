@@ -1,5 +1,6 @@
 import type {SupabaseClient} from '@supabase/supabase-js';
 import {createAdminClient} from '@/lib/supabase/admin';
+import {createPublicClient} from '@/lib/supabase/public';
 import type {ReportSubmission} from '@/lib/report/schema';
 import type {PublicSighting} from '@/types/sighting';
 import {toPublicSighting, toReporterContactInsert, toSightingInsert} from './mappers';
@@ -11,8 +12,13 @@ function getAdminClient(): RepositoryResult<SupabaseClient> {
   return client ? {success: true, data: client} : {success: false, error: 'backend-not-configured'};
 }
 
+function getPublicClient(): RepositoryResult<SupabaseClient> {
+  const client = createPublicClient();
+  return client ? {success: true, data: client} : {success: false, error: 'backend-not-configured'};
+}
+
 export async function listPublishedSightings(): Promise<RepositoryResult<PublicSighting[]>> {
-  const client = getAdminClient();
+  const client = getPublicClient();
   if (!client.success) return client;
 
   const {data, error} = await client.data
