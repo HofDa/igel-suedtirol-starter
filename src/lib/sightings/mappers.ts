@@ -35,7 +35,7 @@ export function toSightingInsert(values: ReportSubmission) {
 }
 
 export function toReporterContact(values: ReportSubmission) {
-  if (!values.reporterName && !values.reporterEmail) return null;
+  if (!values.contactConsent || (!values.reporterName && !values.reporterEmail)) return null;
   return {
     reporter_name: values.reporterName || null,
     reporter_email: values.reporterEmail || null

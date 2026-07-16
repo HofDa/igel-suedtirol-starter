@@ -30,10 +30,15 @@ export function ConsentStep() {
       </label>
       {errors.scientificUseConsent && <p className="mt-2 text-sm font-bold text-red-700">{t('validation.consent')}</p>}
       {optionalConsents.map((field) => (
-        <label key={field} className="mt-3 flex items-start gap-3 rounded-xl bg-emerald-50 p-4 font-semibold">
-          <input type="checkbox" {...register(field)} className="mt-1 h-5 w-5" />
-          <span>{t(`steps.consent.${field}`)}</span>
-        </label>
+        <div key={field}>
+          <label className="mt-3 flex items-start gap-3 rounded-xl bg-emerald-50 p-4 font-semibold">
+            <input type="checkbox" {...register(field)} className="mt-1 h-5 w-5" />
+            <span>{t(`steps.consent.${field}`)}</span>
+          </label>
+          {field === 'contactConsent' && errors.contactConsent && (
+            <p className="mt-2 text-sm font-bold text-red-700">{t('validation.contactConsent')}</p>
+          )}
+        </div>
       ))}
       <label className="mt-6 block font-bold">
         {t('steps.consent.notes')}

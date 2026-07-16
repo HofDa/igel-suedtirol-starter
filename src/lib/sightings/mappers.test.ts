@@ -25,7 +25,7 @@ describe('sighting mappers', () => {
   });
 
   it('keeps reporter contact fields out of the sighting insert', () => {
-    const values = {...createReport(), reporterName: 'Test Name', reporterEmail: 'test@example.test'};
+    const values = {...createReport(), reporterName: 'Test Name', reporterEmail: 'test@example.test', contactConsent: true};
     const insert = toSightingInsert(values);
     expect(insert).not.toHaveProperty('reporter_name');
     expect(insert).not.toHaveProperty('reporter_email');
@@ -33,6 +33,11 @@ describe('sighting mappers', () => {
       reporter_name: 'Test Name',
       reporter_email: 'test@example.test'
     });
+  });
+
+  it('does not map contact data without contact consent', () => {
+    const values = {...createReport(), reporterEmail: 'test@example.test', contactConsent: false};
+    expect(toReporterContact(values)).toBeNull();
   });
 
   it('serializes only public coordinates for map responses', () => {

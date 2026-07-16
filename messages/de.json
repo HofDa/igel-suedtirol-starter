@@ -174,7 +174,8 @@
       "coordinates": "Bitte plausible Koordinaten in Südtirol angeben.",
       "date": "Bitte gib das Datum der Beobachtung an.",
       "email": "Bitte gib eine gültige E-Mail-Adresse an oder lass das Feld leer.",
-      "consent": "Diese Einwilligung ist für die Meldung erforderlich."
+      "consent": "Diese Einwilligung ist für die Meldung erforderlich.",
+      "contactConsent": "Bitte erlaube die Kontaktaufnahme, wenn du Kontaktdaten angibst."
     },
     "success": {
       "title": "Danke für deine Meldung!",

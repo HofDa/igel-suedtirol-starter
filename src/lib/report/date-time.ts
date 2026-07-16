@@ -28,7 +28,20 @@ export function toObservationTimestamp(values: ObservationDateTime) {
     instant = new Date(utcGuess - offsetMinutes * 60_000);
   }
 
-  return `${values.observedDate}T${time}:00${formatOffset(getOffsetMinutes(instant))}`;
+  const timestamp = `${values.observedDate}T${time}:00${formatOffset(getOffsetMinutes(instant))}`;
+  if (!values.timeUnknown && !matchesProjectLocalTime(new Date(timestamp), values.observedDate, time)) {
+    throw new RangeError('invalid-project-local-time');
+  }
+  return timestamp;
+}
+
+export function isValidProjectLocalDateTime(observedDate: string, observedTime: string) {
+  try {
+    toObservationTimestamp({observedDate, observedTime, timeUnknown: false});
+    return true;
+  } catch {
+    return false;
+  }
 }
 
 function getOffsetMinutes(instant: Date) {
@@ -55,6 +68,11 @@ function getZonedParts(instant: Date) {
   }).formatToParts(instant);
 
   return Object.fromEntries(parts.map((part) => [part.type, part.value])) as Record<string, string>;
+}
+
+function matchesProjectLocalTime(instant: Date, date: string, time: string) {
+  const parts = getZonedParts(instant);
+  return `${parts.year}-${parts.month}-${parts.day}` === date && `${parts.hour}:${parts.minute}` === time;
 }
 
 function formatOffset(offsetMinutes: number) {

@@ -11,7 +11,7 @@ const stepFields: Record<number, FieldPath<ReportDraftValues>[]> = {
   4: ['individualCount', 'behaviors'],
   5: ['habitat', 'features'],
   6: [],
-  7: ['reporterName', 'reporterEmail', 'scientificUseConsent']
+  7: ['reporterName', 'reporterEmail', 'contactConsent', 'scientificUseConsent']
 };
 
 type ReportMethods = UseFormReturn<ReportDraftValues, unknown, ReportSubmission>;

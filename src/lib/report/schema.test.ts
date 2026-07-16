@@ -38,4 +38,14 @@ describe('reportSchema', () => {
     values.latitude = 0;
     expect(reportSchema.safeParse(values).success).toBe(false);
   });
+
+  it('rejects malformed and nonexistent local observation times', () => {
+    expect(reportSchema.safeParse({...createValidReport(), observedDate: 'not-a-date'}).success).toBe(false);
+    expect(reportSchema.safeParse({...createValidReport(), observedDate: '2026-03-29', observedTime: '02:30'}).success).toBe(false);
+  });
+
+  it('requires contact consent before accepting personal contact data', () => {
+    const values = {...createValidReport(), reporterEmail: 'reporter@example.test', contactConsent: false};
+    expect(reportSchema.safeParse(values).success).toBe(false);
+  });
 });

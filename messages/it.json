@@ -174,7 +174,8 @@
       "coordinates": "Inserisci coordinate plausibili in Alto Adige.",
       "date": "Indica la data dell’osservazione.",
       "email": "Inserisci un indirizzo e-mail valido oppure lascia il campo vuoto.",
-      "consent": "Questo consenso è necessario per inviare la segnalazione."
+      "consent": "Questo consenso è necessario per inviare la segnalazione.",
+      "contactConsent": "Se fornisci i tuoi dati, autorizza il progetto a contattarti."
     },
     "success": {
       "title": "Grazie per la segnalazione!",

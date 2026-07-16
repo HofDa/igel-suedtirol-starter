@@ -23,4 +23,9 @@ describe('observation date and time', () => {
       time: '00:30'
     });
   });
+
+  it('rejects a local time skipped by the daylight-saving transition', () => {
+    expect(() => toObservationTimestamp({observedDate: '2026-03-29', observedTime: '02:30', timeUnknown: false}))
+      .toThrow('invalid-project-local-time');
+  });
 });
