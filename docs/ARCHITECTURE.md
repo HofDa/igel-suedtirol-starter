@@ -8,8 +8,9 @@ ReportWizard
   → FormData an POST /api/sightings
   → erneute Zod-Validierung am Server
   → Spam-/Dateiprüfung
-  → sightings (exakte + verschleierte Position)
-  → reporter_contacts (optional, getrennt)
+  → transaktionale DB-Funktion
+    → sightings (exakte + verschleierte Position)
+    → reporter_contacts (optional, getrennt)
   → Storage + sighting_media (optional)
   → öffentliche Vorgangsnummer
 ```

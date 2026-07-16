@@ -33,10 +33,9 @@ export function toSightingInsert(values: ReportSubmission) {
   };
 }
 
-export function toReporterContactInsert(sightingId: string, values: ReportSubmission) {
+export function toReporterContact(values: ReportSubmission) {
   if (!values.reporterName && !values.reporterEmail) return null;
   return {
-    sighting_id: sightingId,
     reporter_name: values.reporterName || null,
     reporter_email: values.reporterEmail || null
   };

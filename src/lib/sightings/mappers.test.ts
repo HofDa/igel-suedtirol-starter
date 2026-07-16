@@ -1,7 +1,7 @@
 import {describe, expect, it} from 'vitest';
 import {createDefaultReportValues} from '@/lib/report/defaults';
 import {reportSchema, type ReportSubmission} from '@/lib/report/schema';
-import {toPublicSighting, toReporterContactInsert, toSightingInsert} from './mappers';
+import {toPublicSighting, toReporterContact, toSightingInsert} from './mappers';
 
 function createReport(): ReportSubmission {
   return reportSchema.parse({
@@ -29,8 +29,7 @@ describe('sighting mappers', () => {
     const insert = toSightingInsert(values);
     expect(insert).not.toHaveProperty('reporter_name');
     expect(insert).not.toHaveProperty('reporter_email');
-    expect(toReporterContactInsert('sighting-id', values)).toEqual({
-      sighting_id: 'sighting-id',
+    expect(toReporterContact(values)).toEqual({
       reporter_name: 'Test Name',
       reporter_email: 'test@example.test'
     });

@@ -3,7 +3,7 @@ import {createAdminClient} from '@/lib/supabase/admin';
 import {createPublicClient} from '@/lib/supabase/public';
 import type {ReportSubmission} from '@/lib/report/schema';
 import type {PublicSighting} from '@/types/sighting';
-import {toPublicSighting, toReporterContactInsert, toSightingInsert} from './mappers';
+import {toPublicSighting, toReporterContact, toSightingInsert} from './mappers';
 
 type RepositoryResult<T> = {success: true; data: T} | {success: false; error: string};
 
@@ -39,16 +39,15 @@ export async function createSighting(values: ReportSubmission, photo?: File): Pr
   const client = getAdminClient();
   if (!client.success) return client;
 
-  const {data: sighting, error: sightingError} = await client.data
-    .from('sightings')
-    .insert(toSightingInsert(values))
-    .select('id, occurrence_id')
+  const {data, error: sightingError} = await client.data
+    .rpc('create_sighting_with_contact', {
+      p_sighting: toSightingInsert(values),
+      p_contact: toReporterContact(values)
+    })
     .single();
+  const sighting = data as {id: string; occurrence_id: string} | null;
 
   if (sightingError || !sighting) return {success: false, error: 'database-insert-failed'};
-
-  const contact = toReporterContactInsert(sighting.id, values);
-  if (contact) await client.data.from('reporter_contacts').insert(contact);
 
   if (photo) await storePhoto(client.data, sighting.id, photo);
 
