@@ -6,7 +6,6 @@ import {useLocale, useTranslations} from 'next-intl';
 import {useMemo, useState} from 'react';
 import {FormProvider, useForm} from 'react-hook-form';
 import type {Locale} from '@/i18n/routing';
-import {clearDraft} from '@/lib/offline/drafts';
 import {createDefaultReportValues} from '@/lib/report/defaults';
 import {reportSchema, type ReportDraftValues, type ReportSubmission} from '@/lib/report/schema';
 import {ObservationTypeStep} from './ObservationTypeStep';
@@ -35,7 +34,7 @@ export function ReportWizard() {
   const [result, setResult] = useState<{occurrenceId: string; persisted: boolean} | null>(null);
   const [submitError, setSubmitError] = useState<string>();
   const {step, stepContainer, next, back, restoreStep, resetStep} = useReportNavigation(methods);
-  const {restoredAt, discard} = useReportDraft({methods, defaults, locale, step, restoreStep, resetStep});
+  const {restoredAt, discard, finalize} = useReportDraft({methods, defaults, locale, step, restoreStep, resetStep});
 
   function discardDraft() {
     discard().catch(() => undefined);
@@ -53,7 +52,7 @@ export function ReportWizard() {
       const data = await response.json();
       if (!response.ok) throw new Error(data.error ?? 'submission-failed');
       setResult({occurrenceId: data.occurrenceId, persisted: Boolean(data.persisted)});
-      await clearDraft();
+      await finalize();
     } catch {
       setSubmitError(t('submitError'));
     } finally {
@@ -69,7 +68,7 @@ export function ReportWizard() {
         <p className="mt-3 text-lg">{t('success.text', {id: result.occurrenceId})}</p>
         {!result.persisted && <p className="mt-5 rounded-xl bg-amber-100 p-4 font-bold text-amber-950">{t('success.demo')}</p>}
         <div className="mt-8 flex flex-wrap justify-center gap-3">
-          <button type="button" onClick={() => {methods.reset(defaults); resetStep(); setFile(undefined); setResult(null);}} className="rounded-full bg-emerald-900 px-6 py-3 font-bold text-white">{t('success.another')}</button>
+          <button type="button" onClick={() => {discardDraft(); setResult(null);}} className="rounded-full bg-emerald-900 px-6 py-3 font-bold text-white">{t('success.another')}</button>
           <Link href="/karte" className="rounded-full border border-emerald-900 px-6 py-3 font-bold">{t('success.map')}</Link>
         </div>
       </div>
