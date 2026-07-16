@@ -3,8 +3,8 @@
 import Image from 'next/image';
 import {Menu, X} from 'lucide-react';
 import {useTranslations} from 'next-intl';
-import {useState} from 'react';
-import {Link} from '@/i18n/navigation';
+import {useEffect, useState} from 'react';
+import {Link, usePathname} from '@/i18n/navigation';
 import {LanguageSwitcher} from './LanguageSwitcher';
 
 const links = [
@@ -19,7 +19,17 @@ const links = [
 export function Header() {
   const t = useTranslations('navigation');
   const common = useTranslations('common');
+  const pathname = usePathname();
   const [open, setOpen] = useState(false);
+
+  useEffect(() => {
+    if (!open) return;
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') setOpen(false);
+    };
+    window.addEventListener('keydown', onKeyDown);
+    return () => window.removeEventListener('keydown', onKeyDown);
+  }, [open]);
 
   return (
     <header className="sticky top-0 z-50 border-b border-emerald-950/10 bg-cream/95 backdrop-blur">
@@ -34,13 +44,18 @@ export function Header() {
 
         <nav className="hidden items-center gap-5 lg:flex" aria-label={t('mainLabel')}>
           {links.map(([key, href]) => (
-            <Link key={key} href={href} className="text-sm font-semibold hover:text-amber-700">
+            <Link
+              key={key}
+              href={href}
+              aria-current={pathname === href ? 'page' : undefined}
+              className={`text-sm font-semibold hover:text-amber-700 ${pathname === href ? 'text-amber-700 underline underline-offset-8' : ''}`}
+            >
               {t(key)}
             </Link>
           ))}
           <Link
             href="/melden"
-            className="rounded-full bg-emerald-900 px-5 py-3 text-sm font-bold text-white hover:bg-emerald-950"
+            className="rounded-full bg-emerald-900 px-5 py-3 text-sm font-bold text-white transition hover:bg-emerald-950 active:scale-95"
           >
             {t('report')}
           </Link>
@@ -49,7 +64,7 @@ export function Header() {
 
         <button
           type="button"
-          className="inline-flex min-h-11 min-w-11 items-center justify-center rounded-full border border-emerald-950/15 lg:hidden"
+          className="inline-flex min-h-11 min-w-11 items-center justify-center rounded-full border border-emerald-950/15 active:bg-white lg:hidden"
           aria-label={open ? t('closeMenu') : t('openMenu')}
           aria-expanded={open}
           onClick={() => setOpen((value) => !value)}
@@ -64,7 +79,8 @@ export function Header() {
             <Link
               key={key}
               href={href}
-              className="rounded-xl px-4 py-3 font-semibold hover:bg-white"
+              aria-current={pathname === href ? 'page' : undefined}
+              className={`rounded-xl px-4 py-3 font-semibold hover:bg-white ${pathname === href ? 'bg-white text-amber-700' : ''}`}
               onClick={() => setOpen(false)}
             >
               {t(key)}
@@ -72,7 +88,7 @@ export function Header() {
           ))}
           <Link
             href="/melden"
-            className="rounded-xl bg-emerald-900 px-4 py-3 font-bold text-white"
+            className="rounded-xl bg-emerald-900 px-4 py-3 font-bold text-white active:bg-emerald-950"
             onClick={() => setOpen(false)}
           >
             {t('report')}
