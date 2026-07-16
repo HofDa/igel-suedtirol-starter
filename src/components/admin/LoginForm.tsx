@@ -1,14 +1,13 @@
 'use client';
 
-import {useLocale, useTranslations} from 'next-intl';
+import {useTranslations} from 'next-intl';
 import {useState} from 'react';
-import {useRouter} from 'next/navigation';
+import {useRouter} from '@/i18n/navigation';
 import {createClient} from '@/lib/supabase/client';
 import {isSupabaseConfigured} from '@/lib/env';
 
 export function LoginForm() {
   const t = useTranslations('admin');
-  const locale = useLocale();
   const router = useRouter();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -27,7 +26,7 @@ export function LoginForm() {
       setError(t('loginFailed'));
       return;
     }
-    router.push(`/${locale}/admin`);
+    router.push('/admin');
     router.refresh();
   }
 
