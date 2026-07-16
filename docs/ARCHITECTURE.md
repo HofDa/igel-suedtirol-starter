@@ -39,6 +39,8 @@ ReportWizard
 
 Bei `NEXT_PUBLIC_DEMO_MODE=true` simuliert die API erfolgreiche Meldungen. So können Design und Formularlogik ohne Backend entwickelt werden. Die Bestätigungsseite weist auf die Simulation hin.
 
+Beobachtungsdatum und -zeit werden in der Projektzeitzone `Europe/Rome` interpretiert und mit dem zum Beobachtungsdatum passenden UTC-Offset gespeichert. Bei unbekannter Uhrzeit wird lokaler Mittag mit der Genauigkeit `date_only` verwendet.
+
 ## PWA und Offline
 
 Der Service Worker bietet nur eine konservative Shell-Zwischenspeicherung. Formulardaten werden unabhängig davon in IndexedDB gespeichert. Für eine produktive Offline-Queue ist ein separates Arbeitspaket vorgesehen.

@@ -1,16 +1,11 @@
 import type {ReportSubmission} from '@/lib/report/schema';
+import {toObservationTimestamp} from '@/lib/report/date-time';
 import type {PublicSighting} from '@/types/sighting';
-
-export function toObservedAt(values: ReportSubmission) {
-  return values.timeUnknown || !values.observedTime
-    ? `${values.observedDate}T12:00:00+02:00`
-    : `${values.observedDate}T${values.observedTime}:00+02:00`;
-}
 
 export function toSightingInsert(values: ReportSubmission) {
   return {
     observation_type: values.observationType,
-    observed_at: toObservedAt(values),
+    observed_at: toObservationTimestamp(values),
     time_accuracy: values.timeUnknown ? 'date_only' : 'exact',
     individual_count: values.individualCount,
     behavior: values.behaviors,
