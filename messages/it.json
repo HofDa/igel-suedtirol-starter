@@ -20,6 +20,8 @@
     "claim": "Osservare i ricci, riconoscere i pericoli e migliorare gli habitat.",
     "project": "Il progetto",
     "help": "Aiuto per i ricci",
+    "imprint": "Note legali",
+    "privacy": "Privacy",
     "contact": "Contatto",
     "privacyPlaceholder": "Privacy e note legali devono essere completate prima della pubblicazione."
   },
@@ -318,6 +320,16 @@
         "text": "Interfacce e trasferimenti di dati saranno concordati con le istituzioni altoatesine competenti."
       }
     ]
+  },
+  "imprintPage": {
+    "title": "Note legali",
+    "description": "Informazioni sul gestore e indicazioni legali del progetto.",
+    "pending": "Le note legali saranno completate e verificate legalmente prima della pubblicazione."
+  },
+  "privacyPage": {
+    "title": "Privacy",
+    "description": "Informazioni sul trattamento dei dati personali.",
+    "pending": "L’informativa sulla privacy sarà completata e verificata legalmente prima della pubblicazione."
   },
   "offlinePage": {
     "title": "Sei offline",

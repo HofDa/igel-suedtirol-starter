@@ -34,6 +34,14 @@ export const routing = defineRouting({
       de: '/projekt',
       it: '/progetto'
     },
+    '/impressum': {
+      de: '/impressum',
+      it: '/note-legali'
+    },
+    '/datenschutz': {
+      de: '/datenschutz',
+      it: '/privacy'
+    },
     '/offline': '/offline',
     '/admin': '/admin',
     '/admin/login': '/admin/login',

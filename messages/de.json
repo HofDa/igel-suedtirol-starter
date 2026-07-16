@@ -20,6 +20,8 @@
     "claim": "Igel beobachten, Gefahren erkennen und Lebensräume verbessern.",
     "project": "Über das Projekt",
     "help": "Hilfe für Igel",
+    "imprint": "Impressum",
+    "privacy": "Datenschutz",
     "contact": "Kontakt",
     "privacyPlaceholder": "Datenschutz- und Impressumstexte müssen vor Veröffentlichung redaktionell ergänzt werden."
   },
@@ -318,6 +320,16 @@
         "text": "Schnittstellen und Datenübergaben sollen mit Südtiroler Fachinstitutionen abgestimmt werden."
       }
     ]
+  },
+  "imprintPage": {
+    "title": "Impressum",
+    "description": "Anbieterkennzeichnung und rechtliche Angaben zum Projekt.",
+    "pending": "Die Impressumsangaben werden vor der Veröffentlichung redaktionell ergänzt und rechtlich geprüft."
+  },
+  "privacyPage": {
+    "title": "Datenschutz",
+    "description": "Informationen zur Verarbeitung personenbezogener Daten.",
+    "pending": "Die Datenschutzerklärung wird vor der Veröffentlichung redaktionell ergänzt und rechtlich geprüft."
   },
   "offlinePage": {
     "title": "Du bist gerade offline",

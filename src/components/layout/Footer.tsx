@@ -15,6 +15,8 @@ export async function Footer() {
         <div className="grid content-start gap-2 text-sm">
           <Link href="/projekt" className="hover:underline">{t('project')}</Link>
           <Link href="/hilfe" className="hover:underline">{t('help')}</Link>
+          <Link href="/impressum" className="hover:underline">{t('imprint')}</Link>
+          <Link href="/datenschutz" className="hover:underline">{t('privacy')}</Link>
           <a href="mailto:projekt@example.org" className="hover:underline">{t('contact')}</a>
         </div>
         <div className="text-sm text-emerald-100/80">
