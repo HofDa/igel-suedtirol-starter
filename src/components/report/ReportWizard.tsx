@@ -3,7 +3,7 @@
 import {zodResolver} from '@hookform/resolvers/zod';
 import {ArrowLeft, ArrowRight, CheckCircle2, Loader2} from 'lucide-react';
 import {useLocale, useTranslations} from 'next-intl';
-import {useEffect, useMemo, useState} from 'react';
+import {useEffect, useMemo, useRef, useState} from 'react';
 import {FormProvider, useForm, type FieldPath} from 'react-hook-form';
 import type {Locale} from '@/i18n/routing';
 import {clearDraft, loadDraft, saveDraft} from '@/lib/offline/drafts';
@@ -36,6 +36,19 @@ export function ReportWizard() {
   const [result, setResult] = useState<{occurrenceId: string; persisted: boolean} | null>(null);
   const [submitError, setSubmitError] = useState<string>();
   const [draftHydrated, setDraftHydrated] = useState(false);
+  const stepContainer = useRef<HTMLDivElement>(null);
+  const stepChangedByUser = useRef(false);
+
+  useEffect(() => {
+    if (!stepChangedByUser.current) return;
+    stepChangedByUser.current = false;
+    const heading = stepContainer.current?.querySelector<HTMLElement>('h2, legend');
+    if (heading) {
+      heading.setAttribute('tabindex', '-1');
+      heading.focus({preventScroll: true});
+    }
+    stepContainer.current?.scrollIntoView({behavior: 'smooth', block: 'start'});
+  }, [step]);
 
   useEffect(() => {
     loadDraft()
@@ -78,7 +91,15 @@ export function ReportWizard() {
 
   async function next() {
     const valid = await methods.trigger(stepFields[step], {shouldFocus: true});
-    if (valid) setStep((value) => Math.min(value + 1, totalSteps));
+    if (valid) {
+      stepChangedByUser.current = true;
+      setStep((value) => Math.min(value + 1, totalSteps));
+    }
+  }
+
+  function back() {
+    stepChangedByUser.current = true;
+    setStep((value) => Math.max(value - 1, 1));
   }
 
   async function submit(values: ReportFormValues) {
@@ -119,7 +140,7 @@ export function ReportWizard() {
     <FormProvider {...methods}>
       <form onSubmit={methods.handleSubmit(submit)} className="card mx-auto max-w-3xl p-6 md:p-10">
         <ReportProgress current={step} total={totalSteps} label={t('progress', {current: step, total: totalSteps})} />
-        <div className="mt-9 min-h-[340px]">
+        <div ref={stepContainer} className="mt-9 min-h-[340px] scroll-mt-28">
           {step === 1 && <ObservationTypeStep />}
           {step === 2 && <LocationStep />}
           {step === 3 && <DateTimeStep />}
@@ -130,7 +151,7 @@ export function ReportWizard() {
         </div>
         {submitError && <p className="mt-5 rounded-xl bg-red-50 p-4 font-bold text-red-800" role="alert">{submitError}</p>}
         <div className="mt-8 flex items-center justify-between gap-3 border-t border-emerald-950/10 pt-6">
-          <button type="button" disabled={step === 1 || submitting} onClick={() => setStep((value) => Math.max(value - 1, 1))} className="inline-flex min-h-12 items-center gap-2 rounded-full px-4 font-bold disabled:opacity-30">
+          <button type="button" disabled={step === 1 || submitting} onClick={back} className="inline-flex min-h-12 items-center gap-2 rounded-full px-4 font-bold disabled:opacity-30">
             <ArrowLeft aria-hidden="true" /> {t('back')}
           </button>
           {step < totalSteps ? (
