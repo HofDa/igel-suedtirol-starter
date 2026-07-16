@@ -16,11 +16,11 @@ export function ConsentStep() {
       <div className="mt-6 grid gap-4 sm:grid-cols-2">
         <label className="font-bold">
           {t('steps.consent.name')}
-          <input type="text" {...register('reporterName')} className="mt-2 min-h-12 w-full rounded-xl border border-emerald-950/20 bg-white px-4" />
+          <input type="text" autoComplete="name" {...register('reporterName')} className="mt-2 min-h-12 w-full rounded-xl border border-emerald-950/20 bg-white px-4" />
         </label>
         <label className="font-bold">
           {t('steps.consent.email')}
-          <input type="email" {...register('reporterEmail')} className="mt-2 min-h-12 w-full rounded-xl border border-emerald-950/20 bg-white px-4" />
+          <input type="email" autoComplete="email" inputMode="email" {...register('reporterEmail')} className="mt-2 min-h-12 w-full rounded-xl border border-emerald-950/20 bg-white px-4" />
           {errors.reporterEmail && <span className="mt-1 block text-sm text-red-700">{t('validation.email')}</span>}
         </label>
       </div>

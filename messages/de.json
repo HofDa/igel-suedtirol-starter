@@ -135,6 +135,8 @@
       "condition": {
         "title": "Zustand und Verhalten",
         "count": "Anzahl der Igel",
+        "decrease": "Anzahl verringern",
+        "increase": "Anzahl erhöhen",
         "behavior": "Was hast du beobachtet? Mehrfachauswahl möglich."
       },
       "habitat": {
@@ -147,6 +149,9 @@
         "camera": "Kamera öffnen",
         "choose": "Foto auswählen",
         "remove": "Entfernen",
+        "formats": "JPG, PNG, WebP oder HEIC, maximal 8 MB.",
+        "tooLarge": "Das Foto ist größer als 8 MB. Bitte wähle ein kleineres Bild.",
+        "previewAlt": "Vorschau des ausgewählten Fotos",
         "welfare": "Bitte das Tier nicht anfassen, umsetzen oder für ein Foto bedrängen."
       },
       "consent": {

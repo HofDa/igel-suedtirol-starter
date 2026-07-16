@@ -135,6 +135,8 @@
       "condition": {
         "title": "Condizione e comportamento",
         "count": "Numero di ricci",
+        "decrease": "Riduci il numero",
+        "increase": "Aumenta il numero",
         "behavior": "Che cosa hai osservato? Sono possibili più risposte."
       },
       "habitat": {
@@ -147,6 +149,9 @@
         "camera": "Apri fotocamera",
         "choose": "Scegli foto",
         "remove": "Rimuovi",
+        "formats": "JPG, PNG, WebP o HEIC, massimo 8 MB.",
+        "tooLarge": "La foto supera gli 8 MB. Scegli un’immagine più piccola.",
+        "previewAlt": "Anteprima della foto selezionata",
         "welfare": "Non toccare, spostare o disturbare l’animale per fare una foto."
       },
       "consent": {
