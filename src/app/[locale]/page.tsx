@@ -41,10 +41,13 @@ export default async function HomePage({params}: Props) {
         </div>
       </section>
 
-      <section className="container-page -mt-8 relative z-10 grid gap-4 sm:grid-cols-3">
-        <StatCard value="486" label={t('stats.sightings')} />
-        <StatCard value="72" label={t('stats.municipalities')} />
-        <StatCard value="38" label={t('stats.roadkills')} />
+      <section className="container-page -mt-8 relative z-10">
+        <div className="grid gap-4 sm:grid-cols-3">
+          <StatCard value="486" label={t('stats.sightings')} />
+          <StatCard value="72" label={t('stats.municipalities')} />
+          <StatCard value="38" label={t('stats.roadkills')} />
+        </div>
+        <p className="mt-3 text-sm font-semibold text-emerald-950/60">{t('stats.demoNote')}</p>
       </section>
 
       <section className="container-page py-20">

@@ -37,7 +37,8 @@
     "stats": {
       "sightings": "ricci segnalati",
       "municipalities": "comuni",
-      "roadkills": "vittime del traffico"
+      "roadkills": "vittime del traffico",
+      "demoNote": "Valori di esempio a scopo illustrativo: i dati reali appariranno dopo l’avvio del progetto."
     },
     "features": {
       "mapTitle": "Mappare insieme",

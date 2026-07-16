@@ -37,7 +37,8 @@
     "stats": {
       "sightings": "gemeldete Igel",
       "municipalities": "Gemeinden",
-      "roadkills": "Verkehrsopfer"
+      "roadkills": "Verkehrsopfer",
+      "demoNote": "Beispielwerte zur Veranschaulichung – echte Zahlen erscheinen nach Projektstart."
     },
     "features": {
       "mapTitle": "Gemeinsam kartieren",
