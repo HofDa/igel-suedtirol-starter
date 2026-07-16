@@ -3,10 +3,10 @@
 import {zodResolver} from '@hookform/resolvers/zod';
 import {ArrowLeft, ArrowRight, CheckCircle2, Loader2} from 'lucide-react';
 import {useLocale, useTranslations} from 'next-intl';
-import {useEffect, useMemo, useRef, useState} from 'react';
-import {FormProvider, useForm, type FieldPath} from 'react-hook-form';
+import {useMemo, useState} from 'react';
+import {FormProvider, useForm} from 'react-hook-form';
 import type {Locale} from '@/i18n/routing';
-import {clearDraft, loadDraft, saveDraft} from '@/lib/offline/drafts';
+import {clearDraft} from '@/lib/offline/drafts';
 import {createDefaultReportValues} from '@/lib/report/defaults';
 import {reportSchema, type ReportDraftValues, type ReportSubmission} from '@/lib/report/schema';
 import {ObservationTypeStep} from './ObservationTypeStep';
@@ -18,8 +18,8 @@ import {PhotoStep} from './PhotoStep';
 import {ConsentStep} from './ConsentStep';
 import {ReportProgress} from './ReportProgress';
 import {Link} from '@/i18n/navigation';
-
-const totalSteps = 7;
+import {useReportDraft} from './useReportDraft';
+import {REPORT_STEP_COUNT, useReportNavigation} from './useReportNavigation';
 
 export function ReportWizard() {
   const locale = useLocale() as Locale;
@@ -30,86 +30,16 @@ export function ReportWizard() {
     defaultValues: defaults,
     mode: 'onTouched'
   });
-  const [step, setStep] = useState(1);
   const [file, setFile] = useState<File>();
   const [submitting, setSubmitting] = useState(false);
   const [result, setResult] = useState<{occurrenceId: string; persisted: boolean} | null>(null);
   const [submitError, setSubmitError] = useState<string>();
-  const [draftHydrated, setDraftHydrated] = useState(false);
-  const [restoredDraftAt, setRestoredDraftAt] = useState<string>();
-  const stepContainer = useRef<HTMLDivElement>(null);
-  const stepChangedByUser = useRef(false);
-
-  useEffect(() => {
-    if (!stepChangedByUser.current) return;
-    stepChangedByUser.current = false;
-    const heading = stepContainer.current?.querySelector<HTMLElement>('h2, legend');
-    if (heading) {
-      heading.setAttribute('tabindex', '-1');
-      heading.focus({preventScroll: true});
-    }
-    stepContainer.current?.scrollIntoView({behavior: 'smooth', block: 'start'});
-  }, [step]);
-
-  useEffect(() => {
-    loadDraft()
-      .then((draft) => {
-        if (draft) {
-          methods.reset({...draft.values, submittedLocale: locale});
-          setStep(Math.min(Math.max(draft.step, 1), totalSteps));
-          setRestoredDraftAt(draft.updatedAt);
-        }
-      })
-      .catch(() => undefined)
-      .finally(() => setDraftHydrated(true));
-  }, [locale, methods]);
-
-  useEffect(() => {
-    if (!draftHydrated) return;
-    const subscription = methods.watch((values) => {
-      const merged = {
-        ...defaults,
-        ...values,
-        features: {...defaults.features, ...(values.features ?? {})}
-      } as ReportDraftValues;
-      saveDraft({
-        values: merged,
-        step,
-        updatedAt: new Date().toISOString()
-      }).catch(() => undefined);
-    });
-    return () => subscription.unsubscribe();
-  }, [defaults, draftHydrated, methods, step]);
-
-  const stepFields: Record<number, FieldPath<ReportDraftValues>[]> = {
-    1: ['observationType'],
-    2: ['latitude', 'longitude', 'locationSource'],
-    3: ['observedDate', 'observedTime', 'timeUnknown'],
-    4: ['individualCount', 'behaviors'],
-    5: ['habitat', 'features'],
-    6: [],
-    7: ['reporterName', 'reporterEmail', 'scientificUseConsent']
-  };
-
-  async function next() {
-    const valid = await methods.trigger(stepFields[step], {shouldFocus: true});
-    if (valid) {
-      stepChangedByUser.current = true;
-      setStep((value) => Math.min(value + 1, totalSteps));
-    }
-  }
-
-  function back() {
-    stepChangedByUser.current = true;
-    setStep((value) => Math.max(value - 1, 1));
-  }
+  const {step, stepContainer, next, back, restoreStep, resetStep} = useReportNavigation(methods);
+  const {restoredAt, discard} = useReportDraft({methods, defaults, locale, step, restoreStep, resetStep});
 
   function discardDraft() {
-    clearDraft().catch(() => undefined);
-    methods.reset(defaults);
-    setStep(1);
+    discard().catch(() => undefined);
     setFile(undefined);
-    setRestoredDraftAt(undefined);
   }
 
   async function submit(values: ReportSubmission) {
@@ -139,7 +69,7 @@ export function ReportWizard() {
         <p className="mt-3 text-lg">{t('success.text', {id: result.occurrenceId})}</p>
         {!result.persisted && <p className="mt-5 rounded-xl bg-amber-100 p-4 font-bold text-amber-950">{t('success.demo')}</p>}
         <div className="mt-8 flex flex-wrap justify-center gap-3">
-          <button type="button" onClick={() => {methods.reset(defaults); setStep(1); setFile(undefined); setResult(null);}} className="rounded-full bg-emerald-900 px-6 py-3 font-bold text-white">{t('success.another')}</button>
+          <button type="button" onClick={() => {methods.reset(defaults); resetStep(); setFile(undefined); setResult(null);}} className="rounded-full bg-emerald-900 px-6 py-3 font-bold text-white">{t('success.another')}</button>
           <Link href="/karte" className="rounded-full border border-emerald-900 px-6 py-3 font-bold">{t('success.map')}</Link>
         </div>
       </div>
@@ -149,11 +79,11 @@ export function ReportWizard() {
   return (
     <FormProvider {...methods}>
       <form onSubmit={methods.handleSubmit(submit)} className="card mx-auto max-w-3xl p-6 md:p-10">
-        <ReportProgress current={step} total={totalSteps} label={t('progress', {current: step, total: totalSteps})} />
-        {restoredDraftAt && (
+        <ReportProgress current={step} total={REPORT_STEP_COUNT} label={t('progress', {current: step, total: REPORT_STEP_COUNT})} />
+        {restoredAt && (
           <div className="mt-5 flex flex-wrap items-center justify-between gap-3 rounded-xl bg-emerald-50 p-4 text-sm" role="status">
             <span className="font-semibold">
-              {t('draft.restored', {date: new Date(restoredDraftAt).toLocaleDateString(locale)})}
+              {t('draft.restored', {date: new Date(restoredAt).toLocaleDateString(locale)})}
             </span>
             <button type="button" onClick={discardDraft} className="rounded-full border border-emerald-900 px-4 py-2 font-bold">
               {t('draft.discard')}
@@ -174,7 +104,7 @@ export function ReportWizard() {
           <button type="button" disabled={step === 1 || submitting} onClick={back} className="inline-flex min-h-12 items-center gap-2 rounded-full px-4 font-bold disabled:opacity-30">
             <ArrowLeft aria-hidden="true" /> {t('back')}
           </button>
-          {step < totalSteps ? (
+          {step < REPORT_STEP_COUNT ? (
             <button type="button" onClick={next} className="inline-flex min-h-12 items-center gap-2 rounded-full bg-emerald-900 px-6 font-bold text-white">
               {t('next')} <ArrowRight aria-hidden="true" />
             </button>
