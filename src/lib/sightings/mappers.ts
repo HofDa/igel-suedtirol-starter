@@ -1,5 +1,6 @@
 import type {ReportSubmission} from '@/lib/report/schema';
 import {toObservationTimestamp} from '@/lib/report/date-time';
+import {publicSightingSchema} from './public-schema';
 import type {PublicSighting} from '@/types/sighting';
 
 export function toSightingInsert(values: ReportSubmission) {
@@ -42,7 +43,7 @@ export function toReporterContactInsert(sightingId: string, values: ReportSubmis
 }
 
 export function toPublicSighting(row: Record<string, unknown>): PublicSighting {
-  return {
+  return publicSightingSchema.parse({
     id: String(row.id),
     occurrenceId: String(row.occurrence_id),
     observationType: row.observation_type as PublicSighting['observationType'],
@@ -52,5 +53,5 @@ export function toPublicSighting(row: Record<string, unknown>): PublicSighting {
     latitude: Number(row.public_latitude),
     longitude: Number(row.public_longitude),
     roadkill: Boolean(row.roadkill)
-  };
+  });
 }

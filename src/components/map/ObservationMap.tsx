@@ -4,6 +4,7 @@ import maplibregl, {type GeoJSONSource, type Map} from 'maplibre-gl';
 import {Loader2} from 'lucide-react';
 import {useLocale, useTranslations} from 'next-intl';
 import {useEffect, useRef, useState} from 'react';
+import {publicSightingsResponseSchema} from '@/lib/sightings/public-schema';
 import type {PublicSighting} from '@/types/sighting';
 
 export function ObservationMap() {
@@ -21,7 +22,7 @@ export function ObservationMap() {
         if (!response.ok) throw new Error();
         return response.json();
       })
-      .then((data) => setSightings(data.sightings ?? []))
+      .then((data) => setSightings(publicSightingsResponseSchema.parse(data).sightings))
       .catch(() => setError(true))
       .finally(() => setLoading(false));
   }, []);

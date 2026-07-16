@@ -28,7 +28,11 @@ export async function listPublishedSightings(): Promise<RepositoryResult<PublicS
     .limit(500);
 
   if (error) return {success: false, error: 'map-load-failed'};
-  return {success: true, data: (data ?? []).map((row) => toPublicSighting(row as Record<string, unknown>))};
+  try {
+    return {success: true, data: (data ?? []).map((row) => toPublicSighting(row as Record<string, unknown>))};
+  } catch {
+    return {success: false, error: 'map-load-failed'};
+  }
 }
 
 export async function createSighting(values: ReportSubmission, photo?: File): Promise<RepositoryResult<string>> {
