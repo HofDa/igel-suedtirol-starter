@@ -1,6 +1,6 @@
 import type {SupabaseClient} from '@supabase/supabase-js';
 import {createAdminClient} from '@/lib/supabase/admin';
-import type {ReportFormValues} from '@/lib/report/schema';
+import type {ReportSubmission} from '@/lib/report/schema';
 import type {PublicSighting} from '@/types/sighting';
 import {toPublicSighting, toReporterContactInsert, toSightingInsert} from './mappers';
 
@@ -25,7 +25,7 @@ export async function listPublishedSightings(): Promise<RepositoryResult<PublicS
   return {success: true, data: (data ?? []).map((row) => toPublicSighting(row as Record<string, unknown>))};
 }
 
-export async function createSighting(values: ReportFormValues, photo?: File): Promise<RepositoryResult<string>> {
+export async function createSighting(values: ReportSubmission, photo?: File): Promise<RepositoryResult<string>> {
   const client = getAdminClient();
   if (!client.success) return client;
 

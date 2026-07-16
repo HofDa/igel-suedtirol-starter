@@ -1,17 +1,17 @@
 import type {Locale} from '@/i18n/routing';
-import type {ReportFormValues} from './schema';
+import type {ReportDraftValues} from './schema';
 
-export function createDefaultReportValues(locale: Locale): ReportFormValues {
+export function createDefaultReportValues(locale: Locale): ReportDraftValues {
   const now = new Date();
   const date = now.toISOString().slice(0, 10);
   const time = now.toTimeString().slice(0, 5);
 
   return {
     // Bewusst keine Vorauswahl: die Beobachtungsart muss aktiv gewählt werden.
-    observationType: undefined as unknown as ReportFormValues['observationType'],
+    observationType: undefined,
     // Keine erfundene Startposition: der Punkt muss aktiv gesetzt werden.
-    latitude: undefined as unknown as number,
-    longitude: undefined as unknown as number,
+    latitude: undefined,
+    longitude: undefined,
     locationSource: 'map',
     observedDate: date,
     observedTime: time,

@@ -5,24 +5,28 @@ import {LocateFixed} from 'lucide-react';
 import {useTranslations} from 'next-intl';
 import {useEffect, useRef, useState} from 'react';
 import {useFormContext} from 'react-hook-form';
-import type {ReportFormValues} from '@/lib/report/schema';
+import type {ReportDraftValues} from '@/lib/report/schema';
 
 const SOUTH_TYROL_CENTER: [number, number] = [11.35, 46.5];
 
+function isFiniteNumber(value: unknown): value is number {
+  return typeof value === 'number' && Number.isFinite(value);
+}
+
 export function LocationStep() {
   const t = useTranslations('report');
-  const {register, setValue, getValues, watch, formState: {errors}} = useFormContext<ReportFormValues>();
+  const {register, setValue, getValues, watch, formState: {errors}} = useFormContext<ReportDraftValues>();
   const [status, setStatus] = useState<string>();
   const latitude = watch('latitude');
   const longitude = watch('longitude');
   const accuracy = watch('accuracy');
-  const hasPosition = Number.isFinite(latitude) && Number.isFinite(longitude);
+  const hasPosition = isFiniteNumber(latitude) && isFiniteNumber(longitude);
 
   const container = useRef<HTMLDivElement>(null);
   const mapRef = useRef<MapLibreMap | null>(null);
   const markerRef = useRef<Marker | null>(null);
 
-  function applyPosition(lat: number, lng: number, source: ReportFormValues['locationSource'], acc?: number) {
+  function applyPosition(lat: number, lng: number, source: ReportDraftValues['locationSource'], acc?: number) {
     setValue('latitude', lat, {shouldValidate: true, shouldDirty: true});
     setValue('longitude', lng, {shouldValidate: true, shouldDirty: true});
     setValue('accuracy', acc);
@@ -49,7 +53,7 @@ export function LocationStep() {
     if (!container.current || mapRef.current) return;
     const initialLatitude = getValues('latitude');
     const initialLongitude = getValues('longitude');
-    const initialPosition = Number.isFinite(initialLatitude) && Number.isFinite(initialLongitude);
+    const initialPosition = isFiniteNumber(initialLatitude) && isFiniteNumber(initialLongitude);
     const map = new maplibregl.Map({
       container: container.current,
       style: process.env.NEXT_PUBLIC_MAP_STYLE_URL ?? 'https://demotiles.maplibre.org/style.json',
@@ -70,7 +74,7 @@ export function LocationStep() {
   }, []);
 
   useEffect(() => {
-    if (Number.isFinite(latitude) && Number.isFinite(longitude)) {
+    if (isFiniteNumber(latitude) && isFiniteNumber(longitude)) {
       placeMarker(longitude, latitude);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -120,7 +124,7 @@ export function LocationStep() {
         </label>
       </div>
       <div className="mt-5 rounded-xl bg-emerald-50 p-4 text-sm" aria-live="polite">
-        {hasPosition ? (
+        {hasPosition && isFiniteNumber(latitude) && isFiniteNumber(longitude) ? (
           <>
             <strong>{t('steps.location.current')}:</strong> {latitude.toFixed(5)}, {longitude.toFixed(5)}
             {accuracy ? ` · ±${Math.round(accuracy)} m` : ''}

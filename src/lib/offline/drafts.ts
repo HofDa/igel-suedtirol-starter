@@ -1,12 +1,12 @@
 import {openDB} from 'idb';
-import type {ReportFormValues} from '@/lib/report/schema';
+import type {ReportDraftValues} from '@/lib/report/schema';
 
 const DB_NAME = 'igel-suedtirol';
 const STORE_NAME = 'report-drafts';
 const DRAFT_KEY = 'active-report';
 
 type StoredDraft = {
-  values: ReportFormValues;
+  values: ReportDraftValues;
   step: number;
   updatedAt: string;
 };

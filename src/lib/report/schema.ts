@@ -17,7 +17,7 @@ export const habitats = [
   'unknown'
 ] as const;
 
-export const reportSchema = z.object({
+const completeReportSchema = z.object({
   observationType: z.enum(observationTypes),
   latitude: z.number().min(45).max(48),
   longitude: z.number().min(9).max(13),
@@ -48,4 +48,13 @@ export const reportSchema = z.object({
   submittedLocale: z.enum(['de', 'it'])
 });
 
-export type ReportFormValues = z.infer<typeof reportSchema>;
+const draftReportSchema = completeReportSchema.extend({
+  observationType: z.enum(observationTypes).optional(),
+  latitude: z.number().min(45).max(48).optional(),
+  longitude: z.number().min(9).max(13).optional()
+});
+
+export const reportSchema = draftReportSchema.pipe(completeReportSchema);
+
+export type ReportDraftValues = z.input<typeof reportSchema>;
+export type ReportSubmission = z.output<typeof reportSchema>;

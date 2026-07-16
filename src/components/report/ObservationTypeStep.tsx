@@ -4,7 +4,7 @@ import {ArrowRight, Bandage, CircleHelp, HeartPulse, PawPrint, Skull, type Lucid
 import {useTranslations} from 'next-intl';
 import {useFormContext} from 'react-hook-form';
 import {Link} from '@/i18n/navigation';
-import type {ReportFormValues} from '@/lib/report/schema';
+import type {ReportDraftValues} from '@/lib/report/schema';
 import {observationTypes} from '@/lib/report/schema';
 
 const icons: Record<(typeof observationTypes)[number], LucideIcon> = {
@@ -17,7 +17,7 @@ const icons: Record<(typeof observationTypes)[number], LucideIcon> = {
 
 export function ObservationTypeStep() {
   const t = useTranslations('report');
-  const {register, watch, formState: {errors}} = useFormContext<ReportFormValues>();
+  const {register, watch, formState: {errors}} = useFormContext<ReportDraftValues>();
   const value = watch('observationType');
 
   return (

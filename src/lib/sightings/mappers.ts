@@ -1,13 +1,13 @@
-import type {ReportFormValues} from '@/lib/report/schema';
+import type {ReportSubmission} from '@/lib/report/schema';
 import type {PublicSighting} from '@/types/sighting';
 
-export function toObservedAt(values: ReportFormValues) {
+export function toObservedAt(values: ReportSubmission) {
   return values.timeUnknown || !values.observedTime
     ? `${values.observedDate}T12:00:00+02:00`
     : `${values.observedDate}T${values.observedTime}:00+02:00`;
 }
 
-export function toSightingInsert(values: ReportFormValues) {
+export function toSightingInsert(values: ReportSubmission) {
   return {
     observation_type: values.observationType,
     observed_at: toObservedAt(values),
@@ -37,7 +37,7 @@ export function toSightingInsert(values: ReportFormValues) {
   };
 }
 
-export function toReporterContactInsert(sightingId: string, values: ReportFormValues) {
+export function toReporterContactInsert(sightingId: string, values: ReportSubmission) {
   if (!values.reporterName && !values.reporterEmail) return null;
   return {
     sighting_id: sightingId,

@@ -2,11 +2,11 @@
 
 import {useTranslations} from 'next-intl';
 import {useFormContext} from 'react-hook-form';
-import type {ReportFormValues} from '@/lib/report/schema';
+import type {ReportDraftValues} from '@/lib/report/schema';
 
 export function DateTimeStep() {
   const t = useTranslations('report');
-  const {register, watch, formState: {errors}} = useFormContext<ReportFormValues>();
+  const {register, watch, formState: {errors}} = useFormContext<ReportDraftValues>();
   const unknown = watch('timeUnknown');
 
   return (

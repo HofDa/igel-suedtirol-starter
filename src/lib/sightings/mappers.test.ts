@@ -1,10 +1,10 @@
 import {describe, expect, it} from 'vitest';
 import {createDefaultReportValues} from '@/lib/report/defaults';
-import type {ReportFormValues} from '@/lib/report/schema';
+import {reportSchema, type ReportSubmission} from '@/lib/report/schema';
 import {toPublicSighting, toReporterContactInsert, toSightingInsert} from './mappers';
 
-function createReport(): ReportFormValues {
-  return {
+function createReport(): ReportSubmission {
+  return reportSchema.parse({
     ...createDefaultReportValues('de'),
     observationType: 'dead',
     latitude: 46.5,
@@ -13,7 +13,7 @@ function createReport(): ReportFormValues {
     observedTime: '21:30',
     scientificUseConsent: true,
     features: {...createDefaultReportValues('de').features, roadNearby: true}
-  };
+  });
 }
 
 describe('sighting mappers', () => {

@@ -1,10 +1,10 @@
-import {reportSchema, type ReportFormValues} from '@/lib/report/schema';
+import {reportSchema, type ReportSubmission} from '@/lib/report/schema';
 
 const MAX_PHOTO_SIZE = 8 * 1024 * 1024;
 const SUPPORTED_PHOTO_TYPES = ['image/jpeg', 'image/png', 'image/webp', 'image/heic'];
 
 type ParsedRequest =
-  | {success: true; values: ReportFormValues; photo?: File}
+  | {success: true; values: ReportSubmission; photo?: File}
   | {success: false; error: string; status: number; issues?: unknown};
 
 export async function parseSightingRequest(request: Request): Promise<ParsedRequest> {

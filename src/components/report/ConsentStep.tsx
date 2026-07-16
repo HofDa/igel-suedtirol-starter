@@ -2,11 +2,11 @@
 
 import {useTranslations} from 'next-intl';
 import {useFormContext} from 'react-hook-form';
-import type {ReportFormValues} from '@/lib/report/schema';
+import type {ReportDraftValues} from '@/lib/report/schema';
 
 export function ConsentStep() {
   const t = useTranslations('report');
-  const {register, formState: {errors}} = useFormContext<ReportFormValues>();
+  const {register, formState: {errors}} = useFormContext<ReportDraftValues>();
   const optionalConsents = ['contactConsent', 'photoPublicationConsent', 'newsletterConsent'] as const;
 
   return (

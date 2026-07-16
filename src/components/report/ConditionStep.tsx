@@ -2,13 +2,13 @@
 
 import {useTranslations} from 'next-intl';
 import {useFormContext} from 'react-hook-form';
-import type {ReportFormValues} from '@/lib/report/schema';
+import type {ReportDraftValues} from '@/lib/report/schema';
 
 const behaviors = ['moving', 'foraging', 'roadCrossing', 'resting', 'dayActive', 'curled', 'visibleInjury', 'motionless', 'trapped'] as const;
 
 export function ConditionStep() {
   const t = useTranslations('report');
-  const {register, setValue, watch} = useFormContext<ReportFormValues>();
+  const {register, setValue, watch} = useFormContext<ReportDraftValues>();
   const count = watch('individualCount');
 
   function adjustCount(delta: number) {

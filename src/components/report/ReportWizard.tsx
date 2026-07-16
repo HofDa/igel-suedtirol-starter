@@ -8,7 +8,7 @@ import {FormProvider, useForm, type FieldPath} from 'react-hook-form';
 import type {Locale} from '@/i18n/routing';
 import {clearDraft, loadDraft, saveDraft} from '@/lib/offline/drafts';
 import {createDefaultReportValues} from '@/lib/report/defaults';
-import {reportSchema, type ReportFormValues} from '@/lib/report/schema';
+import {reportSchema, type ReportDraftValues, type ReportSubmission} from '@/lib/report/schema';
 import {ObservationTypeStep} from './ObservationTypeStep';
 import {LocationStep} from './LocationStep';
 import {DateTimeStep} from './DateTimeStep';
@@ -25,7 +25,7 @@ export function ReportWizard() {
   const locale = useLocale() as Locale;
   const t = useTranslations('report');
   const defaults = useMemo(() => createDefaultReportValues(locale), [locale]);
-  const methods = useForm<ReportFormValues>({
+  const methods = useForm<ReportDraftValues, unknown, ReportSubmission>({
     resolver: zodResolver(reportSchema),
     defaultValues: defaults,
     mode: 'onTouched'
@@ -71,7 +71,7 @@ export function ReportWizard() {
         ...defaults,
         ...values,
         features: {...defaults.features, ...(values.features ?? {})}
-      } as ReportFormValues;
+      } as ReportDraftValues;
       saveDraft({
         values: merged,
         step,
@@ -81,7 +81,7 @@ export function ReportWizard() {
     return () => subscription.unsubscribe();
   }, [defaults, draftHydrated, methods, step]);
 
-  const stepFields: Record<number, FieldPath<ReportFormValues>[]> = {
+  const stepFields: Record<number, FieldPath<ReportDraftValues>[]> = {
     1: ['observationType'],
     2: ['latitude', 'longitude', 'locationSource'],
     3: ['observedDate', 'observedTime', 'timeUnknown'],
@@ -112,7 +112,7 @@ export function ReportWizard() {
     setRestoredDraftAt(undefined);
   }
 
-  async function submit(values: ReportFormValues) {
+  async function submit(values: ReportSubmission) {
     setSubmitting(true);
     setSubmitError(undefined);
     try {

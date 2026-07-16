@@ -2,14 +2,14 @@
 
 import {useTranslations} from 'next-intl';
 import {useFormContext} from 'react-hook-form';
-import type {ReportFormValues} from '@/lib/report/schema';
+import type {ReportDraftValues} from '@/lib/report/schema';
 import {habitats} from '@/lib/report/schema';
 
 const features = ['robotMowerNearby', 'fenceNearby', 'roadNearby', 'poolOrShaftNearby', 'gardenPassagePresent', 'shelterPresent', 'waterSourcePresent'] as const;
 
 export function HabitatStep() {
   const t = useTranslations('report');
-  const {register} = useFormContext<ReportFormValues>();
+  const {register} = useFormContext<ReportDraftValues>();
 
   return (
     <div>
