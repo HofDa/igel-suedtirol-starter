@@ -108,7 +108,8 @@
     "steps": {
       "type": {
         "title": "Was hast du gesehen?",
-        "injuredNotice": "Die Meldung ersetzt keine Hilfeleistung. Sichere zuerst die Situation und nutze die geprüften Kontaktwege auf der Hilfeseite."
+        "injuredNotice": "Die Meldung ersetzt keine Hilfeleistung. Sichere zuerst die Situation und nutze die geprüften Kontaktwege auf der Hilfeseite.",
+        "injuredLink": "Zur Hilfeseite"
       },
       "location": {
         "title": "Wo war die Beobachtung?",

@@ -108,7 +108,8 @@
     "steps": {
       "type": {
         "title": "Che cosa hai visto?",
-        "injuredNotice": "La segnalazione non sostituisce il soccorso. Metti prima in sicurezza la situazione e usa i contatti verificati nella pagina di aiuto."
+        "injuredNotice": "La segnalazione non sostituisce il soccorso. Metti prima in sicurezza la situazione e usa i contatti verificati nella pagina di aiuto.",
+        "injuredLink": "Vai alla pagina di aiuto"
       },
       "location": {
         "title": "Dove è avvenuta l’osservazione?",

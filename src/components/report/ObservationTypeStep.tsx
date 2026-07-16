@@ -1,7 +1,9 @@
 'use client';
 
+import {ArrowRight} from 'lucide-react';
 import {useTranslations} from 'next-intl';
 import {useFormContext} from 'react-hook-form';
+import {Link} from '@/i18n/navigation';
 import type {ReportFormValues} from '@/lib/report/schema';
 import {observationTypes} from '@/lib/report/schema';
 
@@ -34,7 +36,12 @@ export function ObservationTypeStep() {
         <p className="mt-3 text-sm font-bold text-red-700" role="alert">{t('validation.observationType')}</p>
       )}
       {value === 'injured' && (
-        <p className="mt-5 rounded-xl border border-red-700/20 bg-red-50 p-4 font-semibold text-red-900">{t('steps.type.injuredNotice')}</p>
+        <div className="mt-5 rounded-xl border border-red-700/20 bg-red-50 p-4 text-red-900" role="alert">
+          <p className="font-semibold">{t('steps.type.injuredNotice')}</p>
+          <Link href="/hilfe" className="mt-3 inline-flex min-h-11 items-center gap-2 rounded-full bg-red-700 px-5 font-bold text-white hover:bg-red-800">
+            {t('steps.type.injuredLink')} <ArrowRight size={18} aria-hidden="true" />
+          </Link>
+        </div>
       )}
     </fieldset>
   );
