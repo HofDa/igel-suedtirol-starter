@@ -35,7 +35,9 @@ export async function listPublishedSightings(): Promise<RepositoryResult<PublicS
   }
 }
 
-export async function createSighting(values: ReportSubmission, photo?: File): Promise<RepositoryResult<string>> {
+type CreatedSighting = {occurrenceId: string; photoStored: boolean};
+
+export async function createSighting(values: ReportSubmission, photo?: File): Promise<RepositoryResult<CreatedSighting>> {
   const client = getAdminClient();
   if (!client.success) return client;
 
@@ -49,12 +51,12 @@ export async function createSighting(values: ReportSubmission, photo?: File): Pr
 
   if (sightingError || !sighting) return {success: false, error: 'database-insert-failed'};
 
-  if (photo) await storePhoto(client.data, sighting.id, photo);
+  const photoStored = photo ? await storePhoto(client.data, sighting.id, photo) : true;
 
-  return {success: true, data: sighting.occurrence_id};
+  return {success: true, data: {occurrenceId: sighting.occurrence_id, photoStored}};
 }
 
-async function storePhoto(client: SupabaseClient, sightingId: string, photo: File) {
+async function storePhoto(client: SupabaseClient, sightingId: string, photo: File): Promise<boolean> {
   const extension = photo.name.split('.').pop()?.toLowerCase() || 'bin';
   const path = `${sightingId}/${crypto.randomUUID()}.${extension}`;
   const bytes = new Uint8Array(await photo.arrayBuffer());
@@ -62,13 +64,14 @@ async function storePhoto(client: SupabaseClient, sightingId: string, photo: Fil
     contentType: photo.type,
     upsert: false
   });
-  if (error) return;
+  if (error) return false;
 
-  await client.from('sighting_media').insert({
+  const {error: mediaError} = await client.from('sighting_media').insert({
     sighting_id: sightingId,
     storage_path: path,
     mime_type: photo.type,
     file_size_bytes: photo.size,
     public_approved: false
   });
+  return !mediaError;
 }

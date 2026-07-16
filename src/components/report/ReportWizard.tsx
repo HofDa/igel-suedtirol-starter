@@ -31,7 +31,7 @@ export function ReportWizard() {
   });
   const [file, setFile] = useState<File>();
   const [submitting, setSubmitting] = useState(false);
-  const [result, setResult] = useState<{occurrenceId: string; persisted: boolean} | null>(null);
+  const [result, setResult] = useState<{occurrenceId: string; persisted: boolean; photoStored: boolean} | null>(null);
   const [submitError, setSubmitError] = useState<string>();
   const {step, stepContainer, next, back, restoreStep, resetStep} = useReportNavigation(methods);
   const {restoredAt, discard, finalize} = useReportDraft({methods, defaults, locale, step, restoreStep, resetStep});
@@ -51,7 +51,11 @@ export function ReportWizard() {
       const response = await fetch('/api/sightings', {method: 'POST', body});
       const data = await response.json();
       if (!response.ok) throw new Error(data.error ?? 'submission-failed');
-      setResult({occurrenceId: data.occurrenceId, persisted: Boolean(data.persisted)});
+      setResult({
+        occurrenceId: data.occurrenceId,
+        persisted: Boolean(data.persisted),
+        photoStored: data.photoStored !== false
+      });
       await finalize();
     } catch {
       setSubmitError(t('submitError'));
@@ -67,6 +71,7 @@ export function ReportWizard() {
         <h2 className="mt-5 text-3xl font-black text-emerald-950">{t('success.title')}</h2>
         <p className="mt-3 text-lg">{t('success.text', {id: result.occurrenceId})}</p>
         {!result.persisted && <p className="mt-5 rounded-xl bg-amber-100 p-4 font-bold text-amber-950">{t('success.demo')}</p>}
+        {!result.photoStored && <p className="mt-5 rounded-xl bg-amber-100 p-4 font-bold text-amber-950">{t('success.photoFailed')}</p>}
         <div className="mt-8 flex flex-wrap justify-center gap-3">
           <button type="button" onClick={() => {discardDraft(); setResult(null);}} className="rounded-full bg-emerald-900 px-6 py-3 font-bold text-white">{t('success.another')}</button>
           <Link href="/karte" className="rounded-full border border-emerald-900 px-6 py-3 font-bold">{t('success.map')}</Link>

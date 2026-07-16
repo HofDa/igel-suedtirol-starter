@@ -180,6 +180,7 @@
       "title": "Danke für deine Meldung!",
       "text": "Deine Beobachtung wurde unter {id} erfasst.",
       "demo": "Demo-Modus: Die Meldung wurde noch nicht dauerhaft in einer Datenbank gespeichert.",
+      "photoFailed": "Deine Meldung wurde gespeichert, das Foto konnte aber nicht übertragen werden.",
       "another": "Weitere Meldung",
       "map": "Karte ansehen"
     }

@@ -19,12 +19,12 @@ export async function POST(request: Request) {
     if (!parsed.success) return NextResponse.json({error: parsed.error, issues: parsed.issues}, {status: parsed.status});
 
     if (publicEnv.demoMode) {
-      return NextResponse.json({occurrenceId: `DEMO-${Date.now()}`, persisted: false});
+      return NextResponse.json({occurrenceId: `DEMO-${Date.now()}`, persisted: false, photoStored: true});
     }
 
     const result = await createSighting(parsed.values, parsed.photo);
     if (!result.success) return NextResponse.json({error: result.error}, {status: result.error === 'backend-not-configured' ? 503 : 500});
-    return NextResponse.json({occurrenceId: result.data, persisted: true}, {status: 201});
+    return NextResponse.json({occurrenceId: result.data.occurrenceId, persisted: true, photoStored: result.data.photoStored}, {status: 201});
   } catch {
     return NextResponse.json({error: 'unexpected-error'}, {status: 500});
   }

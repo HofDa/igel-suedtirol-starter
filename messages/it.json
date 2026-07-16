@@ -180,6 +180,7 @@
       "title": "Grazie per la segnalazione!",
       "text": "L’osservazione è stata registrata con il codice {id}.",
       "demo": "Modalità demo: la segnalazione non è stata salvata permanentemente.",
+      "photoFailed": "La segnalazione è stata salvata, ma la foto non è stata caricata.",
       "another": "Nuova segnalazione",
       "map": "Vedi mappa"
     }
