@@ -15,7 +15,7 @@ const icons: Record<(typeof observationTypes)[number], string> = {
 
 export function ObservationTypeStep() {
   const t = useTranslations('report');
-  const {register, watch} = useFormContext<ReportFormValues>();
+  const {register, watch, formState: {errors}} = useFormContext<ReportFormValues>();
   const value = watch('observationType');
 
   return (
@@ -30,6 +30,9 @@ export function ObservationTypeStep() {
           </label>
         ))}
       </div>
+      {errors.observationType && (
+        <p className="mt-3 text-sm font-bold text-red-700" role="alert">{t('validation.observationType')}</p>
+      )}
       {value === 'injured' && (
         <p className="mt-5 rounded-xl border border-red-700/20 bg-red-50 p-4 font-semibold text-red-900">{t('steps.type.injuredNotice')}</p>
       )}

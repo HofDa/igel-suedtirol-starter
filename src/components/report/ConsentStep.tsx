@@ -21,6 +21,7 @@ export function ConsentStep() {
         <label className="font-bold">
           {t('steps.consent.email')}
           <input type="email" {...register('reporterEmail')} className="mt-2 min-h-12 w-full rounded-xl border border-emerald-950/20 bg-white px-4" />
+          {errors.reporterEmail && <span className="mt-1 block text-sm text-red-700">{t('validation.email')}</span>}
         </label>
       </div>
       <label className="mt-6 flex items-start gap-3 rounded-xl border border-emerald-950/10 bg-white p-4 font-semibold">

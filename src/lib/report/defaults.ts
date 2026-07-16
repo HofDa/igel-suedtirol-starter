@@ -7,7 +7,8 @@ export function createDefaultReportValues(locale: Locale): ReportFormValues {
   const time = now.toTimeString().slice(0, 5);
 
   return {
-    observationType: 'alive',
+    // Bewusst keine Vorauswahl: die Beobachtungsart muss aktiv gewählt werden.
+    observationType: undefined as unknown as ReportFormValues['observationType'],
     latitude: 46.5,
     longitude: 11.35,
     locationSource: 'map',

@@ -77,7 +77,7 @@ export function ReportWizard() {
   };
 
   async function next() {
-    const valid = await methods.trigger(stepFields[step]);
+    const valid = await methods.trigger(stepFields[step], {shouldFocus: true});
     if (valid) setStep((value) => Math.min(value + 1, totalSteps));
   }
 

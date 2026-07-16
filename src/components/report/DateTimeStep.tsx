@@ -6,7 +6,7 @@ import type {ReportFormValues} from '@/lib/report/schema';
 
 export function DateTimeStep() {
   const t = useTranslations('report');
-  const {register, watch} = useFormContext<ReportFormValues>();
+  const {register, watch, formState: {errors}} = useFormContext<ReportFormValues>();
   const unknown = watch('timeUnknown');
 
   return (
@@ -16,6 +16,7 @@ export function DateTimeStep() {
         <label className="font-bold">
           {t('steps.time.date')}
           <input type="date" {...register('observedDate')} className="mt-2 min-h-12 w-full rounded-xl border border-emerald-950/20 bg-white px-4" />
+          {errors.observedDate && <span className="mt-1 block text-sm text-red-700">{t('validation.date')}</span>}
         </label>
         <label className="font-bold">
           {t('steps.time.time')}
