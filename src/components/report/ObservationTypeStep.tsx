@@ -1,18 +1,18 @@
 'use client';
 
-import {ArrowRight} from 'lucide-react';
+import {ArrowRight, Bandage, CircleHelp, HeartPulse, PawPrint, Skull, type LucideIcon} from 'lucide-react';
 import {useTranslations} from 'next-intl';
 import {useFormContext} from 'react-hook-form';
 import {Link} from '@/i18n/navigation';
 import type {ReportFormValues} from '@/lib/report/schema';
 import {observationTypes} from '@/lib/report/schema';
 
-const icons: Record<(typeof observationTypes)[number], string> = {
-  alive: '🦔',
-  injured: '⚠️',
-  dead: '✚',
-  trace: '👣',
-  uncertain: '❓'
+const icons: Record<(typeof observationTypes)[number], LucideIcon> = {
+  alive: HeartPulse,
+  injured: Bandage,
+  dead: Skull,
+  trace: PawPrint,
+  uncertain: CircleHelp
 };
 
 export function ObservationTypeStep() {
@@ -24,13 +24,16 @@ export function ObservationTypeStep() {
     <fieldset>
       <legend className="text-2xl font-black text-emerald-950">{t('steps.type.title')}</legend>
       <div className="mt-6 grid gap-3 sm:grid-cols-2">
-        {observationTypes.map((type) => (
-          <label key={type} className={`flex min-h-20 cursor-pointer items-center gap-4 rounded-2xl border-2 p-4 font-bold transition ${value === type ? 'border-amber-600 bg-amber-50' : 'border-emerald-950/10 bg-white hover:border-emerald-800/30'}`}>
-            <input type="radio" value={type} {...register('observationType')} className="sr-only" />
-            <span className="text-3xl" aria-hidden="true">{icons[type]}</span>
-            {t(`observationTypes.${type}`)}
-          </label>
-        ))}
+        {observationTypes.map((type) => {
+          const Icon = icons[type];
+          return (
+            <label key={type} className={`flex min-h-20 cursor-pointer items-center gap-4 rounded-2xl border-2 p-4 font-bold transition ${value === type ? 'border-amber-600 bg-amber-50' : 'border-emerald-950/10 bg-white hover:border-emerald-800/30'}`}>
+              <input type="radio" value={type} {...register('observationType')} className="sr-only" />
+              <Icon size={30} className={value === type ? 'text-amber-700' : 'text-emerald-900/60'} aria-hidden="true" />
+              {t(`observationTypes.${type}`)}
+            </label>
+          );
+        })}
       </div>
       {errors.observationType && (
         <p className="mt-3 text-sm font-bold text-red-700" role="alert">{t('validation.observationType')}</p>
