@@ -6,11 +6,11 @@ export async function Footer() {
   const common = await getTranslations('common');
 
   return (
-    <footer className="mt-20 bg-emerald-950 py-12 text-emerald-50">
+    <footer className="mt-20 bg-ink py-12 text-cream">
       <div className="container-page grid gap-8 md:grid-cols-3">
         <div>
           <p className="text-xl font-black">{common('brand')}</p>
-          <p className="mt-2 max-w-sm text-sm text-emerald-100/80">{t('claim')}</p>
+          <p className="mt-2 max-w-sm text-sm text-cream/80">{t('claim')}</p>
         </div>
         <div className="grid content-start gap-2 text-sm">
           <Link href="/projekt" className="inline-flex min-h-11 items-center hover:underline">{t('project')}</Link>
@@ -19,7 +19,7 @@ export async function Footer() {
           <Link href="/datenschutz" className="inline-flex min-h-11 items-center hover:underline">{t('privacy')}</Link>
           <a href="mailto:projekt@example.org" className="inline-flex min-h-11 items-center hover:underline">{t('contact')}</a>
         </div>
-        <div className="text-sm text-emerald-100/80">
+        <div className="text-sm text-cream/80">
           <p>{t('privacyPlaceholder')}</p>
         </div>
       </div>

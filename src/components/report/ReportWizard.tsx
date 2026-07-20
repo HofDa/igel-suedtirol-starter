@@ -75,14 +75,14 @@ export function ReportWizard() {
   if (result) {
     return (
       <div className="card mx-auto max-w-2xl p-8 text-center md:p-12">
-        <CheckCircle2 className="mx-auto text-emerald-700" size={64} aria-hidden="true" />
-        <h2 className="mt-5 text-3xl font-black text-emerald-950">{t('success.title')}</h2>
+        <CheckCircle2 className="mx-auto text-forest" size={64} aria-hidden="true" />
+        <h2 className="mt-5 text-3xl font-black text-ink">{t('success.title')}</h2>
         <p className="mt-3 text-lg">{t('success.text', {id: result.occurrenceId})}</p>
-        {!result.persisted && <p className="mt-5 rounded-xl bg-amber-100 p-4 font-bold text-amber-950">{t('success.demo')}</p>}
-        {!result.photoStored && <p className="mt-5 rounded-xl bg-amber-100 p-4 font-bold text-amber-950">{t('success.photoFailed')}</p>}
+        {!result.persisted && <p className="mt-5 rounded-xl bg-brand-pink/20 p-4 font-bold text-ink">{t('success.demo')}</p>}
+        {!result.photoStored && <p className="mt-5 rounded-xl bg-brand-pink/20 p-4 font-bold text-ink">{t('success.photoFailed')}</p>}
         <div className="mt-8 flex flex-wrap justify-center gap-3">
-          <button type="button" onClick={() => {discardDraft(); setResult(null);}} className="rounded-full bg-emerald-900 px-6 py-3 font-bold text-white">{t('success.another')}</button>
-          <Link href="/karte" className="rounded-full border border-emerald-900 px-6 py-3 font-bold">{t('success.map')}</Link>
+          <button type="button" onClick={() => {discardDraft(); setResult(null);}} className="rounded-full bg-forest-dark px-6 py-3 font-bold text-white">{t('success.another')}</button>
+          <Link href="/karte" className="rounded-full border border-forest-dark px-6 py-3 font-bold">{t('success.map')}</Link>
         </div>
       </div>
     );
@@ -93,11 +93,11 @@ export function ReportWizard() {
       <form onSubmit={methods.handleSubmit(submit)} className="card mx-auto max-w-3xl p-6 md:p-10">
         <ReportProgress current={step} total={REPORT_STEP_COUNT} label={t('progress', {current: step, total: REPORT_STEP_COUNT})} />
         {restoredAt && (
-          <div className="mt-5 flex flex-wrap items-center justify-between gap-3 rounded-xl bg-emerald-50 p-4 text-sm" role="status">
+          <div className="mt-5 flex flex-wrap items-center justify-between gap-3 rounded-xl bg-sand-light p-4 text-sm" role="status">
             <span className="font-semibold">
               {t('draft.restored', {date: new Date(restoredAt).toLocaleDateString(locale)})}
             </span>
-            <button type="button" onClick={discardDraft} className="min-h-11 rounded-full border border-emerald-900 px-4 py-2 font-bold">
+            <button type="button" onClick={discardDraft} className="min-h-11 rounded-full border border-forest-dark px-4 py-2 font-bold">
               {t('draft.discard')}
             </button>
           </div>
@@ -112,16 +112,16 @@ export function ReportWizard() {
           {step === 7 && <ConsentStep />}
         </div>
         {submitError && <p className="mt-5 rounded-xl bg-red-50 p-4 font-bold text-red-800" role="alert">{submitError}</p>}
-        <div className="mt-8 flex items-center justify-between gap-3 border-t border-emerald-950/10 pt-6">
+        <div className="mt-8 flex items-center justify-between gap-3 border-t border-ink/10 pt-6">
           <button type="button" disabled={step === 1 || submitting} onClick={back} className="inline-flex min-h-12 items-center gap-2 rounded-full px-4 font-bold disabled:opacity-30">
             <ArrowLeft aria-hidden="true" /> {t('back')}
           </button>
           {step < REPORT_STEP_COUNT ? (
-            <button type="button" onClick={next} className="inline-flex min-h-12 items-center gap-2 rounded-full bg-emerald-900 px-6 font-bold text-white">
+            <button type="button" onClick={next} className="inline-flex min-h-12 items-center gap-2 rounded-full bg-forest-dark px-6 font-bold text-white">
               {t('next')} <ArrowRight aria-hidden="true" />
             </button>
           ) : (
-            <button type="submit" disabled={submitting} className="inline-flex min-h-12 items-center gap-2 rounded-full bg-amber-600 px-6 font-black text-emerald-950 disabled:opacity-60">
+            <button type="submit" disabled={submitting} className="inline-flex min-h-12 items-center gap-2 rounded-full bg-brand-pink px-6 font-black text-ink disabled:opacity-60">
               {submitting && <Loader2 className="animate-spin" aria-hidden="true" />}
               {t('submit')}
             </button>

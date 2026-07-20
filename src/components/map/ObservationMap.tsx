@@ -67,7 +67,7 @@ export function ObservationMap() {
         type: 'circle',
         source: 'sightings',
         filter: ['has', 'point_count'],
-        paint: {'circle-color': '#d78b35', 'circle-radius': ['step', ['get', 'point_count'], 17, 10, 23, 50, 30], 'circle-stroke-color': '#ffffff', 'circle-stroke-width': 2}
+        paint: {'circle-color': '#fb8cdb', 'circle-radius': ['step', ['get', 'point_count'], 17, 10, 23, 50, 30], 'circle-stroke-color': '#ffffff', 'circle-stroke-width': 2}
       });
       map.addLayer({
         id: 'cluster-count',
@@ -81,7 +81,7 @@ export function ObservationMap() {
         type: 'circle',
         source: 'sightings',
         filter: ['!', ['has', 'point_count']],
-        paint: {'circle-color': '#234936', 'circle-radius': 8, 'circle-stroke-color': '#ffffff', 'circle-stroke-width': 2}
+        paint: {'circle-color': '#146600', 'circle-radius': 8, 'circle-stroke-color': '#ffffff', 'circle-stroke-width': 2}
       });
       map.on('click', 'clusters', (event) => {
         const feature = event.features?.[0];
@@ -124,16 +124,16 @@ export function ObservationMap() {
   return (
     <div>
       <div className="relative">
-        <div ref={container} className="h-[420px] overflow-hidden rounded-3xl border border-emerald-950/15 bg-emerald-50 md:h-[520px]" aria-label={t('ariaLabel')} />
+        <div ref={container} className="h-[420px] overflow-hidden rounded-3xl border border-ink/15 bg-sand-light md:h-[520px]" aria-label={t('ariaLabel')} />
         {loading && (
-          <div className="absolute inset-0 flex items-center justify-center rounded-3xl bg-emerald-50/70" role="status">
-            <span className="inline-flex items-center gap-2 rounded-full bg-white px-5 py-3 font-bold text-emerald-950 shadow">
+          <div className="absolute inset-0 flex items-center justify-center rounded-3xl bg-sand-light/70" role="status">
+            <span className="inline-flex items-center gap-2 rounded-full bg-white px-5 py-3 font-bold text-ink shadow">
               <Loader2 className="animate-spin" size={18} aria-hidden="true" /> {t('loading')}
             </span>
           </div>
         )}
         {!loading && error && (
-          <div className="absolute inset-x-4 top-4 rounded-xl bg-amber-100 p-4 font-semibold shadow" role="alert">{t('loadError')}</div>
+          <div className="absolute inset-x-4 top-4 rounded-xl bg-brand-pink/20 p-4 font-semibold shadow" role="alert">{t('loadError')}</div>
         )}
         {!loading && !error && sightings.length === 0 && (
           <div className="absolute inset-x-4 top-4 rounded-xl bg-white/95 p-4 font-semibold shadow" role="status">{t('empty')}</div>
@@ -143,7 +143,7 @@ export function ObservationMap() {
         <strong>{t('listTitle')}</strong>
         {listed.length > 0 && (
           <>
-            <p className="mt-1 text-sm text-emerald-950/65">{t('listCount', {shown: listed.length, total: sightings.length})}</p>
+            <p className="mt-1 text-sm text-ink/65">{t('listCount', {shown: listed.length, total: sightings.length})}</p>
             <ul className="mt-2 grid gap-2 sm:grid-cols-2">
               {listed.map((sighting) => (
                 <li key={sighting.id} className="rounded-xl bg-white p-3 text-sm">

@@ -18,8 +18,8 @@ export async function GET(_request: Request, {params}: Props) {
     lang: locale,
     start_url: `/${locale}`,
     display: 'standalone',
-    background_color: '#f7f4ec',
-    theme_color: '#234936',
+    background_color: '#f6faf2',
+    theme_color: '#146600',
     icons: [
       {src: '/icons/icon-192.png', sizes: '192x192', type: 'image/png'},
       {src: '/icons/icon-512.png', sizes: '512x512', type: 'image/png'},

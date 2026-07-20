@@ -2,21 +2,23 @@
 @import 'maplibre-gl/dist/maplibre-gl.css';
 
 /* Markenfarben als Tailwind-Tokens (bg-cream, text-forest, …) statt
-   verstreuter Hex-Werte in den Komponenten. */
+   verstreuter Hex-Werte in den Komponenten.
+   Abgeleitet aus dem b*nature-Logo (Igel-Silhouette): Grün, Igel-Braun, Akzent-Pink. */
 @theme {
-  --color-cream: #f7f4ec;
-  --color-sand: #e8ddc6;
-  --color-sand-light: #efe7d4;
-  --color-forest: #234936;
-  --color-forest-dark: #153326;
-  --color-moss: #6f8b62;
-  --color-brand-amber: #d78b35;
+  --color-cream: #f6faf2;
+  --color-sand: #dceec9;
+  --color-sand-light: #edf7e5;
+  --color-forest: #1ea600;
+  --color-forest-dark: #146600;
+  --color-moss: #5c8f3e;
+  --color-ink: #3e3625;
+  --color-brand-pink: #fb8cdb;
   --color-danger: #b73d32;
 }
 
 :root {
   --background: var(--color-cream);
-  --foreground: #1c2a21;
+  --foreground: var(--color-ink);
 }
 
 * {
@@ -52,7 +54,7 @@ a {
 }
 
 :focus-visible {
-  outline: 3px solid #e59d44;
+  outline: 3px solid var(--color-forest);
   outline-offset: 3px;
 }
 
@@ -62,10 +64,10 @@ a {
 }
 
 .card {
-  border: 1px solid rgb(35 73 54 / 16%);
+  border: 1px solid rgb(62 54 37 / 16%);
   border-radius: 1.25rem;
   background: rgb(255 255 255 / 85%);
-  box-shadow: 0 12px 36px rgb(35 73 54 / 8%);
+  box-shadow: 0 12px 36px rgb(62 54 37 / 8%);
 }
 
 .prose-simple h2 {

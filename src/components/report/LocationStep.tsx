@@ -36,7 +36,7 @@ export function LocationStep() {
     const map = mapRef.current;
     if (!map) return;
     if (!markerRef.current) {
-      const marker = new maplibregl.Marker({draggable: true, color: '#d78b35'});
+      const marker = new maplibregl.Marker({draggable: true, color: '#fb8cdb'});
       marker.setLngLat([lng, lat]).addTo(map);
       marker.on('dragend', () => {
         const position = marker.getLngLat();
@@ -98,31 +98,31 @@ export function LocationStep() {
 
   return (
     <div>
-      <h2 className="text-2xl font-black text-emerald-950">{t('steps.location.title')}</h2>
-      <p className="mt-2 text-emerald-950/70">{t('steps.location.text')}</p>
-      <button type="button" onClick={locate} className="mt-6 inline-flex min-h-12 items-center gap-2 rounded-full bg-emerald-900 px-5 font-bold text-white">
+      <h2 className="text-2xl font-black text-ink">{t('steps.location.title')}</h2>
+      <p className="mt-2 text-ink/70">{t('steps.location.text')}</p>
+      <button type="button" onClick={locate} className="mt-6 inline-flex min-h-12 items-center gap-2 rounded-full bg-forest-dark px-5 font-bold text-white">
         <LocateFixed aria-hidden="true" /> {t('steps.location.button')}
       </button>
       {status && <p className="mt-3 text-sm font-semibold" role="status">{status}</p>}
       <div
         ref={container}
-        className="mt-5 h-64 overflow-hidden rounded-2xl border border-emerald-950/15 bg-emerald-50 md:h-80"
+        className="mt-5 h-64 overflow-hidden rounded-2xl border border-ink/15 bg-sand-light md:h-80"
         aria-label={t('steps.location.mapAria')}
       />
-      <p className="mt-2 text-sm text-emerald-950/65">{t('steps.location.mapHint')}</p>
+      <p className="mt-2 text-sm text-ink/65">{t('steps.location.mapHint')}</p>
       <div className="mt-6 grid gap-4 sm:grid-cols-2">
         <label className="font-bold">
           {t('steps.location.latitude')}
-          <input type="number" step="any" {...register('latitude', {valueAsNumber: true})} className="mt-2 min-h-12 w-full rounded-xl border border-emerald-950/20 bg-white px-4" />
+          <input type="number" step="any" {...register('latitude', {valueAsNumber: true})} className="mt-2 min-h-12 w-full rounded-xl border border-ink/20 bg-white px-4" />
           {errors.latitude && <span className="mt-1 block text-sm text-red-700">{t('validation.coordinates')}</span>}
         </label>
         <label className="font-bold">
           {t('steps.location.longitude')}
-          <input type="number" step="any" {...register('longitude', {valueAsNumber: true})} className="mt-2 min-h-12 w-full rounded-xl border border-emerald-950/20 bg-white px-4" />
+          <input type="number" step="any" {...register('longitude', {valueAsNumber: true})} className="mt-2 min-h-12 w-full rounded-xl border border-ink/20 bg-white px-4" />
           {errors.longitude && <span className="mt-1 block text-sm text-red-700">{t('validation.coordinates')}</span>}
         </label>
       </div>
-      <div className="mt-5 rounded-xl bg-emerald-50 p-4 text-sm" aria-live="polite">
+      <div className="mt-5 rounded-xl bg-sand-light p-4 text-sm" aria-live="polite">
         {isFiniteNumber(latitude) && isFiniteNumber(longitude) ? (
           <>
             <strong>{t('steps.location.current')}:</strong> {latitude.toFixed(5)}, {longitude.toFixed(5)}

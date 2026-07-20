@@ -17,8 +17,8 @@ export function InfoPage({eyebrow, title, description, items}: Props) {
         <div className="grid gap-5 md:grid-cols-2">
           {items.map((item) => (
             <article key={item.title} className="card p-7">
-              <h2 className="text-xl font-black text-emerald-950">{item.title}</h2>
-              <p className="mt-3 text-emerald-950/70">{item.text}</p>
+              <h2 className="text-xl font-black text-ink">{item.title}</h2>
+              <p className="mt-3 text-ink/70">{item.text}</p>
             </article>
           ))}
         </div>

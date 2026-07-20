@@ -22,7 +22,7 @@ export function OfflineStatus() {
   if (online) return null;
 
   return (
-    <div className="bg-amber-700 px-4 py-2 text-center text-sm font-bold text-white" role="status">
+    <div className="bg-ink px-4 py-2 text-center text-sm font-bold text-white" role="status">
       <span className="inline-flex items-center gap-2">
         <WifiOff size={17} aria-hidden="true" />
         {t('offline')}

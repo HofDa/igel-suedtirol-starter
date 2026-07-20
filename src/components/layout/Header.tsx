@@ -32,13 +32,13 @@ export function Header() {
   }, [open]);
 
   return (
-    <header className="sticky top-0 z-50 border-b border-emerald-950/10 bg-cream/95 backdrop-blur">
+    <header className="sticky top-0 z-50 border-b border-ink/10 bg-cream/95 backdrop-blur">
       <div className="container-page flex min-h-20 items-center justify-between gap-4">
-        <Link href="/" className="flex items-center gap-3 font-black text-emerald-950">
+        <Link href="/" className="flex items-center gap-3 font-black text-ink">
           <Image src="/logo-hedgehog.svg" alt="" width={52} height={52} priority />
           <span className="leading-tight">
             {common('brand')}
-            <small className="block text-xs font-semibold text-emerald-900/70">{common('organization')}</small>
+            <small className="block text-xs font-semibold text-forest-dark/70">{common('organization')}</small>
           </span>
         </Link>
 
@@ -48,14 +48,14 @@ export function Header() {
               key={key}
               href={href}
               aria-current={pathname === href ? 'page' : undefined}
-              className={`inline-flex min-h-11 items-center text-sm font-semibold hover:text-amber-700 ${pathname === href ? 'text-amber-700 underline underline-offset-8' : ''}`}
+              className={`inline-flex min-h-11 items-center text-sm font-semibold hover:text-forest-dark ${pathname === href ? 'text-forest-dark underline underline-offset-8' : ''}`}
             >
               {t(key)}
             </Link>
           ))}
           <Link
             href="/melden"
-            className="rounded-full bg-emerald-900 px-5 py-3 text-sm font-bold text-white transition hover:bg-emerald-950 active:scale-95"
+            className="rounded-full bg-forest-dark px-5 py-3 text-sm font-bold text-white transition hover:bg-ink active:scale-95"
           >
             {t('report')}
           </Link>
@@ -64,7 +64,7 @@ export function Header() {
 
         <button
           type="button"
-          className="inline-flex min-h-11 min-w-11 items-center justify-center rounded-full border border-emerald-950/15 active:bg-white lg:hidden"
+          className="inline-flex min-h-11 min-w-11 items-center justify-center rounded-full border border-ink/15 active:bg-white lg:hidden"
           aria-label={open ? t('closeMenu') : t('openMenu')}
           aria-expanded={open}
           onClick={() => setOpen((value) => !value)}
@@ -80,7 +80,7 @@ export function Header() {
               key={key}
               href={href}
               aria-current={pathname === href ? 'page' : undefined}
-              className={`rounded-xl px-4 py-3 font-semibold hover:bg-white ${pathname === href ? 'bg-white text-amber-700' : ''}`}
+              className={`rounded-xl px-4 py-3 font-semibold hover:bg-white ${pathname === href ? 'bg-white text-forest-dark' : ''}`}
               onClick={() => setOpen(false)}
             >
               {t(key)}
@@ -88,7 +88,7 @@ export function Header() {
           ))}
           <Link
             href="/melden"
-            className="rounded-xl bg-emerald-900 px-4 py-3 font-bold text-white active:bg-emerald-950"
+            className="rounded-xl bg-forest-dark px-4 py-3 font-bold text-white active:bg-ink"
             onClick={() => setOpen(false)}
           >
             {t('report')}

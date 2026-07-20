@@ -4,7 +4,7 @@ export function ReportProgress({current, total, label}: Props) {
   const percent = Math.round((current / total) * 100);
   return (
     <div>
-      <div className="mb-2 flex justify-between text-sm font-bold text-emerald-950/70">
+      <div className="mb-2 flex justify-between text-sm font-bold text-ink/70">
         <span>{label}</span>
         <span aria-hidden="true">{percent}%</span>
       </div>
@@ -15,9 +15,9 @@ export function ReportProgress({current, total, label}: Props) {
         aria-valuemax={total}
         aria-valuenow={current}
         aria-valuetext={label}
-        className="h-2 overflow-hidden rounded-full bg-emerald-950/10"
+        className="h-2 overflow-hidden rounded-full bg-ink/10"
       >
-        <div className="h-full rounded-full bg-amber-600 transition-all" style={{width: `${percent}%`}} />
+        <div className="h-full rounded-full bg-brand-pink transition-all" style={{width: `${percent}%`}} />
       </div>
     </div>
   );

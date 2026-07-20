@@ -32,11 +32,11 @@ export function LoginForm() {
 
   return (
     <form onSubmit={submit} className="card mx-auto max-w-md p-8">
-      <h1 className="text-2xl font-black text-emerald-950">{t('loginTitle')}</h1>
+      <h1 className="text-2xl font-black text-ink">{t('loginTitle')}</h1>
       <label className="mt-6 block font-bold">{t('email')}<input type="email" value={email} onChange={(event) => setEmail(event.target.value)} className="mt-2 min-h-12 w-full rounded-xl border px-4" required /></label>
       <label className="mt-4 block font-bold">{t('password')}<input type="password" value={password} onChange={(event) => setPassword(event.target.value)} className="mt-2 min-h-12 w-full rounded-xl border px-4" required /></label>
       {error && <p className="mt-4 rounded-xl bg-red-50 p-3 font-bold text-red-800">{error}</p>}
-      <button className="mt-6 min-h-12 w-full rounded-full bg-emerald-900 font-bold text-white">{t('login')}</button>
+      <button className="mt-6 min-h-12 w-full rounded-full bg-forest-dark font-bold text-white">{t('login')}</button>
     </form>
   );
 }

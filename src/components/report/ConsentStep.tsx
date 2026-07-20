@@ -11,27 +11,27 @@ export function ConsentStep() {
 
   return (
     <div>
-      <h2 className="text-2xl font-black text-emerald-950">{t('steps.consent.title')}</h2>
-      <p className="mt-2 text-emerald-950/70">{t('steps.consent.text')}</p>
+      <h2 className="text-2xl font-black text-ink">{t('steps.consent.title')}</h2>
+      <p className="mt-2 text-ink/70">{t('steps.consent.text')}</p>
       <div className="mt-6 grid gap-4 sm:grid-cols-2">
         <label className="font-bold">
           {t('steps.consent.name')}
-          <input type="text" autoComplete="name" {...register('reporterName')} className="mt-2 min-h-12 w-full rounded-xl border border-emerald-950/20 bg-white px-4" />
+          <input type="text" autoComplete="name" {...register('reporterName')} className="mt-2 min-h-12 w-full rounded-xl border border-ink/20 bg-white px-4" />
         </label>
         <label className="font-bold">
           {t('steps.consent.email')}
-          <input type="email" autoComplete="email" inputMode="email" {...register('reporterEmail')} className="mt-2 min-h-12 w-full rounded-xl border border-emerald-950/20 bg-white px-4" />
+          <input type="email" autoComplete="email" inputMode="email" {...register('reporterEmail')} className="mt-2 min-h-12 w-full rounded-xl border border-ink/20 bg-white px-4" />
           {errors.reporterEmail && <span className="mt-1 block text-sm text-red-700">{t('validation.email')}</span>}
         </label>
       </div>
-      <label className="mt-6 flex items-start gap-3 rounded-xl border border-emerald-950/10 bg-white p-4 font-semibold">
+      <label className="mt-6 flex items-start gap-3 rounded-xl border border-ink/10 bg-white p-4 font-semibold">
         <input type="checkbox" {...register('scientificUseConsent')} className="mt-1 h-5 w-5" />
         <span>{t('steps.consent.science')}</span>
       </label>
       {errors.scientificUseConsent && <p className="mt-2 text-sm font-bold text-red-700">{t('validation.consent')}</p>}
       {optionalConsents.map((field) => (
         <div key={field}>
-          <label className="mt-3 flex items-start gap-3 rounded-xl bg-emerald-50 p-4 font-semibold">
+          <label className="mt-3 flex items-start gap-3 rounded-xl bg-sand-light p-4 font-semibold">
             <input type="checkbox" {...register(field)} className="mt-1 h-5 w-5" />
             <span>{t(`steps.consent.${field}`)}</span>
           </label>
@@ -42,7 +42,7 @@ export function ConsentStep() {
       ))}
       <label className="mt-6 block font-bold">
         {t('steps.consent.notes')}
-        <textarea rows={4} {...register('notes')} className="mt-2 w-full rounded-xl border border-emerald-950/20 bg-white p-4" />
+        <textarea rows={4} {...register('notes')} className="mt-2 w-full rounded-xl border border-ink/20 bg-white p-4" />
       </label>
     </div>
   );

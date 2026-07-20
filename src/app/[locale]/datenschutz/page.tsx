@@ -12,7 +12,7 @@ export default async function Page({params}: Props) {
       <PageHero title={t('title')} description={t('description')} />
       <section className="container-page py-14">
         <div className="card max-w-3xl p-7">
-          <p className="font-semibold text-emerald-950/80">{t('pending')}</p>
+          <p className="font-semibold text-ink/80">{t('pending')}</p>
         </div>
       </section>
     </>

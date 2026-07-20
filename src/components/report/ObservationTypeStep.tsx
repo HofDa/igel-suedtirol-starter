@@ -22,14 +22,14 @@ export function ObservationTypeStep() {
 
   return (
     <fieldset>
-      <legend className="text-2xl font-black text-emerald-950">{t('steps.type.title')}</legend>
+      <legend className="text-2xl font-black text-ink">{t('steps.type.title')}</legend>
       <div className="mt-6 grid gap-3 sm:grid-cols-2">
         {observationTypes.map((type) => {
           const Icon = icons[type];
           return (
-            <label key={type} className={`flex min-h-20 cursor-pointer items-center gap-4 rounded-2xl border-2 p-4 font-bold transition ${value === type ? 'border-amber-600 bg-amber-50' : 'border-emerald-950/10 bg-white hover:border-emerald-800/30'}`}>
+            <label key={type} className={`flex min-h-20 cursor-pointer items-center gap-4 rounded-2xl border-2 p-4 font-bold transition ${value === type ? 'border-brand-pink bg-brand-pink/15' : 'border-ink/10 bg-white hover:border-forest-dark/30'}`}>
               <input type="radio" value={type} {...register('observationType')} className="sr-only" />
-              <Icon size={30} className={value === type ? 'text-amber-700' : 'text-emerald-900/60'} aria-hidden="true" />
+              <Icon size={30} className={value === type ? 'text-forest-dark' : 'text-ink/50'} aria-hidden="true" />
               {t(`observationTypes.${type}`)}
             </label>
           );
