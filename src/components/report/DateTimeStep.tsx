@@ -2,31 +2,66 @@
 
 import {useTranslations} from 'next-intl';
 import {useFormContext} from 'react-hook-form';
+import {Button} from '@/components/ui/Button';
+import {ChoiceCard} from '@/components/ui/ChoiceCard';
+import {Field, inputClass} from '@/components/ui/Field';
 import type {ReportDraftValues} from '@/lib/report/schema';
+import {getTodayInProjectTimeZone} from '@/lib/report/date-time';
 
 export function DateTimeStep() {
   const t = useTranslations('report');
-  const {register, watch, formState: {errors}} = useFormContext<ReportDraftValues>();
-  const unknown = watch('timeUnknown');
+  const {
+    register, setValue,
+    watch,
+    formState: {errors}
+  } = useFormContext<ReportDraftValues>();
+  const accuracy = watch('timeAccuracy');
 
   return (
     <div>
-      <h2 className="text-2xl font-black text-ink">{t('steps.time.title')}</h2>
+      <h2 className="text-section font-semibold text-ink">{t('steps.time.title')}</h2>
+      <p className="mt-2 max-w-prose text-ink-dim">{t('steps.time.text')}</p>
+
       <div className="mt-6 grid gap-4 sm:grid-cols-2">
-        <label className="font-bold">
-          {t('steps.time.date')}
-          <input type="date" {...register('observedDate')} className="mt-2 min-h-12 w-full rounded-xl border border-ink/20 bg-white px-4" />
-          {errors.observedDate && <span className="mt-1 block text-sm text-red-700">{t('validation.date')}</span>}
-        </label>
-        <label className="font-bold">
-          {t('steps.time.time')}
-          <input type="time" disabled={unknown} {...register('observedTime')} className="mt-2 min-h-12 w-full rounded-xl border border-ink/20 bg-white px-4 disabled:opacity-50" />
-        </label>
+        <Field label={t('steps.time.date')} error={errors.observedDate && t('validation.date')}>
+          {(field) => (
+            <span className="flex flex-wrap gap-2">
+              <input type="date" max={getTodayInProjectTimeZone()} {...field} {...register('observedDate')} className={inputClass('min-w-48 flex-1')} />
+              <Button tone="outline" size="md" onClick={() => setValue('observedDate', getTodayInProjectTimeZone(), {shouldDirty: true, shouldValidate: true})}>
+                {t('steps.time.today')}
+              </Button>
+            </span>
+          )}
+        </Field>
+        <fieldset>
+          <legend className="font-semibold text-ink">{t('steps.time.accuracy')}</legend>
+          <div className="mt-2 grid gap-2">
+            {(['exact', 'range', 'date_only'] as const).map((value) => (
+              <ChoiceCard key={value} type="radio" compact value={value} label={t(`steps.time.accuracies.${value}`)} {...register('timeAccuracy')} />
+            ))}
+          </div>
+        </fieldset>
+        <Field
+          label={accuracy === 'range' ? t('steps.time.timeFrom') : t('steps.time.time')}
+          hint={accuracy === 'date_only' ? t('steps.time.unknownActive') : undefined}
+          error={errors.observedTimeFrom && t('validation.time')}
+        >
+          {(field) => (
+            <input
+              type="time"
+              disabled={accuracy === 'date_only'}
+              {...field}
+              {...register('observedTimeFrom')}
+              className={inputClass()}
+            />
+          )}
+        </Field>
+        {accuracy === 'range' && (
+          <Field label={t('steps.time.timeTo')} error={errors.observedTimeTo && t('validation.timeRange')}>
+            {(field) => <input type="time" {...field} {...register('observedTimeTo')} className={inputClass()} />}
+          </Field>
+        )}
       </div>
-      <label className="mt-5 flex min-h-11 items-center gap-3 font-semibold">
-        <input type="checkbox" {...register('timeUnknown')} className="h-5 w-5" />
-        {t('steps.time.unknown')}
-      </label>
     </div>
   );
 }

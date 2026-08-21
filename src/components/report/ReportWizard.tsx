@@ -1,68 +1,124 @@
 'use client';
 
-import {zodResolver} from '@hookform/resolvers/zod';
-import {ArrowLeft, ArrowRight, CheckCircle2, Loader2} from 'lucide-react';
-import {useLocale, useTranslations} from 'next-intl';
-import {useMemo, useState} from 'react';
-import {FormProvider, useForm} from 'react-hook-form';
-import type {Locale} from '@/i18n/routing';
-import {createDefaultReportValues} from '@/lib/report/defaults';
-import {reportSchema, type ReportDraftValues, type ReportSubmission} from '@/lib/report/schema';
-import {ObservationTypeStep} from './ObservationTypeStep';
-import {LocationStep} from './LocationStep';
-import {DateTimeStep} from './DateTimeStep';
-import {ConditionStep} from './ConditionStep';
-import {HabitatStep} from './HabitatStep';
-import {PhotoStep} from './PhotoStep';
-import {ConsentStep} from './ConsentStep';
-import {ReportProgress} from './ReportProgress';
-import {Link} from '@/i18n/navigation';
-import {useReportDraft} from './useReportDraft';
-import {REPORT_STEP_COUNT, useReportNavigation} from './useReportNavigation';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { ArrowLeft, ArrowRight, CheckCircle2, Loader2, Send } from 'lucide-react';
+import { useLocale, useTranslations } from 'next-intl';
+import { useMemo, useState } from 'react';
+import { FormProvider, useForm } from 'react-hook-form';
+import type { Locale } from '@/i18n/routing';
+import { Link } from '@/i18n/navigation';
+import { Alert } from '@/components/ui/Alert';
+import { Button, buttonClass } from '@/components/ui/Button';
+import { Panel } from '@/components/ui/Panel';
+import { Readout } from '@/components/ui/Readout';
+import { publicEnv } from '@/lib/env';
+import { createDefaultReportValues } from '@/lib/report/defaults';
+import { reportSchema, type ReportDraftValues, type ReportSubmission } from '@/lib/report/schema';
+import { ObservationTypeStep } from './ObservationTypeStep';
+import { LocationStep } from './LocationStep';
+import { DateTimeStep } from './DateTimeStep';
+import { AnimalStep } from './AnimalStep';
+import { BehaviorStep } from './BehaviorStep';
+import { ReporterStep } from './ReporterStep';
+import { HabitatStep } from './HabitatStep';
+import { PhotoStep } from './PhotoStep';
+import { ConsentStep } from './ConsentStep';
+import { StepTransport } from './StepTransport';
+import { useReportDraft } from './useReportDraft';
+import {
+  OBSERVATION_REPORT_STEPS,
+  ROADKILL_REPORT_STEPS,
+  useReportNavigation,
+} from './useReportNavigation';
 
-export function ReportWizard() {
+export function ReportWizard({ mode = 'observation' }: { mode?: 'observation' | 'roadkill' }) {
   const locale = useLocale() as Locale;
   const t = useTranslations('report');
-  const defaults = useMemo(() => createDefaultReportValues(locale), [locale]);
+  const defaults = useMemo(() => createDefaultReportValues(locale, mode), [locale, mode]);
+  const steps = mode === 'roadkill' ? ROADKILL_REPORT_STEPS : OBSERVATION_REPORT_STEPS;
   const methods = useForm<ReportDraftValues, unknown, ReportSubmission>({
     resolver: zodResolver(reportSchema),
     defaultValues: defaults,
-    mode: 'onTouched'
+    mode: 'onTouched',
   });
-  const [file, setFile] = useState<File>();
+  const [files, setFiles] = useState<File[]>([]);
   const [submitting, setSubmitting] = useState(false);
-  const [result, setResult] = useState<{occurrenceId: string; persisted: boolean; photoStored: boolean} | null>(null);
+  const [result, setResult] = useState<{
+    occurrenceId: string;
+    persisted: boolean;
+    mediaStored: boolean;
+  } | null>(null);
   const [submitError, setSubmitError] = useState<string>();
-  const {step, stepContainer, next, back, restoreStep, resetStep} = useReportNavigation(methods);
-  const {restoredAt, discard, finalize} = useReportDraft({methods, defaults, locale, step, restoreStep, resetStep});
+  const { step, stepContainer, next, back, goTo, restoreStep, resetStep } = useReportNavigation(
+    methods,
+    steps,
+  );
+  const { restoredAt, mediaDraftError, discard, finalize } = useReportDraft({
+    methods,
+    defaults,
+    locale,
+    step,
+    restoreStep,
+    resetStep,
+    files,
+    restoreFiles: setFiles,
+  });
 
   function discardDraft() {
     discard().catch(() => undefined);
-    setFile(undefined);
+    setFiles([]);
   }
 
   async function submit(values: ReportSubmission) {
     setSubmitting(true);
     setSubmitError(undefined);
     try {
-      const body = new FormData();
-      body.set('payload', JSON.stringify(values));
-      if (file) body.set('photo', file);
-      const response = await fetch('/api/sightings', {method: 'POST', body});
-      const data = await response.json();
-      if (!response.ok) {
-        const messageKey = data.error === 'rate-limit-exceeded'
-          ? 'rateLimitError'
-          : ['request-too-large', 'file-too-large'].includes(data.error)
-            ? 'requestTooLargeError'
-            : 'submitError';
-        setSubmitError(t(messageKey));
+      if (files.length > 0 && !values.scientificMediaUseApproved) {
+        methods.setError('scientificMediaUseApproved', { type: 'manual' });
+        setSubmitError(t('mediaConsentError'));
+        return;
+      }
+      type SubmissionResponse =
+        | {
+            occurrenceId: string;
+            persisted: boolean;
+            mediaStored?: boolean;
+            photoStored?: boolean;
+          }
+        | { error?: string };
+      let data: SubmissionResponse;
+      if (publicEnv.staticExport) {
+        data = {
+          occurrenceId: `DEMO-${values.clientSubmissionId}`,
+          persisted: false,
+          mediaStored: true,
+        };
+      } else {
+        const body = new FormData();
+        body.set('payload', JSON.stringify(values));
+        files.forEach((file) => body.append('media', file));
+        const response = await fetch('/api/sightings', { method: 'POST', body });
+        data = (await response.json()) as SubmissionResponse;
+        if (!response.ok) {
+          const error = 'error' in data ? data.error : undefined;
+          const messageKey =
+            error === 'rate-limit-exceeded'
+              ? 'rateLimitError'
+              : error && ['request-too-large', 'file-too-large'].includes(error)
+                ? 'requestTooLargeError'
+                : 'submitError';
+          setSubmitError(t(messageKey));
+          return;
+        }
+      }
+      if (!('occurrenceId' in data)) {
+        setSubmitError(t('submitError'));
         return;
       }
       setResult({
         occurrenceId: data.occurrenceId,
         persisted: Boolean(data.persisted),
-        photoStored: data.photoStored !== false
+        mediaStored: data.mediaStored !== false && data.photoStored !== false,
       });
       await finalize();
     } catch {
@@ -74,59 +130,117 @@ export function ReportWizard() {
 
   if (result) {
     return (
-      <div className="card mx-auto max-w-2xl p-8 text-center md:p-12">
-        <CheckCircle2 className="mx-auto text-forest" size={64} aria-hidden="true" />
-        <h2 className="mt-5 text-3xl font-black text-ink">{t('success.title')}</h2>
-        <p className="mt-3 text-lg">{t('success.text', {id: result.occurrenceId})}</p>
-        {!result.persisted && <p className="mt-5 rounded-xl bg-brand-pink/20 p-4 font-bold text-ink">{t('success.demo')}</p>}
-        {!result.photoStored && <p className="mt-5 rounded-xl bg-brand-pink/20 p-4 font-bold text-ink">{t('success.photoFailed')}</p>}
-        <div className="mt-8 flex flex-wrap justify-center gap-3">
-          <button type="button" onClick={() => {discardDraft(); setResult(null);}} className="rounded-full bg-forest-dark px-6 py-3 font-bold text-white">{t('success.another')}</button>
-          <Link href="/karte" className="rounded-full border border-forest-dark px-6 py-3 font-bold">{t('success.map')}</Link>
+      <Panel className="mx-auto max-w-2xl p-8 text-center md:p-12">
+        <CheckCircle2 className="mx-auto text-success" size={48} aria-hidden="true" />
+        <h2 className="mt-5 text-display font-semibold text-ink">{t('success.title')}</h2>
+        <p className="mx-auto mt-3 max-w-prose text-lead text-ink-dim">{t('success.text')}</p>
+
+        <div className="mt-6 inline-flex flex-col items-center gap-1 rounded-panel border border-line bg-well px-5 py-3">
+          <Readout label={t('success.occurrenceId')}>{result.occurrenceId}</Readout>
         </div>
-      </div>
+
+        <div className="mt-6 grid gap-3 text-left">
+          {!result.persisted && <Alert tone="provisional">{t('success.demo')}</Alert>}
+          {!result.mediaStored && <Alert tone="danger">{t('success.mediaFailed')}</Alert>}
+        </div>
+
+        <div className="mt-8 flex flex-wrap justify-center gap-3">
+          <Button
+            onClick={() => {
+              discardDraft();
+              setResult(null);
+            }}
+          >
+            {t('success.another')}
+          </Button>
+          <Link href="/karte" className={buttonClass('outline')}>
+            {t('success.map')}
+          </Link>
+        </div>
+      </Panel>
     );
   }
 
+  const isLastStep = step === steps.length;
+  const currentStep = steps[step - 1];
+
   return (
     <FormProvider {...methods}>
-      <form onSubmit={methods.handleSubmit(submit)} className="card mx-auto max-w-3xl p-6 md:p-10">
-        <ReportProgress current={step} total={REPORT_STEP_COUNT} label={t('progress', {current: step, total: REPORT_STEP_COUNT})} />
-        {restoredAt && (
-          <div className="mt-5 flex flex-wrap items-center justify-between gap-3 rounded-xl bg-sand-light p-4 text-sm" role="status">
-            <span className="font-semibold">
-              {t('draft.restored', {date: new Date(restoredAt).toLocaleDateString(locale)})}
-            </span>
-            <button type="button" onClick={discardDraft} className="min-h-11 rounded-full border border-forest-dark px-4 py-2 font-bold">
-              {t('draft.discard')}
-            </button>
-          </div>
-        )}
-        <div ref={stepContainer} className="mt-9 min-h-[340px] scroll-mt-28">
-          {step === 1 && <ObservationTypeStep />}
-          {step === 2 && <LocationStep />}
-          {step === 3 && <DateTimeStep />}
-          {step === 4 && <ConditionStep />}
-          {step === 5 && <HabitatStep />}
-          {step === 6 && <PhotoStep file={file} onFile={setFile} />}
-          {step === 7 && <ConsentStep />}
-        </div>
-        {submitError && <p className="mt-5 rounded-xl bg-red-50 p-4 font-bold text-red-800" role="alert">{submitError}</p>}
-        <div className="mt-8 flex items-center justify-between gap-3 border-t border-ink/10 pt-6">
-          <button type="button" disabled={step === 1 || submitting} onClick={back} className="inline-flex min-h-12 items-center gap-2 rounded-full px-4 font-bold disabled:opacity-30">
-            <ArrowLeft aria-hidden="true" /> {t('back')}
-          </button>
-          {step < REPORT_STEP_COUNT ? (
-            <button type="button" onClick={next} className="inline-flex min-h-12 items-center gap-2 rounded-full bg-forest-dark px-6 font-bold text-white">
-              {t('next')} <ArrowRight aria-hidden="true" />
-            </button>
-          ) : (
-            <button type="submit" disabled={submitting} className="inline-flex min-h-12 items-center gap-2 rounded-full bg-brand-pink px-6 font-black text-ink disabled:opacity-60">
-              {submitting && <Loader2 className="animate-spin" aria-hidden="true" />}
-              {t('submit')}
-            </button>
+      <form onSubmit={methods.handleSubmit(submit)} noValidate>
+        <Panel className="mx-auto max-w-3xl p-6 md:p-10">
+          <StepTransport current={step} steps={steps} />
+
+          {restoredAt && (
+            <Alert
+              tone="note"
+              live="status"
+              className="mt-5"
+              action={
+                <Button tone="outline" size="md" onClick={discardDraft}>
+                  {t('draft.discard')}
+                </Button>
+              }
+            >
+              {t('draft.restored', { date: new Date(restoredAt).toLocaleDateString(locale) })}
+            </Alert>
           )}
-        </div>
+
+          {mediaDraftError && (
+            <Alert tone="provisional" live="status" className="mt-5">
+              {t('draft.mediaNotSaved')}
+            </Alert>
+          )}
+
+          {/* Der einzige inszenierte Bewegungsmoment: der Lichtkegel wandert
+              auf den neuen Schritt. Inhalt ist dabei nie unsichtbar. */}
+          <div key={step} ref={stepContainer} className="step-in mt-8 scroll-mt-24">
+            {currentStep.key === 'type' && <ObservationTypeStep />}
+            {currentStep.key === 'time' && <DateTimeStep />}
+            {currentStep.key === 'contact' && <ReporterStep />}
+            {currentStep.key === 'location' && <LocationStep />}
+            {currentStep.key === 'animal' && <AnimalStep roadkill={mode === 'roadkill'} />}
+            {currentStep.key === 'behavior' && <BehaviorStep />}
+            {currentStep.key === 'habitat' && <HabitatStep />}
+            {currentStep.key === 'media' && <PhotoStep files={files} onFiles={setFiles} />}
+            {currentStep.key === 'consent' && (
+              <ConsentStep files={files} steps={steps} onGoTo={goTo} />
+            )}
+          </div>
+
+          {submitError && (
+            <Alert tone="danger" live="alert" className="mt-6">
+              {submitError}
+            </Alert>
+          )}
+
+          <div className="mt-8 flex items-center justify-between gap-3 border-t border-line pt-6">
+            <Button tone="quiet" onClick={back} disabled={step === 1 || submitting}>
+              <ArrowLeft size={18} aria-hidden="true" /> {t('back')}
+            </Button>
+
+            <div className="flex items-center gap-2">
+              {currentStep.optional && !isLastStep && (
+                <Button tone="quiet" onClick={next}>
+                  {t('skip')}
+                </Button>
+              )}
+              {isLastStep ? (
+                <Button as="button" type="submit" size="lg" disabled={submitting}>
+                  {submitting ? (
+                    <Loader2 size={18} className="animate-spin" aria-hidden="true" />
+                  ) : (
+                    <Send size={18} aria-hidden="true" />
+                  )}
+                  {t('submit')}
+                </Button>
+              ) : (
+                <Button onClick={next}>
+                  {t('next')} <ArrowRight size={18} aria-hidden="true" />
+                </Button>
+              )}
+            </div>
+          </div>
+        </Panel>
       </form>
     </FormProvider>
   );

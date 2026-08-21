@@ -10,6 +10,18 @@ export const routing = defineRouting({
       de: '/melden',
       it: '/segnala'
     },
+    '/melden/beobachtung': {
+      de: '/melden/beobachtung',
+      it: '/segnala/osservazione'
+    },
+    '/melden/strassenopfer': {
+      de: '/melden/strassenopfer',
+      it: '/segnala/vittima-della-strada'
+    },
+    '/melden/strassenabschnitt': {
+      de: '/melden/strassenabschnitt',
+      it: '/segnala/tratto-stradale'
+    },
     '/karte': {
       de: '/karte',
       it: '/mappa'
@@ -34,6 +46,10 @@ export const routing = defineRouting({
       de: '/projekt',
       it: '/progetto'
     },
+    '/ueber-uns': {
+      de: '/ueber-uns',
+      it: '/chi-siamo'
+    },
     '/impressum': {
       de: '/impressum',
       it: '/note-legali'
@@ -48,6 +64,10 @@ export const routing = defineRouting({
     '/admin/meldungen': {
       de: '/admin/meldungen',
       it: '/admin/segnalazioni'
+    },
+    '/admin/strassenabschnitte': {
+      de: '/admin/strassenabschnitte',
+      it: '/admin/tratti-stradali'
     }
   }
 });

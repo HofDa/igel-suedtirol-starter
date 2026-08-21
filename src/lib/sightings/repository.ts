@@ -4,7 +4,7 @@ import {createPublicClient} from '@/lib/supabase/public';
 import type {ReportSubmission} from '@/lib/report/schema';
 import type {PublicSighting} from '@/types/sighting';
 import {toPublicSighting, toReporterContact, toSightingInsert} from './mappers';
-import {storeSightingPhoto} from './media';
+import {storeSightingMedia} from './media';
 
 type RepositoryResult<T> = {success: true; data: T} | {success: false; error: string};
 
@@ -36,9 +36,9 @@ export async function listPublishedSightings(): Promise<RepositoryResult<PublicS
   }
 }
 
-type CreatedSighting = {occurrenceId: string; photoStored: boolean};
+type CreatedSighting = {occurrenceId: string; mediaStored: boolean};
 
-export async function createSighting(values: ReportSubmission, sourceHash: string, photo?: File): Promise<RepositoryResult<CreatedSighting>> {
+export async function createSighting(values: ReportSubmission, sourceHash: string, media: File[] = []): Promise<RepositoryResult<CreatedSighting>> {
   const client = getAdminClient();
   if (!client.success) return client;
 
@@ -54,7 +54,10 @@ export async function createSighting(values: ReportSubmission, sourceHash: strin
   if (sightingError?.message.includes('rate_limit_exceeded')) return {success: false, error: 'rate-limit-exceeded'};
   if (sightingError || !sighting) return {success: false, error: 'database-insert-failed'};
 
-  const photoStored = photo ? await storeSightingPhoto(client.data, sighting.id, photo) : true;
+  const mediaStored = media.length > 0 ? await storeSightingMedia(client.data, sighting.id, media, {
+    scientificUseApproved: values.scientificMediaUseApproved,
+    publicUseApproved: values.publicMediaUseApproved
+  }) : true;
 
-  return {success: true, data: {occurrenceId: sighting.occurrence_id, photoStored}};
+  return {success: true, data: {occurrenceId: sighting.occurrence_id, mediaStored}};
 }

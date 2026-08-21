@@ -14,7 +14,20 @@
     "report": "Segnala un riccio",
     "openMenu": "Apri menu",
     "closeMenu": "Chiudi menu",
-    "switchLanguage": "Cambia lingua"
+    "switchLanguage": "Cambia lingua",
+    "languageCompact": {
+      "de": "DE",
+      "it": "IT"
+    },
+    "languageAria": {
+      "de": "Passa al tedesco",
+      "it": "Passa all'italiano"
+    },
+    "reportHelp": "Segnala e SOS",
+    "knowledge": "Conoscere il riccio",
+    "participate": "Partecipa",
+    "mapResults": "Mappa e dati",
+    "about": "Chi siamo"
   },
   "footer": {
     "claim": "Osservare i ricci, riconoscere i pericoli e migliorare gli habitat.",
@@ -23,50 +36,108 @@
     "imprint": "Note legali",
     "privacy": "Privacy",
     "contact": "Contatto",
-    "privacyPlaceholder": "Privacy e note legali devono essere completate prima della pubblicazione."
+    "privacyPlaceholder": "Privacy e note legali devono essere completate prima della pubblicazione.",
+    "navLabel": "Navigazione a piè di pagina"
   },
   "system": {
     "offline": "Sei offline. La bozza viene salvata sul dispositivo."
   },
   "home": {
-    "eyebrow": "Citizen science in Alto Adige",
     "title": "Hai visto un riccio?",
     "intro": "Segnala l’osservazione e aiutaci a capire meglio distribuzione, pericoli e habitat dei ricci in Alto Adige.",
     "reportButton": "Segnala un riccio",
     "helpButton": "Il riccio ha bisogno di aiuto",
-    "cardTitle": "Ogni osservazione conta",
-    "cardText": "Anche animali morti, tracce e osservazioni incerte forniscono informazioni importanti.",
+    "science": {
+      "title": "Hai osservato un riccio?",
+      "text": "Segnala un avvistamento, una vittima della strada o un tratto stradale problematico per il nostro progetto di citizen science.",
+      "action": "Segnala osservazione"
+    },
+    "help": {
+      "title": "Il riccio ha bisogno di aiuto?",
+      "text": "Qui trovi la guida SOS e i contatti confermati dalla redazione.",
+      "action": "Apri il pronto aiuto"
+    },
     "stats": {
       "sightings": "ricci segnalati",
       "municipalities": "comuni",
       "roadkills": "vittime del traffico",
-      "demoNote": "Valori di esempio a scopo illustrativo: i dati reali appariranno dopo l’avvio del progetto."
+      "demoNote": "Valori di esempio a scopo illustrativo: i dati reali appariranno dopo l’avvio del progetto.",
+      "title": "Stato del progetto"
     },
-    "features": {
-      "mapTitle": "Mappare insieme",
-      "mapText": "I punti oscurati mostrano dove arrivano segnalazioni senza rivelare luoghi privati.",
-      "protectTitle": "Riconoscere i pericoli",
-      "protectText": "Le segnalazioni su strade, robot rasaerba e barriere aiutano a pianificare misure mirate.",
-      "scienceTitle": "Dati affidabili",
-      "scienceText": "Validazione, incertezze e monitoraggi standardizzati rendono utili i dati di citizen science."
+    "timeHint": "Bastano circa 60 secondi. Senza registrazione.",
+    "path": {
+      "title": "Che cosa succede alla tua segnalazione",
+      "report": {
+        "title": "Tu segnali",
+        "text": "Sette passaggi brevi, anche senza connessione. Le segnalazioni iniziate restano salvate sul tuo dispositivo."
+      },
+      "check": {
+        "title": "Gli esperti verificano",
+        "text": "Ogni segnalazione viene esaminata. Fino alla verifica resta visibile come non confermata."
+      },
+      "use": {
+        "title": "Segue la tutela",
+        "text": "Dalle segnalazioni verificate nascono analisi su punti pericolosi, habitat e distribuzione."
+      }
+    },
+    "privacyNote": {
+      "title": "Il tuo giardino resta il tuo spazio.",
+      "text": "Sulla mappa pubblica mostriamo solo un'area approssimativa di 500 metri, mai il luogo esatto."
     }
   },
   "reportPage": {
-    "eyebrow": "In circa 60 secondi",
     "title": "Segnala un’osservazione",
     "description": "Il modulo è pensato per smartphone, salva bozze offline e raccoglie solo dati utili al progetto."
   },
+  "reportChoice": {
+    "title": "Segnalazioni e aiuto",
+    "description": "Scegli innanzitutto di che cosa si tratta. Segnalazioni scientifiche e aiuto urgente restano chiaramente separati.",
+    "observation": {
+      "title": "Segnala un’osservazione",
+      "text": "Documenta un riccio vivo, ferito o incerto, oppure delle tracce.",
+      "action": "Inizia l’osservazione"
+    },
+    "roadkill": {
+      "title": "Segnala una vittima della strada",
+      "text": "Registra con un percorso abbreviato un riccio morto trovato sulla strada o accanto ad essa.",
+      "action": "Segnala vittima"
+    },
+    "roadHazard": {
+      "title": "Segnala un tratto stradale problematico",
+      "text": "Segnala un punto pericoloso anche se in quel momento non hai osservato un riccio.",
+      "action": "Segnala il tratto"
+    },
+    "help": {
+      "title": "Il riccio ha bisogno di aiuto",
+      "text": "Apri prima l’area SOS separata con indicazioni e contatti confermati.",
+      "action": "Apri il pronto aiuto"
+    },
+    "scienceNote": "I primi tre percorsi appartengono al progetto di citizen science. L’area SOS non invia alcuna segnalazione scientifica."
+  },
+  "observationReportPage": {
+    "title": "Segnala un’osservazione",
+    "description": "Il modulo scientifico salva la bozza offline e separa i contatti dai dati dell’osservazione."
+  },
+  "roadkillReportPage": {
+    "title": "Segnala una vittima della strada",
+    "description": "Questo percorso abbreviato raccoglie solo i dati rilevanti per le vittime della strada."
+  },
+  "roadHazardPage": {
+    "title": "Segnala un tratto stradale problematico",
+    "description": "Questa segnalazione descrive un punto pericoloso, non una singola osservazione di riccio."
+  },
   "report": {
-    "progress": "Passo {current} di {total}",
     "back": "Indietro",
     "next": "Avanti",
     "submit": "Invia segnalazione",
     "submitError": "La segnalazione non è stata inviata. La bozza resta salvata sul dispositivo.",
     "rateLimitError": "Da questa connessione sono state inviate troppe segnalazioni. Riprova più tardi; la bozza resta salvata.",
     "requestTooLargeError": "La segnalazione è troppo grande per l’invio. Rimuovi la foto o scegli un file più piccolo.",
+    "mediaConsentError": "Autorizza l’uso tecnico e scientifico dei media selezionati oppure rimuovili.",
     "draft": {
       "restored": "La bozza del {date} è stata ripristinata. Puoi continuare o ricominciare.",
-      "discard": "Ricomincia"
+      "discard": "Ricomincia",
+      "mediaNotSaved": "I dati del modulo sono salvati offline, ma i file multimediali non hanno potuto essere conservati in modo affidabile su questo dispositivo. Non lasciare la pagina prima dell’invio."
     },
     "observationTypes": {
       "alive": "Riccio vivo",
@@ -78,6 +149,18 @@
     "behaviors": {
       "moving": "in movimento",
       "foraging": "alla ricerca di cibo",
+      "feeding": "mentre mangia",
+      "road_crossing": "attraversamento della strada",
+      "sleeping": "dormiva",
+      "curled_up": "raggomitolato",
+      "interacting": "interazione con altri animali",
+      "day_active": "attivo di giorno",
+      "lethargic": "letargico",
+      "disoriented": "disorientato",
+      "visibly_injured": "visibilmente ferito",
+      "fleeing": "in fuga",
+      "unknown": "non noto",
+      "other": "altro comportamento",
       "roadCrossing": "attraversava la strada",
       "resting": "a riposo",
       "dayActive": "attivo di giorno",
@@ -89,14 +172,21 @@
     "habitats": {
       "private_garden": "Giardino privato",
       "settlement": "Paese o zona abitata",
+      "settlement_edge": "Margine dell’abitato",
       "public_park": "Parco pubblico",
+      "agricultural_area": "Area agricola",
       "road": "Strada",
       "parking_area": "Parcheggio",
       "orchard": "Frutteto",
       "vineyard": "Vigneto",
+      "meadow_or_pasture": "Prato o pascolo",
       "meadow": "Prato",
       "forest_edge": "Margine del bosco",
       "forest": "Bosco",
+      "forest_edge_or_hedge": "Margine del bosco o siepe",
+      "wetland_or_water_edge": "Zona umida o riva",
+      "road_outside_settlement": "Strada fuori dall’abitato",
+      "industrial_area": "Zona industriale o artigianale",
       "water_edge": "Vicino all’acqua",
       "other": "Altro",
       "unknown": "Non noto"
@@ -108,13 +198,27 @@
       "poolOrShaftNearby": "Piscina o pozzetto",
       "gardenPassagePresent": "Passaggio tra giardini",
       "shelterPresent": "Foglie, ramaglie o rifugio",
-      "waterSourcePresent": "Punto d’acqua"
+      "waterSourcePresent": "Punto d’acqua",
+      "artificialLightingNearby": "Illuminazione artificiale vicina",
+      "dogOrCatNearby": "Cane o gatto vicino"
+    },
+    "ageClasses": {
+      "adult": "adulto",
+      "young_of_year": "giovane dell’anno",
+      "unknown": "non noto"
+    },
+    "sexes": {
+      "female": "femmina",
+      "male": "maschio",
+      "unknown": "non noto"
     },
     "steps": {
       "type": {
         "title": "Che cosa hai visto?",
-        "injuredNotice": "La segnalazione non sostituisce il soccorso. Metti prima in sicurezza la situazione e usa i contatti verificati nella pagina di aiuto.",
-        "injuredLink": "Vai alla pagina di aiuto"
+        "injuredNotice": "Questo modulo serve alla raccolta scientifica e non è sorvegliato costantemente. Se il riccio ha bisogno di aiuto, apri prima la guida SOS.",
+        "injuredLink": "Apri la guida SOS",
+        "label": "Avvistamento",
+        "text": "Scegli l'opzione più vicina. Anche gli avvistamenti incerti sono benvenuti."
       },
       "location": {
         "title": "Dove è avvenuta l’osservazione?",
@@ -129,24 +233,106 @@
         "unsupported": "Il dispositivo non supporta la geolocalizzazione.",
         "locating": "Rilevamento in corso…",
         "success": "Posizione acquisita.",
-        "failed": "Impossibile rilevare la posizione. Inserisci le coordinate manualmente."
+        "failed": "Impossibile rilevare la posizione. Inserisci le coordinate manualmente.",
+        "label": "Luogo",
+        "accuracy": "Precisione",
+        "sources": {
+          "gps": "GPS",
+          "map": "Mappa",
+          "address": "Indirizzo"
+        },
+        "manualToggle": "Inserire le coordinate manualmente",
+        "privacy": "Il punto esatto resta interno. Pubblicamente compare solo la cella della griglia di 500 metri in cui ricade.",
+        "municipality": "Comune",
+        "municipalityPlaceholder": "Seleziona il comune",
+        "locality": "Località o toponimo",
+        "addressOrPlace": "Luogo del ritrovamento, indirizzo o indicazione"
       },
       "time": {
         "title": "Quando è avvenuta?",
         "date": "Data",
         "time": "Ora",
-        "unknown": "Ora non nota"
+        "unknown": "Ora non nota",
+        "label": "Momento",
+        "text": "Se non ricordi con precisione, basta la data.",
+        "unknownActive": "Verrà salvato senza l'orario.",
+        "today": "Oggi",
+        "accuracy": "Quanto conosci precisamente l’orario?",
+        "accuracies": {
+          "exact": "Orario preciso",
+          "range": "Intervallo di tempo",
+          "date_only": "Orario sconosciuto"
+        },
+        "timeFrom": "Dalle",
+        "timeTo": "Alle"
+      },
+      "contact": {
+        "title": "Chi segnala il ritrovamento?",
+        "label": "Contatto",
+        "text": "Nome e almeno un recapito aiutano in caso di domande tecniche.",
+        "privacy": "Questi dati sono conservati separatamente in reporter_contacts e non compaiono mai nei dati pubblici.",
+        "firstName": "Nome",
+        "lastName": "Cognome",
+        "email": "E-mail",
+        "phone": "Numero di telefono",
+        "preferred": "Contatto preferito",
+        "preferredOptions": {
+          "email": "E-mail",
+          "phone": "Telefono",
+          "either": "Entrambi"
+        }
+      },
+      "animal": {
+        "title": "Informazioni sull’animale",
+        "roadkillTitle": "Informazioni sulla vittima della strada",
+        "label": "Animale",
+        "text": "Il numero è obbligatorio. Età e sesso possono restare sconosciuti.",
+        "roadkillText": "Indica strada, posizione e numero. Età e sesso restano automaticamente sconosciuti.",
+        "count": "Numero di ricci",
+        "decrease": "Riduci il numero",
+        "increase": "Aumenta il numero",
+        "vitalStatus": "L’animale era vivo o morto?",
+        "vitalStatuses": {
+          "alive": "vivo",
+          "dead": "morto",
+          "unknown": "non noto"
+        },
+        "age": "Classe d’età",
+        "sex": "Sesso",
+        "roadName": "Strada o nome della strada",
+        "roadPosition": "Posizione",
+        "roadPositions": {
+          "carriageway": "Carreggiata",
+          "roadside": "Bordo strada",
+          "embankment": "Scarpata",
+          "unknown": "non noto"
+        }
+      },
+      "behavior": {
+        "title": "Comportamento",
+        "label": "Comportamento",
+        "text": "Seleziona soltanto ciò che hai potuto osservare.",
+        "legend": "Comportamento osservato",
+        "hint": "Sono possibili più scelte; «non noto» è un dato valido.",
+        "other": "Altro comportamento"
       },
       "condition": {
         "title": "Condizione e comportamento",
         "count": "Numero di ricci",
         "decrease": "Riduci il numero",
         "increase": "Aumenta il numero",
-        "behavior": "Che cosa hai osservato? Sono possibili più risposte."
+        "behavior": "Che cosa hai osservato?",
+        "label": "Condizione",
+        "text": "Queste indicazioni aiutano la valutazione, ma sono facoltative.",
+        "behaviorHint": "Selezione multipla possibile."
       },
       "habitat": {
         "title": "Com’era l’ambiente?",
-        "features": "Che cosa si trovava nelle immediate vicinanze?"
+        "features": "Che cosa si trovava nelle immediate vicinanze?",
+        "label": "Ambiente",
+        "text": "Anche indicazioni approssimative sono utili.",
+        "surroundings": "Dove si trovava il riccio?",
+        "featuresHint": "Selezione multipla possibile."
       },
       "photo": {
         "title": "Hai una foto?",
@@ -157,47 +343,168 @@
         "formats": "JPG, PNG, WebP o HEIC, massimo 8 MB.",
         "tooLarge": "La foto supera gli 8 MB. Scegli un’immagine più piccola.",
         "previewAlt": "Anteprima della foto selezionata",
-        "welfare": "Non toccare, spostare o disturbare l’animale per fare una foto."
+        "welfare": "Non toccare, spostare o disturbare l’animale per fare una foto.",
+        "label": "Foto",
+        "fileSize": "{size} MB"
+      },
+      "media": {
+        "title": "Foto e video",
+        "label": "Media",
+        "text": "Fino a tre file aiutano la verifica tecnica, ma sono facoltativi.",
+        "camera": "Apri fotocamera",
+        "choose": "Scegli file",
+        "remove": "Rimuovi",
+        "removePosition": "Rimuovi il file {position}",
+        "formats": "Immagini fino a 8 MB, video fino a 25 MB; massimo tre file.",
+        "tooMany": "Sono consentiti al massimo tre file.",
+        "tooLarge": "Almeno un file supera la dimensione consentita.",
+        "unsupported": "Almeno un tipo di file non è supportato.",
+        "previewAlt": "Anteprima del file {position}",
+        "fileMeta": "Posizione {position} · {size} MB",
+        "privacy": "I media sono conservati privatamente e non vengono pubblicati senza approvazione. I metadati delle immagini vengono rimossi sul server."
       },
       "consent": {
         "title": "Contatto e consenso",
-        "text": "Nome ed e-mail sono facoltativi e vengono conservati separatamente dai dati dell’osservazione.",
-        "name": "Nome, facoltativo",
-        "email": "E-mail, facoltativa",
-        "science": "Acconsento all’uso scientifico dell’osservazione. Campo obbligatorio.",
+        "text": "Controlla i dati, aggiungi eventualmente una nota e scegli i consensi separati.",
+        "name": "Nome",
+        "email": "E-mail",
+        "science": "Acconsento all'uso scientifico di questo avvistamento.",
         "contactConsent": "Posso essere contattato per domande tecniche.",
         "photoPublicationConsent": "La foto può essere pubblicata dopo la verifica.",
         "newsletterConsent": "Desidero ricevere informazioni separate sul progetto.",
-        "notes": "Note aggiuntive, facoltative"
+        "privacyNoticeConsent": "Ho letto l’informativa sulla privacy.",
+        "scientificMediaUseApproved": "I miei media possono essere usati per la verifica tecnica e il lavoro scientifico del progetto.",
+        "scientificMediaHint": "Necessario quando vengono inviati file.",
+        "publicMediaUseApproved": "I miei media possono essere usati volontariamente sul sito, nei rapporti e nella comunicazione pubblica.",
+        "publicMediaHint": "Facoltativo e non necessario per la segnalazione.",
+        "notes": "Osservazione aggiuntiva",
+        "label": "Conclusione",
+        "contactLegend": "Contatto",
+        "contactHint": "Viene conservato separatamente dall'avvistamento e usato solo per chiarimenti tecnici.",
+        "permissionsLegend": "Consensi",
+        "scienceHint": "Necessario per poter utilizzare l'avvistamento.",
+        "notesHint": "Ad esempio circostanze particolari oppure osservazioni prima e dopo."
       }
     },
     "validation": {
       "observationType": "Seleziona che cosa hai visto.",
       "coordinates": "Inserisci coordinate plausibili in Alto Adige.",
       "date": "Indica la data dell’osservazione.",
+      "timeRange": "L’ora finale deve essere successiva a quella iniziale.",
+      "firstName": "Inserisci il nome.",
+      "lastName": "Inserisci il cognome.",
+      "contact": "Inserisci almeno un’e-mail valida o un numero di telefono.",
+      "preferredContact": "Il contatto preferito deve corrispondere ai dati inseriti.",
+      "municipality": "Seleziona un comune dell’Alto Adige.",
+      "count": "Il numero deve essere un intero compreso tra 1 e 20.",
+      "habitat": "Seleziona un habitat; «non noto» è consentito.",
+      "roadName": "Indica la strada o il nome della strada.",
       "email": "Inserisci un indirizzo e-mail valido oppure lascia il campo vuoto.",
       "consent": "Questo consenso è necessario per inviare la segnalazione.",
-      "contactConsent": "Se fornisci i tuoi dati, autorizza il progetto a contattarti."
+      "contactConsent": "Se fornisci i tuoi dati, autorizza il progetto a contattarti.",
+      "time": "Inserisci un orario valido oppure seleziona «Orario non noto»."
     },
     "success": {
-      "title": "Grazie per la segnalazione!",
-      "text": "L’osservazione è stata registrata con il codice {id}.",
+      "title": "Grazie per la tua segnalazione!",
+      "text": "Il tuo avvistamento è stato ricevuto.",
       "demo": "Modalità demo: la segnalazione non è stata salvata permanentemente.",
       "photoFailed": "La segnalazione è stata salvata, ma la foto non è stata caricata.",
+      "mediaFailed": "La segnalazione è stata salvata, ma almeno un file non è stato trasferito in modo sicuro.",
       "another": "Nuova segnalazione",
-      "map": "Vedi mappa"
+      "map": "Vedi mappa",
+      "occurrenceId": "Numero di riferimento"
+    },
+    "progressLabel": "Avanzamento della segnalazione",
+    "stepCounter": "Passaggio {current} di {total}",
+    "stepJump": "Passaggio {position} di {total}: {name}",
+    "optional": "facoltativo",
+    "skip": "Salta",
+    "summary": {
+      "title": "Questo verrà inviato",
+      "type": "Avvistamento",
+      "location": "Luogo",
+      "time": "Momento",
+      "contact": "Contatto",
+      "animal": "Animale",
+      "condition": "Condizione",
+      "habitat": "Ambiente",
+      "photo": "Foto",
+      "media": "Media",
+      "countValue": "{count, plural, one {# riccio} other {# ricci}}",
+      "mediaCount": "{count, plural, one {# file} other {# file}}",
+      "noMedia": "nessun file",
+      "conditionValue": "{count, plural, one {# riccio} other {# ricci}} · {behaviors, plural, =0 {nessun comportamento indicato} one {# indicazione sul comportamento} other {# indicazioni sul comportamento}}",
+      "featureCount": "{count, plural, one {# caratteristica} other {# caratteristiche}}",
+      "noPhoto": "nessuna foto",
+      "missing": "ancora da indicare",
+      "edit": "Modifica"
     }
   },
   "mapPage": {
-    "eyebrow": "Osservazioni pubbliche",
     "title": "Mappa dei ricci",
-    "description": "La mappa mostra solo segnalazioni approvate e spazialmente oscurate."
+    "description": "La mappa mostra solo segnalazioni approvate e spazialmente oscurate.",
+    "resultsLink": "Vedi le analisi"
+  },
+  "roadHazard": {
+    "locationTitle": "Dove si trova il tratto problematico?",
+    "locationText": "Il punto esatto resta interno; pubblicamente viene sfocato di 500 metri.",
+    "municipality": "Comune",
+    "municipalityPlaceholder": "Seleziona il comune",
+    "roadName": "Strada o nome della strada",
+    "locality": "Località o toponimo",
+    "optional": "facoltativo",
+    "useLocation": "Usa la posizione attuale",
+    "latitude": "Coordinata nord",
+    "longitude": "Coordinata est",
+    "locationUnsupported": "Questo dispositivo non supporta la geolocalizzazione.",
+    "locating": "Rilevamento in corso…",
+    "locationSuccess": "Posizione acquisita.",
+    "locationFailed": "Impossibile rilevare la posizione. Inserisci le coordinate manualmente.",
+    "coordinatesError": "Inserisci coordinate comprese nell’Alto Adige.",
+    "hazardsTitle": "Quali pericoli sono presenti?",
+    "hazardsError": "Seleziona almeno un tipo di pericolo.",
+    "types": {
+      "frequent_hedgehog_crossings": "Frequenti attraversamenti di ricci",
+      "multiple_roadkills": "Più vittime della strada",
+      "high_vehicle_speed": "Velocità elevata dei veicoli",
+      "barrier_or_wall": "Barriera o muro",
+      "missing_passage": "Passaggio mancante",
+      "poor_visibility": "Scarsa visibilità",
+      "road_drain_or_shaft": "Caditoia o pozzetto stradale",
+      "other": "Altro pericolo"
+    },
+    "description": "Descrizione",
+    "contactTitle": "Osservatore e contatto",
+    "privacy": "I contatti sono conservati separatamente dal tratto stradale e non appaiono mai pubblicamente.",
+    "firstName": "Nome",
+    "lastName": "Cognome",
+    "email": "E-mail",
+    "phone": "Numero di telefono",
+    "preferred": "Contatto preferito",
+    "preferredOptions": {
+      "email": "E-mail",
+      "phone": "Telefono",
+      "either": "Entrambi"
+    },
+    "scienceConsent": "Acconsento al trattamento e all’uso scientifico della segnalazione.",
+    "privacyConsent": "Ho letto l’informativa sulla privacy.",
+    "validation": "Compila questo campo obbligatorio.",
+    "contactError": "Inserisci almeno un’e-mail valida o un numero di telefono.",
+    "submit": "Segnala il tratto stradale",
+    "submitError": "Non è stato possibile inviare la segnalazione. Riprova.",
+    "successTitle": "Grazie per la segnalazione!",
+    "successText": "Il tratto stradale è stato registrato con il numero {number}.",
+    "demoNotice": "Modalità demo: la segnalazione non è stata salvata permanentemente."
   },
   "map": {
     "ariaLabel": "Mappa delle osservazioni di ricci",
+    "mapTitle": "Osservazioni approvate",
+    "mapHint": "Ingrandisci o sposta la mappa per esplorare l’Alto Adige.",
+    "resetView": "Reimposta vista",
     "loading": "Caricamento delle segnalazioni…",
     "empty": "Non ci sono ancora segnalazioni approvate.",
     "loadError": "Impossibile caricare i dati della mappa.",
+    "retry": "Ricarica",
     "listTitle": "Segnalazioni recenti",
     "listCount": "Le {shown} segnalazioni più recenti su {total}",
     "unknownMunicipality": "Comune non noto",
@@ -208,10 +515,16 @@
       "dead": "Riccio morto",
       "trace": "Traccia",
       "uncertain": "Segnalazione incerta"
-    }
+    },
+    "legend": {
+      "cluster": "Segnalazioni raggruppate",
+      "cell": "Cella della griglia di {metres} m di una segnalazione",
+      "note": "Da uno zoom medio viene mostrata la cella anziché un punto."
+    },
+    "listEmpty": "Nessuna segnalazione nell'elenco.",
+    "attribution": "Mappa di base: Provincia autonoma di Bolzano – Alto Adige (Geocatalogo), dati aperti"
   },
   "hedgehogPage": {
-    "eyebrow": "Conoscere la specie",
     "title": "Il riccio in Alto Adige",
     "description": "Introduzione a biologia, ciclo annuale e habitat.",
     "items": [
@@ -234,7 +547,6 @@
     ]
   },
   "protectionPage": {
-    "eyebrow": "Misure concrete",
     "title": "Proteggere i ricci",
     "description": "Piccoli cambiamenti in giardini e insediamenti possono avere grande effetto.",
     "items": [
@@ -257,30 +569,31 @@
     ]
   },
   "helpPage": {
-    "eyebrow": "Prima il benessere animale",
     "title": "Hai trovato un riccio?",
-    "description": "Questa pagina è una struttura redazionale. Contatti e istruzioni devono essere verificati prima della pubblicazione.",
-    "items": [
-      {
-        "title": "Ferita acuta",
-        "text": "Mettere l’animale al sicuro, ridurre lo stress e contattare una struttura ufficialmente competente. Non curarlo autonomamente."
-      },
-      {
-        "title": "Riccio di giorno",
-        "text": "L’attività diurna da sola non prova un’emergenza. Vanno valutati comportamento, ferite, stagione e condizione corporea."
-      },
-      {
-        "title": "Vittima del traffico",
-        "text": "Segnalare ricci morti e feriti. In presenza di pericolo stradale usare i canali ufficiali previsti."
-      },
-      {
-        "title": "Giovane riccio",
-        "text": "Non raccoglierlo subito. Osservazione e consulenza evitano separazioni inutili dalla madre o dall’habitat."
-      }
-    ]
+    "description": "Aiuto urgente e segnalazione scientifica sono separati. Controlla prima i segnali visibili e usa soltanto contatti confermati.",
+    "decisionTitle": "Quando un riccio potrebbe aver bisogno di aiuto immediato?",
+    "decisionText": "Se riconosci uno di questi segnali, usa i contatti confermati. Il modulo del progetto non è sorvegliato costantemente.",
+    "signs": [
+      "animale chiaramente ferito",
+      "animale sdraiato su un fianco",
+      "sanguinamento o ferita aperta",
+      "animale incastrato",
+      "animale quasi non reattivo",
+      "mosche, uova o larve",
+      "possibile incidente con robot rasaerba",
+      "possibile incidente stradale",
+      "giovane riccio",
+      "riccio attivo di giorno"
+    ],
+    "contactsTitle": "Contatti confermati",
+    "contactWebsite": "Apri il sito",
+    "developmentPlaceholder": "Segnaposto redazionale: non sono ancora configurati contatti di aiuto verificati. Questo avviso appare solo in modalità sviluppo.",
+    "notMonitored": "Questa pagina non effettua chiamate di emergenza e non invia segnalazioni scientifiche.",
+    "scienceTitle": "Documentare anche il ritrovamento?",
+    "scienceText": "Vuoi documentare il ritrovamento anche per il progetto di citizen science? È facoltativo e viene proposto soltanto dopo le informazioni di aiuto.",
+    "scienceAction": "Apri la segnalazione scientifica"
   },
   "resultsPage": {
-    "eyebrow": "Scienza trasparente",
     "title": "Risultati",
     "description": "Qui nasceranno mappe, rapporti annuali e analisi prudenti.",
     "items": [
@@ -300,12 +613,17 @@
         "title": "Metodo aperto",
         "text": "Regole di validazione, lacune e distorsioni saranno pubblicate con i risultati."
       }
-    ]
+    ],
+    "mapLink": "Alla mappa dei ricci"
   },
   "projectPage": {
-    "eyebrow": "b*nature Citizen Science",
     "title": "Il progetto",
     "description": "La piattaforma unisce osservazione locale, protezione dei ricci e dati sulla biodiversità.",
+    "inaturalist": {
+      "title": "In alternativa tramite iNaturalist",
+      "text": "Usi già iNaturalist? Puoi documentare l’osservazione anche lì. Alcuni dati specifici del progetto, come habitat, attività e comportamento, potrebbero non essere raccolti.",
+      "action": "Apri il progetto iNaturalist"
+    },
     "items": [
       {
         "title": "Obiettivo",
@@ -325,6 +643,28 @@
       }
     ]
   },
+  "aboutPage": {
+    "title": "Chi siamo",
+    "description": "Team, partner e informazioni legali del progetto.",
+    "items": [
+      {
+        "title": "Team e partner",
+        "text": "I partecipanti e i partner scientifici saranno presentati qui dalla redazione."
+      },
+      {
+        "title": "Contatto",
+        "text": "I contatti generali del progetto saranno aggiunti prima della pubblicazione."
+      },
+      {
+        "title": "Privacy",
+        "text": "I contatti restano separati; le posizioni pubbliche vengono sfocate di 500 metri."
+      },
+      {
+        "title": "Note legali",
+        "text": "Le informazioni sul gestore e gli aspetti legali saranno verificati dalla redazione."
+      }
+    ]
+  },
   "imprintPage": {
     "title": "Note legali",
     "description": "Informazioni sul gestore e indicazioni legali del progetto.",
@@ -340,7 +680,6 @@
     "description": "I contenuti già aperti e il modulo restano parzialmente disponibili. La bozza viene salvata localmente."
   },
   "admin": {
-    "eyebrow": "Moderazione",
     "title": "Dashboard del progetto",
     "openReports": "Apri segnalazioni",
     "starterNotice": "L’interfaccia amministrativa è intenzionalmente un punto di partenza. Ruoli, mutazioni e audit trail sono documentati come attività prioritarie.",
@@ -357,6 +696,54 @@
     "loginFailed": "Accesso non riuscito.",
     "notConfigured": "Supabase non è configurato.",
     "reportsTitle": "Segnalazioni",
+    "roadHazardQueue": "Coda dei tratti stradali",
+    "roadHazardDemoNotice": "Dati dimostrativi della coda separata per i tratti stradali.",
+    "loadError": "Non è stato possibile caricare i dati di moderazione.",
+    "filterKind": "Tipo di segnalazione",
+    "applyFilter": "Applica filtro",
+    "kinds": {
+      "all": "Tutte",
+      "observation": "Osservazione normale",
+      "roadkill": "Vittima della strada",
+      "road_hazard": "Tratto stradale"
+    },
+    "observedDate": "Data osservazione",
+    "createdDate": "Data inserimento",
+    "time": "Orario",
+    "age": "Età",
+    "sex": "Sesso",
+    "habitat": "Habitat",
+    "behavior": "Comportamento",
+    "media": "Media approvati/totali",
+    "mediaPosition": "File {position}",
+    "approved": "approvato",
+    "notApproved": "non approvato",
+    "noPublicConsent": "nessun consenso per l’uso pubblico",
+    "approveMedia": "Approva",
+    "revokeApproval": "Revoca approvazione",
+    "noMedia": "nessun media",
+    "contact": "Nome e contatto",
+    "noContact": "nessun contatto disponibile",
+    "unknown": "non noto",
+    "roadName": "Strada",
+    "hazards": "Pericoli",
+    "hazardDemo": "Attraversamenti frequenti",
+    "demoRoadName": "Strada demo",
+    "contactRoleNotice": "Nomi e contatti vengono caricati nella vista dettagliata soltanto per i ruoli autorizzati. I media sono approvati singolarmente e le modifiche di stato restano nella cronologia di moderazione.",
+    "reportValues": {
+      "adult": "adulto",
+      "unknown": "non noto",
+      "female": "femmina",
+      "male": "maschio"
+    },
+    "reportHabitats": {
+      "private_garden": "Giardino privato",
+      "road_outside_settlement": "Strada fuori dall’abitato"
+    },
+    "reportBehaviors": {
+      "moving": "in movimento",
+      "unknown": "non noto"
+    },
     "id": "ID",
     "municipality": "Comune",
     "type": "Tipo",
@@ -369,7 +756,8 @@
       "new": "nuovo",
       "in_review": "in verifica",
       "validated": "convalidato"
-    }
+    },
+    "reportsDemoNote": "Righe di esempio dell'impalcatura – non ancora segnalazioni reali."
   },
   "common": {
     "brand": "Ricci dell’Alto Adige",

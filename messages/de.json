@@ -14,7 +14,20 @@
     "report": "Igel melden",
     "openMenu": "Menü öffnen",
     "closeMenu": "Menü schließen",
-    "switchLanguage": "Sprache wechseln"
+    "switchLanguage": "Sprache wechseln",
+    "languageCompact": {
+      "de": "DE",
+      "it": "IT"
+    },
+    "languageAria": {
+      "de": "Deutsch auswählen",
+      "it": "Italienisch auswählen"
+    },
+    "reportHelp": "Melden & Hilfe",
+    "knowledge": "Igelwissen",
+    "participate": "Mitforschen",
+    "mapResults": "Karte & Daten",
+    "about": "Über uns"
   },
   "footer": {
     "claim": "Igel beobachten, Gefahren erkennen und Lebensräume verbessern.",
@@ -23,50 +36,108 @@
     "imprint": "Impressum",
     "privacy": "Datenschutz",
     "contact": "Kontakt",
-    "privacyPlaceholder": "Datenschutz- und Impressumstexte müssen vor Veröffentlichung redaktionell ergänzt werden."
+    "privacyPlaceholder": "Datenschutz- und Impressumstexte müssen vor Veröffentlichung redaktionell ergänzt werden.",
+    "navLabel": "Fußzeilen-Navigation"
   },
   "system": {
     "offline": "Du bist offline. Dein Meldeentwurf wird lokal gespeichert."
   },
   "home": {
-    "eyebrow": "Citizen Science in Südtirol",
     "title": "Hast du einen Igel gesehen?",
     "intro": "Melde deine Beobachtung und hilf mit, Verbreitung, Gefahren und Lebensräume der Igel in Südtirol besser zu verstehen.",
     "reportButton": "Igel melden",
     "helpButton": "Igel braucht Hilfe",
-    "cardTitle": "Jede Beobachtung zählt",
-    "cardText": "Auch tote Tiere, Spuren und unsichere Beobachtungen liefern wichtige Hinweise.",
+    "science": {
+      "title": "Igel beobachtet?",
+      "text": "Melde eine Sichtung, ein Straßenopfer oder einen problematischen Straßenabschnitt für unser Citizen-Science-Projekt.",
+      "action": "Beobachtung melden"
+    },
+    "help": {
+      "title": "Igel braucht Hilfe?",
+      "text": "Hier findest du den SOS-Leitfaden und die redaktionell bestätigten Anlaufstellen.",
+      "action": "Soforthilfe öffnen"
+    },
     "stats": {
       "sightings": "gemeldete Igel",
       "municipalities": "Gemeinden",
       "roadkills": "Verkehrsopfer",
-      "demoNote": "Beispielwerte zur Veranschaulichung – echte Zahlen erscheinen nach Projektstart."
+      "demoNote": "Beispielwerte zur Veranschaulichung – echte Zahlen erscheinen nach Projektstart.",
+      "title": "Stand des Projekts"
     },
-    "features": {
-      "mapTitle": "Gemeinsam kartieren",
-      "mapText": "Verschleierte Fundpunkte zeigen, wo Beobachtungen eingehen, ohne private Standorte offenzulegen.",
-      "protectTitle": "Gefahren erkennen",
-      "protectText": "Meldungen zu Straßen, Mährobotern und Barrieren helfen, Schutzmaßnahmen gezielt zu planen.",
-      "scienceTitle": "Saubere Daten",
-      "scienceText": "Validierung, Unsicherheiten und standardisierte Erhebungen machen Citizen Science wissenschaftlich nutzbar."
+    "timeHint": "Dauert etwa eine Minute. Ohne Anmeldung.",
+    "path": {
+      "title": "Was mit deiner Meldung geschieht",
+      "report": {
+        "title": "Du meldest",
+        "text": "Sieben kurze Schritte, auch ohne Verbindung. Angefangene Meldungen bleiben auf deinem Gerät gespeichert."
+      },
+      "check": {
+        "title": "Fachleute prüfen",
+        "text": "Jede Meldung wird gesichtet. Bis zur Prüfung bleibt sie sichtbar als unbestätigt."
+      },
+      "use": {
+        "title": "Der Schutz folgt",
+        "text": "Aus geprüften Meldungen entstehen Auswertungen zu Gefahrenstellen, Lebensräumen und Verbreitung."
+      }
+    },
+    "privacyNote": {
+      "title": "Dein Garten bleibt dein Garten.",
+      "text": "Auf der öffentlichen Karte zeigen wir nur einen groben Bereich von 500 Metern – niemals den genauen Fundort."
     }
   },
   "reportPage": {
-    "eyebrow": "In etwa 60 Sekunden",
     "title": "Igelbeobachtung melden",
     "description": "Das Formular funktioniert am Smartphone, speichert Entwürfe offline und fragt nur Daten ab, die für das Projekt nützlich sind."
   },
+  "reportChoice": {
+    "title": "Melden & Hilfe",
+    "description": "Wähle zuerst, worum es geht. Wissenschaftliche Meldungen und akute Hilfe sind klar getrennt.",
+    "observation": {
+      "title": "Igelbeobachtung melden",
+      "text": "Dokumentiere einen lebenden, verletzten oder unsicheren Fund sowie Spuren.",
+      "action": "Beobachtung starten"
+    },
+    "roadkill": {
+      "title": "Straßenopfer melden",
+      "text": "Erfasse einen tot auf oder neben einer Straße gefundenen Igel in einem verkürzten Ablauf.",
+      "action": "Straßenopfer melden"
+    },
+    "roadHazard": {
+      "title": "Problematischen Straßenabschnitt melden",
+      "text": "Melde eine Gefahrenstelle auch dann, wenn du dort gerade keinen Igel beobachtet hast.",
+      "action": "Straßenabschnitt melden"
+    },
+    "help": {
+      "title": "Igel braucht Hilfe",
+      "text": "Öffne zuerst den getrennten SOS-Bereich mit Hinweisen und bestätigten Anlaufstellen.",
+      "action": "Soforthilfe öffnen"
+    },
+    "scienceNote": "Die ersten drei Wege gehören zum Citizen-Science-Projekt. Der SOS-Bereich übermittelt keine wissenschaftliche Meldung."
+  },
+  "observationReportPage": {
+    "title": "Igelbeobachtung melden",
+    "description": "Das wissenschaftliche Formular speichert deinen Entwurf offline und trennt Kontaktdaten von Beobachtungsdaten."
+  },
+  "roadkillReportPage": {
+    "title": "Straßenopfer melden",
+    "description": "Dieser verkürzte Ablauf erfasst die für Straßenopfer relevanten Angaben."
+  },
+  "roadHazardPage": {
+    "title": "Problematischen Straßenabschnitt melden",
+    "description": "Diese Meldung beschreibt eine Gefahrenstelle und keine einzelne Igelbeobachtung."
+  },
   "report": {
-    "progress": "Schritt {current} von {total}",
     "back": "Zurück",
     "next": "Weiter",
     "submit": "Meldung abschicken",
     "submitError": "Die Meldung konnte nicht übertragen werden. Dein Entwurf bleibt lokal gespeichert.",
     "rateLimitError": "Von dieser Verbindung wurden zu viele Meldungen gesendet. Bitte versuche es später erneut; dein Entwurf bleibt gespeichert.",
     "requestTooLargeError": "Die Meldung ist für die Übertragung zu groß. Bitte entferne das Foto oder wähle eine kleinere Datei.",
+    "mediaConsentError": "Bitte erlaube die fachliche und wissenschaftliche Nutzung der ausgewählten Medien oder entferne sie.",
     "draft": {
       "restored": "Dein Entwurf vom {date} wurde wiederhergestellt. Du kannst weitermachen oder neu beginnen.",
-      "discard": "Neu beginnen"
+      "discard": "Neu beginnen",
+      "mediaNotSaved": "Die Formulardaten sind offline gespeichert, die ausgewählten Mediendateien konnten auf diesem Gerät jedoch nicht zuverlässig gesichert werden. Bitte verlasse die Seite erst nach dem Absenden."
     },
     "observationTypes": {
       "alive": "Lebender Igel",
@@ -78,6 +149,18 @@
     "behaviors": {
       "moving": "unterwegs",
       "foraging": "Nahrungssuche",
+      "feeding": "fressend",
+      "road_crossing": "Straße überquerend",
+      "sleeping": "schlafend",
+      "curled_up": "zusammengerollt",
+      "interacting": "mit anderen Tieren interagierend",
+      "day_active": "tagsüber aktiv",
+      "lethargic": "teilnahmslos",
+      "disoriented": "orientierungslos",
+      "visibly_injured": "sichtbar verletzt",
+      "fleeing": "flüchtend",
+      "unknown": "nicht bekannt",
+      "other": "anderes Verhalten",
       "roadCrossing": "Straße überquerend",
       "resting": "ruhend",
       "dayActive": "tagsüber aktiv",
@@ -89,14 +172,21 @@
     "habitats": {
       "private_garden": "Privatgarten",
       "settlement": "Dorf oder Siedlung",
+      "settlement_edge": "Siedlungsrand",
       "public_park": "Öffentlicher Park",
+      "agricultural_area": "Landwirtschaftliche Fläche",
       "road": "Straße",
       "parking_area": "Parkplatz",
       "orchard": "Obstbaufläche",
       "vineyard": "Weinbaufläche",
+      "meadow_or_pasture": "Wiese oder Weide",
       "meadow": "Wiese",
       "forest_edge": "Waldrand",
       "forest": "Wald",
+      "forest_edge_or_hedge": "Waldrand oder Hecke",
+      "wetland_or_water_edge": "Feuchtgebiet oder Gewässerrand",
+      "road_outside_settlement": "Straße außerhalb der Siedlung",
+      "industrial_area": "Gewerbe- oder Industriegebiet",
       "water_edge": "Gewässernähe",
       "other": "Sonstiges",
       "unknown": "Nicht bekannt"
@@ -108,13 +198,27 @@
       "poolOrShaftNearby": "Pool oder Schacht",
       "gardenPassagePresent": "Durchgang zwischen Gärten",
       "shelterPresent": "Laub-, Reisig- oder Versteckstruktur",
-      "waterSourcePresent": "Wasserstelle"
+      "waterSourcePresent": "Wasserstelle",
+      "artificialLightingNearby": "Künstliche Beleuchtung in der Nähe",
+      "dogOrCatNearby": "Hund oder Katze in der Nähe"
+    },
+    "ageClasses": {
+      "adult": "erwachsen",
+      "young_of_year": "Jungtier dieses Jahres",
+      "unknown": "nicht bekannt"
+    },
+    "sexes": {
+      "female": "weiblich",
+      "male": "männlich",
+      "unknown": "nicht bekannt"
     },
     "steps": {
       "type": {
         "title": "Was hast du gesehen?",
-        "injuredNotice": "Die Meldung ersetzt keine Hilfeleistung. Sichere zuerst die Situation und nutze die geprüften Kontaktwege auf der Hilfeseite.",
-        "injuredLink": "Zur Hilfeseite"
+        "injuredNotice": "Dieses Formular dient der wissenschaftlichen Erfassung und wird nicht ständig überwacht. Benötigt der Igel Hilfe, öffne bitte zuerst den SOS-Leitfaden.",
+        "injuredLink": "SOS-Leitfaden öffnen",
+        "label": "Beobachtung",
+        "text": "Wähle, was am ehesten zutrifft. Unsichere Beobachtungen sind ausdrücklich erwünscht."
       },
       "location": {
         "title": "Wo war die Beobachtung?",
@@ -129,24 +233,106 @@
         "unsupported": "Dieses Gerät unterstützt keine Standortbestimmung.",
         "locating": "Standort wird bestimmt …",
         "success": "Standort übernommen.",
-        "failed": "Standort konnte nicht bestimmt werden. Bitte Koordinaten manuell setzen."
+        "failed": "Standort konnte nicht bestimmt werden. Bitte Koordinaten manuell setzen.",
+        "label": "Ort",
+        "accuracy": "Genauigkeit",
+        "sources": {
+          "gps": "GPS",
+          "map": "Karte",
+          "address": "Adresse"
+        },
+        "manualToggle": "Koordinaten manuell eingeben",
+        "privacy": "Der genaue Punkt bleibt intern. Öffentlich erscheint nur die 500-Meter-Rasterzelle, in der er liegt.",
+        "municipality": "Gemeinde",
+        "municipalityPlaceholder": "Gemeinde auswählen",
+        "locality": "Ortsteil oder Flurname",
+        "addressOrPlace": "Fundort, Adresse oder nähere Ortsangabe"
       },
       "time": {
         "title": "Wann war die Beobachtung?",
         "date": "Datum",
         "time": "Uhrzeit",
-        "unknown": "Uhrzeit ist nicht bekannt"
+        "unknown": "Uhrzeit ist nicht bekannt",
+        "label": "Zeitpunkt",
+        "text": "Wenn du dich nicht genau erinnerst, reicht das Datum.",
+        "unknownActive": "Wird ohne Uhrzeit gespeichert.",
+        "today": "Heute",
+        "accuracy": "Wie genau kennst du die Uhrzeit?",
+        "accuracies": {
+          "exact": "Genaue Uhrzeit",
+          "range": "Zeitspanne",
+          "date_only": "Uhrzeit unbekannt"
+        },
+        "timeFrom": "Von",
+        "timeTo": "Bis"
+      },
+      "contact": {
+        "title": "Wer meldet den Fund?",
+        "label": "Kontakt",
+        "text": "Name und mindestens eine Kontaktmöglichkeit helfen bei fachlichen Rückfragen.",
+        "privacy": "Diese Angaben werden getrennt von der wissenschaftlichen Meldung in reporter_contacts gespeichert und nie öffentlich ausgegeben.",
+        "firstName": "Vorname",
+        "lastName": "Nachname",
+        "email": "E-Mail",
+        "phone": "Telefonnummer",
+        "preferred": "Bevorzugter Kontaktweg",
+        "preferredOptions": {
+          "email": "E-Mail",
+          "phone": "Telefon",
+          "either": "Beides möglich"
+        }
+      },
+      "animal": {
+        "title": "Angaben zum Tier",
+        "roadkillTitle": "Angaben zum Straßenopfer",
+        "label": "Tier",
+        "text": "Die Anzahl ist verpflichtend. Alter und Geschlecht dürfen unbekannt bleiben.",
+        "roadkillText": "Erfasse Straße, Position und Anzahl. Alter und Geschlecht bleiben automatisch unbekannt.",
+        "count": "Anzahl der Igel",
+        "decrease": "Anzahl verringern",
+        "increase": "Anzahl erhöhen",
+        "vitalStatus": "War das Tier lebend oder tot?",
+        "vitalStatuses": {
+          "alive": "lebend",
+          "dead": "tot",
+          "unknown": "nicht bekannt"
+        },
+        "age": "Altersklasse",
+        "sex": "Geschlecht",
+        "roadName": "Straße oder Straßenname",
+        "roadPosition": "Position",
+        "roadPositions": {
+          "carriageway": "Fahrbahn",
+          "roadside": "Straßenrand",
+          "embankment": "Böschung",
+          "unknown": "nicht bekannt"
+        }
+      },
+      "behavior": {
+        "title": "Verhalten",
+        "label": "Verhalten",
+        "text": "Wähle alles aus, was du tatsächlich beobachten konntest.",
+        "legend": "Beobachtetes Verhalten",
+        "hint": "Mehrfachauswahl möglich; „nicht bekannt“ ist eine gültige Angabe.",
+        "other": "Anderes Verhalten"
       },
       "condition": {
         "title": "Zustand und Verhalten",
         "count": "Anzahl der Igel",
         "decrease": "Anzahl verringern",
         "increase": "Anzahl erhöhen",
-        "behavior": "Was hast du beobachtet? Mehrfachauswahl möglich."
+        "behavior": "Was hast du beobachtet?",
+        "label": "Zustand",
+        "text": "Diese Angaben helfen bei der Einordnung, sind aber freiwillig.",
+        "behaviorHint": "Mehrfachauswahl möglich."
       },
       "habitat": {
         "title": "Wie sah die Umgebung aus?",
-        "features": "Was gab es in unmittelbarer Nähe?"
+        "features": "Was gab es in unmittelbarer Nähe?",
+        "label": "Umgebung",
+        "text": "Auch grobe Angaben sind nützlich.",
+        "surroundings": "Wo war der Igel?",
+        "featuresHint": "Mehrfachauswahl möglich."
       },
       "photo": {
         "title": "Hast du ein Foto?",
@@ -157,47 +343,168 @@
         "formats": "JPG, PNG, WebP oder HEIC, maximal 8 MB.",
         "tooLarge": "Das Foto ist größer als 8 MB. Bitte wähle ein kleineres Bild.",
         "previewAlt": "Vorschau des ausgewählten Fotos",
-        "welfare": "Bitte das Tier nicht anfassen, umsetzen oder für ein Foto bedrängen."
+        "welfare": "Bitte das Tier nicht anfassen, umsetzen oder für ein Foto bedrängen.",
+        "label": "Foto",
+        "fileSize": "{size} MB"
+      },
+      "media": {
+        "title": "Fotos und Videos",
+        "label": "Medien",
+        "text": "Bis zu drei Dateien helfen bei der fachlichen Prüfung, sind aber freiwillig.",
+        "camera": "Kamera öffnen",
+        "choose": "Dateien auswählen",
+        "remove": "Entfernen",
+        "removePosition": "Datei {position} entfernen",
+        "formats": "Bilder bis 8 MB, Videos bis 25 MB; maximal drei Dateien.",
+        "tooMany": "Es sind höchstens drei Dateien erlaubt.",
+        "tooLarge": "Mindestens eine Datei überschreitet die erlaubte Größe.",
+        "unsupported": "Mindestens ein Dateityp wird nicht unterstützt.",
+        "previewAlt": "Vorschau der Datei {position}",
+        "fileMeta": "Position {position} · {size} MB",
+        "privacy": "Medien werden privat gespeichert und nie ohne Freigabe veröffentlicht. Bildmetadaten werden serverseitig entfernt."
       },
       "consent": {
         "title": "Kontakt und Einwilligung",
-        "text": "Name und E-Mail sind freiwillig und werden getrennt von den Beobachtungsdaten gespeichert.",
-        "name": "Name, freiwillig",
-        "email": "E-Mail, freiwillig",
-        "science": "Ich stimme der wissenschaftlichen Nutzung dieser Beobachtung zu. Pflichtfeld.",
+        "text": "Prüfe deine Angaben, ergänze bei Bedarf eine Bemerkung und entscheide über die getrennten Einwilligungen.",
+        "name": "Name",
+        "email": "E-Mail",
+        "science": "Ich stimme der wissenschaftlichen Nutzung dieser Beobachtung zu.",
         "contactConsent": "Ich darf bei fachlichen Rückfragen kontaktiert werden.",
         "photoPublicationConsent": "Mein Foto darf nach Prüfung auf der Projektseite veröffentlicht werden.",
         "newsletterConsent": "Ich möchte getrennte Projektinformationen erhalten.",
-        "notes": "Zusätzliche Beobachtung, freiwillig"
+        "privacyNoticeConsent": "Ich habe die Datenschutzhinweise gelesen.",
+        "scientificMediaUseApproved": "Meine Medien dürfen zur fachlichen Prüfung und wissenschaftlichen Projektarbeit genutzt werden.",
+        "scientificMediaHint": "Erforderlich, wenn Dateien mitgesendet werden.",
+        "publicMediaUseApproved": "Meine Medien dürfen freiwillig auf der Website, in Berichten und in der Öffentlichkeitsarbeit verwendet werden.",
+        "publicMediaHint": "Freiwillig und keine Voraussetzung für die Meldung.",
+        "notes": "Zusätzliche Beobachtung",
+        "label": "Abschluss",
+        "contactLegend": "Kontakt",
+        "contactHint": "Wird getrennt von der Beobachtung gespeichert und nur für fachliche Rückfragen genutzt.",
+        "permissionsLegend": "Einwilligungen",
+        "scienceHint": "Erforderlich, damit die Beobachtung ausgewertet werden darf.",
+        "notesHint": "Zum Beispiel besondere Umstände oder Beobachtungen davor und danach."
       }
     },
     "validation": {
       "observationType": "Bitte wähle aus, was du gesehen hast.",
       "coordinates": "Bitte plausible Koordinaten in Südtirol angeben.",
       "date": "Bitte gib das Datum der Beobachtung an.",
+      "timeRange": "Die Endzeit muss nach der Startzeit liegen.",
+      "firstName": "Bitte gib deinen Vornamen an.",
+      "lastName": "Bitte gib deinen Nachnamen an.",
+      "contact": "Bitte gib mindestens eine gültige E-Mail-Adresse oder Telefonnummer an.",
+      "preferredContact": "Der bevorzugte Kontaktweg muss zu deinen Angaben passen.",
+      "municipality": "Bitte wähle eine Südtiroler Gemeinde aus.",
+      "count": "Die Anzahl muss eine ganze Zahl zwischen 1 und 20 sein.",
+      "habitat": "Bitte wähle einen Lebensraum aus; „nicht bekannt“ ist zulässig.",
+      "roadName": "Bitte gib die Straße oder den Straßennamen an.",
       "email": "Bitte gib eine gültige E-Mail-Adresse an oder lass das Feld leer.",
       "consent": "Diese Einwilligung ist für die Meldung erforderlich.",
-      "contactConsent": "Bitte erlaube die Kontaktaufnahme, wenn du Kontaktdaten angibst."
+      "contactConsent": "Bitte erlaube die Kontaktaufnahme, wenn du Kontaktdaten angibst.",
+      "time": "Bitte gib eine gültige Uhrzeit an oder wähle „Uhrzeit ist nicht bekannt“."
     },
     "success": {
       "title": "Danke für deine Meldung!",
-      "text": "Deine Beobachtung wurde unter {id} erfasst.",
+      "text": "Deine Beobachtung ist eingegangen.",
       "demo": "Demo-Modus: Die Meldung wurde noch nicht dauerhaft in einer Datenbank gespeichert.",
       "photoFailed": "Deine Meldung wurde gespeichert, das Foto konnte aber nicht übertragen werden.",
+      "mediaFailed": "Deine Meldung wurde gespeichert, mindestens eine Mediendatei konnte aber nicht sicher übertragen werden.",
       "another": "Weitere Meldung",
-      "map": "Karte ansehen"
+      "map": "Karte ansehen",
+      "occurrenceId": "Belegnummer"
+    },
+    "progressLabel": "Fortschritt der Meldung",
+    "stepCounter": "Schritt {current} von {total}",
+    "stepJump": "Schritt {position} von {total}: {name}",
+    "optional": "optional",
+    "skip": "Überspringen",
+    "summary": {
+      "title": "Das wird übermittelt",
+      "type": "Beobachtung",
+      "location": "Ort",
+      "time": "Zeitpunkt",
+      "contact": "Kontakt",
+      "animal": "Tier",
+      "condition": "Zustand",
+      "habitat": "Umgebung",
+      "photo": "Foto",
+      "media": "Medien",
+      "countValue": "{count, plural, one {# Igel} other {# Igel}}",
+      "mediaCount": "{count, plural, one {# Datei} other {# Dateien}}",
+      "noMedia": "keine Dateien",
+      "conditionValue": "{count, plural, one {# Igel} other {# Igel}} · {behaviors, plural, =0 {kein Verhalten angegeben} one {# Verhaltensangabe} other {# Verhaltensangaben}}",
+      "featureCount": "{count, plural, one {# Merkmal} other {# Merkmale}}",
+      "noPhoto": "kein Foto",
+      "missing": "noch offen",
+      "edit": "Ändern"
     }
   },
   "mapPage": {
-    "eyebrow": "Öffentliche Beobachtungen",
     "title": "Igelkarte Südtirol",
-    "description": "Die Karte zeigt ausschließlich freigegebene und räumlich verschleierte Meldungen."
+    "description": "Die Karte zeigt ausschließlich freigegebene und räumlich verschleierte Meldungen.",
+    "resultsLink": "Auswertungen ansehen"
+  },
+  "roadHazard": {
+    "locationTitle": "Wo liegt der problematische Abschnitt?",
+    "locationText": "Der genaue Punkt bleibt intern; öffentlich wird er um 500 Meter verschleiert.",
+    "municipality": "Gemeinde",
+    "municipalityPlaceholder": "Gemeinde auswählen",
+    "roadName": "Straße oder Straßenname",
+    "locality": "Ortsteil oder Flurname",
+    "optional": "optional",
+    "useLocation": "Aktuellen Standort übernehmen",
+    "latitude": "Nordkoordinate",
+    "longitude": "Ostkoordinate",
+    "locationUnsupported": "Dieses Gerät unterstützt keine Standortbestimmung.",
+    "locating": "Standort wird bestimmt …",
+    "locationSuccess": "Standort wurde übernommen.",
+    "locationFailed": "Standort konnte nicht bestimmt werden. Bitte Koordinaten manuell eingeben.",
+    "coordinatesError": "Bitte Koordinaten innerhalb Südtirols eingeben.",
+    "hazardsTitle": "Welche Gefahren bestehen?",
+    "hazardsError": "Bitte wähle mindestens eine Gefahrenart.",
+    "types": {
+      "frequent_hedgehog_crossings": "Häufige Igelquerungen",
+      "multiple_roadkills": "Mehrere Straßenopfer",
+      "high_vehicle_speed": "Hohe Fahrzeuggeschwindigkeit",
+      "barrier_or_wall": "Barriere oder Mauer",
+      "missing_passage": "Fehlender Durchlass",
+      "poor_visibility": "Schlechte Sicht",
+      "road_drain_or_shaft": "Straßenablauf oder Schacht",
+      "other": "Andere Gefahr"
+    },
+    "description": "Beschreibung",
+    "contactTitle": "Beobachter und Kontakt",
+    "privacy": "Kontaktdaten werden getrennt vom Straßenabschnitt gespeichert und erscheinen nie öffentlich.",
+    "firstName": "Vorname",
+    "lastName": "Nachname",
+    "email": "E-Mail",
+    "phone": "Telefonnummer",
+    "preferred": "Bevorzugter Kontaktweg",
+    "preferredOptions": {
+      "email": "E-Mail",
+      "phone": "Telefon",
+      "either": "Beides möglich"
+    },
+    "scienceConsent": "Ich stimme der Verarbeitung und wissenschaftlichen Nutzung dieser Meldung zu.",
+    "privacyConsent": "Ich habe die Datenschutzhinweise gelesen.",
+    "validation": "Bitte fülle dieses Pflichtfeld aus.",
+    "contactError": "Bitte gib mindestens eine gültige E-Mail-Adresse oder Telefonnummer an.",
+    "submit": "Straßenabschnitt melden",
+    "submitError": "Die Meldung konnte nicht gesendet werden. Bitte versuche es erneut.",
+    "successTitle": "Danke für deine Meldung!",
+    "successText": "Der Straßenabschnitt wurde unter der Nummer {number} aufgenommen.",
+    "demoNotice": "Demo-Modus: Diese Meldung wurde nicht dauerhaft gespeichert."
   },
   "map": {
     "ariaLabel": "Karte mit Igelbeobachtungen",
+    "mapTitle": "Freigegebene Beobachtungen",
+    "mapHint": "Zoome oder verschiebe die Karte, um Südtirol zu erkunden.",
+    "resetView": "Ansicht zurücksetzen",
     "loading": "Meldungen werden geladen …",
     "empty": "Noch keine freigegebenen Meldungen vorhanden.",
     "loadError": "Die Kartendaten konnten nicht geladen werden.",
+    "retry": "Erneut laden",
     "listTitle": "Aktuelle Meldungen",
     "listCount": "Die {shown} neuesten von insgesamt {total} Meldungen",
     "unknownMunicipality": "Gemeinde unbekannt",
@@ -208,10 +515,16 @@
       "dead": "Toter Igel",
       "trace": "Spur",
       "uncertain": "Unsichere Meldung"
-    }
+    },
+    "legend": {
+      "cluster": "Gebündelte Meldungen",
+      "cell": "{metres}-m-Rasterzelle einer Meldung",
+      "note": "Ab mittlerer Zoomstufe wird die Rasterzelle statt eines Punktes gezeigt."
+    },
+    "listEmpty": "Noch keine Meldungen in der Liste.",
+    "attribution": "Grundkarte: Autonome Provinz Bozen – Südtirol (Geokatalog), offene Daten"
   },
   "hedgehogPage": {
-    "eyebrow": "Artwissen",
     "title": "Der Igel in Südtirol",
     "description": "Ein kompakter Einstieg in Lebensweise, Jahreszyklus und Lebensräume.",
     "items": [
@@ -234,7 +547,6 @@
     ]
   },
   "protectionPage": {
-    "eyebrow": "Konkrete Maßnahmen",
     "title": "Igel schützen",
     "description": "Kleine Veränderungen in Gärten und Siedlungen können große Wirkung haben.",
     "items": [
@@ -257,30 +569,31 @@
     ]
   },
   "helpPage": {
-    "eyebrow": "Tierwohl zuerst",
     "title": "Igel gefunden – was tun?",
-    "description": "Diese Seite ist ein redaktionelles Grundgerüst. Kontaktdaten und Entscheidungshilfen müssen vor Veröffentlichung fachlich geprüft werden.",
-    "items": [
-      {
-        "title": "Akute Verletzung",
-        "text": "Tier sichern, Stress minimieren und eine offiziell zuständige Fachstelle kontaktieren. Keine eigenmächtige Behandlung."
-      },
-      {
-        "title": "Igel am Tag",
-        "text": "Tagesaktivität allein beweist keine Notlage. Verhalten, Verletzungen, Jahreszeit und Körperzustand müssen gemeinsam beurteilt werden."
-      },
-      {
-        "title": "Verkehrsopfer",
-        "text": "Tote und verletzte Igel melden. Bei Gefahr im Straßenraum die offiziell vorgesehenen Notfallwege verwenden."
-      },
-      {
-        "title": "Jungigel",
-        "text": "Nicht vorschnell mitnehmen. Beobachtung und fachlicher Rat verhindern, dass gesunde Tiere unnötig von Mutter oder Lebensraum getrennt werden."
-      }
-    ]
+    "description": "Akute Hilfe und wissenschaftliche Meldung sind getrennt. Prüfe zuerst die sichtbaren Warnzeichen und nutze nur redaktionell bestätigte Kontakte.",
+    "decisionTitle": "Wann braucht ein Igel möglicherweise sofort Hilfe?",
+    "decisionText": "Trifft eines dieser Merkmale zu, nutze die bestätigten Anlaufstellen. Dieses Projektformular wird nicht ständig überwacht.",
+    "signs": [
+      "offensichtlich verletztes Tier",
+      "Tier liegt auf der Seite",
+      "Blutung oder offene Wunde",
+      "Tier ist eingeklemmt",
+      "Tier reagiert kaum",
+      "Fliegen, Eier oder Maden",
+      "möglicher Mähroboter-Unfall",
+      "möglicher Verkehrsunfall",
+      "Jungtier",
+      "tagsüber aktiver Igel"
+    ],
+    "contactsTitle": "Bestätigte Anlaufstellen",
+    "contactWebsite": "Website öffnen",
+    "developmentPlaceholder": "Redaktionsplatzhalter: Es sind noch keine fachlich bestätigten Hilfskontakte konfiguriert. Dieser Hinweis erscheint nur im Entwicklungsmodus.",
+    "notMonitored": "Diese Seite löst keinen Notruf aus und sendet keine wissenschaftliche Meldung.",
+    "scienceTitle": "Fund zusätzlich dokumentieren?",
+    "scienceText": "Möchtest du den Fund zusätzlich für das Citizen-Science-Projekt dokumentieren? Das ist freiwillig und erst nach den Hilfsinformationen vorgesehen.",
+    "scienceAction": "Wissenschaftliche Meldung öffnen"
   },
   "resultsPage": {
-    "eyebrow": "Transparente Wissenschaft",
     "title": "Ergebnisse",
     "description": "Hier entstehen Karten, Jahresberichte und methodisch vorsichtige Auswertungen.",
     "items": [
@@ -300,12 +613,17 @@
         "title": "Offene Methodik",
         "text": "Validierungsregeln, Datenlücken und Verzerrungen werden gemeinsam mit den Ergebnissen veröffentlicht."
       }
-    ]
+    ],
+    "mapLink": "Zur Igelkarte"
   },
   "projectPage": {
-    "eyebrow": "b*nature Citizen Science",
     "title": "Über das Projekt",
     "description": "Die Plattform verbindet lokale Naturbeobachtung, Igelschutz und auswertbare Biodiversitätsdaten.",
+    "inaturalist": {
+      "title": "Alternativ über iNaturalist",
+      "text": "Nutzt du bereits iNaturalist? Dann kannst du deine Beobachtung alternativ dort dokumentieren. Dabei werden möglicherweise nicht alle projektspezifischen Angaben wie Lebensraum, Aktivität und Verhalten erfasst.",
+      "action": "iNaturalist-Projekt öffnen"
+    },
     "items": [
       {
         "title": "Projektziel",
@@ -325,6 +643,28 @@
       }
     ]
   },
+  "aboutPage": {
+    "title": "Über uns",
+    "description": "Team, Partner und rechtliche Informationen zum Projekt.",
+    "items": [
+      {
+        "title": "Team und Partner",
+        "text": "Projektbeteiligte und fachliche Partner werden hier redaktionell vorgestellt."
+      },
+      {
+        "title": "Kontakt",
+        "text": "Allgemeine Projektkontakte werden vor der Veröffentlichung ergänzt."
+      },
+      {
+        "title": "Datenschutz",
+        "text": "Kontaktdaten bleiben getrennt; öffentliche Positionen werden um 500 Meter verschleiert."
+      },
+      {
+        "title": "Impressum",
+        "text": "Anbieterkennzeichnung und rechtliche Angaben werden redaktionell und rechtlich geprüft."
+      }
+    ]
+  },
   "imprintPage": {
     "title": "Impressum",
     "description": "Anbieterkennzeichnung und rechtliche Angaben zum Projekt.",
@@ -340,7 +680,6 @@
     "description": "Bereits geöffnete Inhalte und der Meldeassistent bleiben teilweise nutzbar. Dein Entwurf wird lokal gespeichert."
   },
   "admin": {
-    "eyebrow": "Moderation",
     "title": "Projekt-Dashboard",
     "openReports": "Meldungen öffnen",
     "starterNotice": "Das Admin-Interface ist bewusst nur als Startpunkt angelegt. Rollenprüfung, Mutationen und Audit Trail sind als priorisierte Arbeitspakete dokumentiert.",
@@ -357,6 +696,54 @@
     "loginFailed": "Anmeldung fehlgeschlagen.",
     "notConfigured": "Supabase ist noch nicht konfiguriert.",
     "reportsTitle": "Meldungen",
+    "roadHazardQueue": "Warteschlange Straßenabschnitte",
+    "roadHazardDemoNotice": "Beispieldaten der getrennten Straßenabschnitt-Warteschlange.",
+    "loadError": "Die Moderationsdaten konnten nicht geladen werden.",
+    "filterKind": "Art der Meldung",
+    "applyFilter": "Filter anwenden",
+    "kinds": {
+      "all": "Alle",
+      "observation": "Normale Sichtung",
+      "roadkill": "Straßenopfer",
+      "road_hazard": "Straßenabschnitt"
+    },
+    "observedDate": "Beobachtet am",
+    "createdDate": "Eingetragen am",
+    "time": "Uhrzeit",
+    "age": "Alter",
+    "sex": "Geschlecht",
+    "habitat": "Lebensraum",
+    "behavior": "Verhalten",
+    "media": "Medien freigegeben/gesamt",
+    "mediaPosition": "Datei {position}",
+    "approved": "freigegeben",
+    "notApproved": "nicht freigegeben",
+    "noPublicConsent": "keine öffentliche Medieneinwilligung",
+    "approveMedia": "Freigeben",
+    "revokeApproval": "Freigabe zurücknehmen",
+    "noMedia": "keine Medien",
+    "contact": "Name und Kontakt",
+    "noContact": "kein Kontakt verfügbar",
+    "unknown": "nicht bekannt",
+    "roadName": "Straße",
+    "hazards": "Gefahren",
+    "hazardDemo": "Häufige Querungen",
+    "demoRoadName": "Demo-Straße",
+    "contactRoleNotice": "Namen und Kontaktdaten werden in der Detailansicht ausschließlich für Rollen mit entsprechender Berechtigung geladen. Medien werden einzeln freigegeben; Statusänderungen bleiben in der Moderationshistorie erhalten.",
+    "reportValues": {
+      "adult": "erwachsen",
+      "unknown": "nicht bekannt",
+      "female": "weiblich",
+      "male": "männlich"
+    },
+    "reportHabitats": {
+      "private_garden": "Privatgarten",
+      "road_outside_settlement": "Straße außerhalb der Siedlung"
+    },
+    "reportBehaviors": {
+      "moving": "unterwegs",
+      "unknown": "nicht bekannt"
+    },
     "id": "ID",
     "municipality": "Gemeinde",
     "type": "Typ",
@@ -369,7 +756,8 @@
       "new": "neu",
       "in_review": "in Prüfung",
       "validated": "validiert"
-    }
+    },
+    "reportsDemoNote": "Beispielzeilen des Grundgerüsts – noch keine echten Meldungen."
   },
   "common": {
     "brand": "Igel Südtirol",

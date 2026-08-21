@@ -2,12 +2,20 @@
 
 import maplibregl, {type Map as MapLibreMap, type Marker} from 'maplibre-gl';
 import {LocateFixed} from 'lucide-react';
-import {useTranslations} from 'next-intl';
+import {useLocale, useTranslations} from 'next-intl';
 import {useEffect, useRef, useState} from 'react';
 import {useFormContext} from 'react-hook-form';
+import {Alert} from '@/components/ui/Alert';
+import {Button} from '@/components/ui/Button';
+import {Field, inputClass} from '@/components/ui/Field';
+import {Readout} from '@/components/ui/Readout';
 import type {ReportDraftValues} from '@/lib/report/schema';
+import {southTyrolMunicipalities} from '@/lib/locations/south-tyrol-municipalities';
+import {MAP_MAX_BOUNDS, buildBasemapStyle} from '@/lib/map/basemap';
 
 const SOUTH_TYROL_CENTER: [number, number] = [11.35, 46.5];
+/** Marken-Pink – dieselbe Farbe wie die Kartendaten auf der öffentlichen Karte. */
+const MARKER_COLOR = '#fb8cdb';
 
 function isFiniteNumber(value: unknown): value is number {
   return typeof value === 'number' && Number.isFinite(value);
@@ -15,28 +23,37 @@ function isFiniteNumber(value: unknown): value is number {
 
 export function LocationStep() {
   const t = useTranslations('report');
-  const {register, setValue, getValues, watch, formState: {errors}} = useFormContext<ReportDraftValues>();
-  const [status, setStatus] = useState<string>();
+  const attribution = useTranslations('map')('attribution');
+  const locale = useLocale() as 'de' | 'it';
+  const {
+    register,
+    setValue,
+    getValues,
+    watch,
+    formState: {errors}
+  } = useFormContext<ReportDraftValues>();
+  const [status, setStatus] = useState<{tone: 'note' | 'danger' | 'success'; text: string}>();
   const latitude = watch('latitude');
   const longitude = watch('longitude');
   const accuracy = watch('accuracy');
+  const source = watch('locationSource');
 
   const container = useRef<HTMLDivElement>(null);
   const mapRef = useRef<MapLibreMap | null>(null);
   const markerRef = useRef<Marker | null>(null);
 
-  function applyPosition(lat: number, lng: number, source: ReportDraftValues['locationSource'], acc?: number) {
+  function applyPosition(lat: number, lng: number, nextSource: ReportDraftValues['locationSource'], acc?: number) {
     setValue('latitude', lat, {shouldValidate: true, shouldDirty: true});
     setValue('longitude', lng, {shouldValidate: true, shouldDirty: true});
     setValue('accuracy', acc);
-    setValue('locationSource', source);
+    setValue('locationSource', nextSource);
   }
 
   function placeMarker(lng: number, lat: number) {
     const map = mapRef.current;
     if (!map) return;
     if (!markerRef.current) {
-      const marker = new maplibregl.Marker({draggable: true, color: '#fb8cdb'});
+      const marker = new maplibregl.Marker({draggable: true, color: MARKER_COLOR});
       marker.setLngLat([lng, lat]).addTo(map);
       marker.on('dragend', () => {
         const position = marker.getLngLat();
@@ -55,9 +72,12 @@ export function LocationStep() {
     const initialPosition = isFiniteNumber(initialLatitude) && isFiniteNumber(initialLongitude);
     const map = new maplibregl.Map({
       container: container.current,
-      style: process.env.NEXT_PUBLIC_MAP_STYLE_URL ?? 'https://demotiles.maplibre.org/style.json',
+      style: buildBasemapStyle(attribution),
       center: initialPosition ? [initialLongitude, initialLatitude] : SOUTH_TYROL_CENTER,
-      zoom: initialPosition ? 14 : 7.2
+      zoom: initialPosition ? 14 : 7.2,
+      // Ein Klick außerhalb Südtirols kann keine gültige Meldung erzeugen;
+      // die Karte lässt gar nicht erst dorthin wandern.
+      maxBounds: MAP_MAX_BOUNDS
     });
     map.addControl(new maplibregl.NavigationControl({showCompass: false}), 'top-right');
     map.on('click', (event) => {
@@ -81,57 +101,117 @@ export function LocationStep() {
 
   function locate() {
     if (!navigator.geolocation) {
-      setStatus(t('steps.location.unsupported'));
+      setStatus({tone: 'danger', text: t('steps.location.unsupported')});
       return;
     }
-    setStatus(t('steps.location.locating'));
+    setStatus({tone: 'note', text: t('steps.location.locating')});
     navigator.geolocation.getCurrentPosition(
       (position) => {
         applyPosition(position.coords.latitude, position.coords.longitude, 'gps', position.coords.accuracy);
         mapRef.current?.flyTo({center: [position.coords.longitude, position.coords.latitude], zoom: 15});
-        setStatus(t('steps.location.success'));
+        setStatus({tone: 'success', text: t('steps.location.success')});
       },
-      () => setStatus(t('steps.location.failed')),
+      () => setStatus({tone: 'danger', text: t('steps.location.failed')}),
       {enableHighAccuracy: true, timeout: 12000, maximumAge: 30000}
     );
   }
 
+  const hasPosition = isFiniteNumber(latitude) && isFiniteNumber(longitude);
+
   return (
     <div>
-      <h2 className="text-2xl font-black text-ink">{t('steps.location.title')}</h2>
-      <p className="mt-2 text-ink/70">{t('steps.location.text')}</p>
-      <button type="button" onClick={locate} className="mt-6 inline-flex min-h-12 items-center gap-2 rounded-full bg-forest-dark px-5 font-bold text-white">
-        <LocateFixed aria-hidden="true" /> {t('steps.location.button')}
-      </button>
-      {status && <p className="mt-3 text-sm font-semibold" role="status">{status}</p>}
+      <h2 className="text-section font-semibold text-ink">{t('steps.location.title')}</h2>
+      <p className="mt-2 max-w-prose text-ink-dim">{t('steps.location.text')}</p>
+
+      <div className="mt-6 grid gap-4 sm:grid-cols-2">
+        <Field label={t('steps.location.municipality')} error={errors.municipality && t('validation.municipality')}>
+          {(field) => (
+            <select {...field} {...register('municipality')} className={inputClass()} defaultValue="">
+              <option value="" disabled>{t('steps.location.municipalityPlaceholder')}</option>
+              {southTyrolMunicipalities.map((municipality) => (
+                <option key={municipality.id} value={municipality.id}>{municipality[locale]}</option>
+              ))}
+            </select>
+          )}
+        </Field>
+        <Field label={t('steps.location.locality')} optional optionalLabel={t('optional')}>
+          {(field) => <input {...field} {...register('locality')} className={inputClass()} />}
+        </Field>
+        <Field className="sm:col-span-2" label={t('steps.location.addressOrPlace')} optional optionalLabel={t('optional')}>
+          {(field) => <input autoComplete="street-address" {...field} {...register('addressOrPlace')} className={inputClass()} />}
+        </Field>
+      </div>
+
+      <Button onClick={locate} className="mt-5">
+        <LocateFixed size={18} aria-hidden="true" /> {t('steps.location.button')}
+      </Button>
+
+      {status && (
+        <Alert tone={status.tone} live={status.tone === 'danger' ? 'alert' : 'status'} className="mt-3">
+          {status.text}
+        </Alert>
+      )}
+
       <div
         ref={container}
-        className="mt-5 h-64 overflow-hidden rounded-2xl border border-ink/15 bg-sand-light md:h-80"
+        className="mt-5 h-64 overflow-hidden rounded-panel border border-line bg-well md:h-80"
         aria-label={t('steps.location.mapAria')}
       />
-      <p className="mt-2 text-sm text-ink/65">{t('steps.location.mapHint')}</p>
-      <div className="mt-6 grid gap-4 sm:grid-cols-2">
-        <label className="font-bold">
-          {t('steps.location.latitude')}
-          <input type="number" step="any" {...register('latitude', {valueAsNumber: true})} className="mt-2 min-h-12 w-full rounded-xl border border-ink/20 bg-white px-4" />
-          {errors.latitude && <span className="mt-1 block text-sm text-red-700">{t('validation.coordinates')}</span>}
-        </label>
-        <label className="font-bold">
-          {t('steps.location.longitude')}
-          <input type="number" step="any" {...register('longitude', {valueAsNumber: true})} className="mt-2 min-h-12 w-full rounded-xl border border-ink/20 bg-white px-4" />
-          {errors.longitude && <span className="mt-1 block text-sm text-red-700">{t('validation.coordinates')}</span>}
-        </label>
-      </div>
-      <div className="mt-5 rounded-xl bg-sand-light p-4 text-sm" aria-live="polite">
-        {isFiniteNumber(latitude) && isFiniteNumber(longitude) ? (
+      <p className="mt-2 text-caption text-ink-faint">{t('steps.location.mapHint')}</p>
+
+      {/* Die aufgenommene Position als Messwert, damit sie prüfbar ist. */}
+      <div
+        className="mt-4 flex flex-wrap items-end justify-between gap-4 rounded-panel border border-line bg-well px-4 py-3"
+        aria-live="polite"
+      >
+        {hasPosition ? (
           <>
-            <strong>{t('steps.location.current')}:</strong> {latitude.toFixed(5)}, {longitude.toFixed(5)}
-            {accuracy ? ` · ±${Math.round(accuracy)} m` : ''}
+            <Readout label={t('steps.location.latitude')}>{latitude.toFixed(5)}</Readout>
+            <Readout label={t('steps.location.longitude')}>{longitude.toFixed(5)}</Readout>
+            <Readout label={t('steps.location.accuracy')}>
+              {accuracy ? `±${Math.round(accuracy)} m` : '—'} · {t(`steps.location.sources.${source ?? 'map'}`)}
+            </Readout>
           </>
         ) : (
-          <strong>{t('steps.location.noPosition')}</strong>
+          <p className="text-caption font-medium text-ink-dim">{t('steps.location.noPosition')}</p>
         )}
       </div>
+
+      <details className="group mt-4">
+        <summary className="inline-flex min-h-11 cursor-pointer items-center text-caption font-medium text-ink-dim hover:text-ink">
+          {t('steps.location.manualToggle')}
+        </summary>
+        <div className="mt-3 grid gap-4 sm:grid-cols-2">
+          <Field label={t('steps.location.latitude')} error={errors.latitude && t('validation.coordinates')}>
+            {(field) => (
+              <input
+                type="number"
+                step="any"
+                inputMode="decimal"
+                {...field}
+                {...register('latitude', {valueAsNumber: true})}
+                className={inputClass('readout')}
+              />
+            )}
+          </Field>
+          <Field label={t('steps.location.longitude')} error={errors.longitude && t('validation.coordinates')}>
+            {(field) => (
+              <input
+                type="number"
+                step="any"
+                inputMode="decimal"
+                {...field}
+                {...register('longitude', {valueAsNumber: true})}
+                className={inputClass('readout')}
+              />
+            )}
+          </Field>
+        </div>
+      </details>
+
+      <Alert tone="note" className="mt-5">
+        {t('steps.location.privacy')}
+      </Alert>
     </div>
   );
 }

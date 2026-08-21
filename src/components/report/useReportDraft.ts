@@ -13,20 +13,28 @@ type Options = {
   step: number;
   restoreStep: (step: number) => void;
   resetStep: () => void;
+  files: File[];
+  restoreFiles: (files: File[]) => void;
 };
 
 const SAVE_DELAY_MS = 400;
 
-export function useReportDraft({methods, defaults, locale, step, restoreStep, resetStep}: Options) {
+export function useReportDraft({methods, defaults, locale, step, restoreStep, resetStep, files, restoreFiles}: Options) {
   const [hydrated, setHydrated] = useState(false);
   const [restoredAt, setRestoredAt] = useState<string>();
+  const [mediaDraftError, setMediaDraftError] = useState(false);
   const saveTimer = useRef<ReturnType<typeof setTimeout>>(undefined);
   const suspended = useRef(false);
   const stepRef = useRef(step);
+  const filesRef = useRef(files);
 
   useEffect(() => {
     stepRef.current = step;
   }, [step]);
+
+  useEffect(() => {
+    filesRef.current = files;
+  }, [files]);
 
   useEffect(() => {
     loadDraft()
@@ -39,18 +47,23 @@ export function useReportDraft({methods, defaults, locale, step, restoreStep, re
           submittedLocale: locale
         });
         restoreStep(draft.step);
+        restoreFiles(draft.mediaFiles ?? []);
         setRestoredAt(draft.updatedAt);
       })
       .catch(() => undefined)
       .finally(() => setHydrated(true));
-  }, [defaults, locale, methods, restoreStep]);
+  }, [defaults, locale, methods, restoreFiles, restoreStep]);
 
   const scheduleSave = useCallback(
     (values: ReportDraftValues) => {
       if (suspended.current) return;
       clearTimeout(saveTimer.current);
       saveTimer.current = setTimeout(() => {
-        saveDraft({values, step: stepRef.current, updatedAt: new Date().toISOString()}).catch(() => undefined);
+        saveDraft({values, step: stepRef.current, updatedAt: new Date().toISOString(), mediaFiles: filesRef.current})
+          .then(() => setMediaDraftError(false))
+          .catch(() => {
+            if (filesRef.current.length > 0) setMediaDraftError(true);
+          });
       }, SAVE_DELAY_MS);
     },
     []
@@ -81,6 +94,11 @@ export function useReportDraft({methods, defaults, locale, step, restoreStep, re
     scheduleSave(mergeDraft(defaults, methods.getValues()));
   }, [defaults, hydrated, methods, scheduleSave, step]);
 
+  useEffect(() => {
+    if (!hydrated || files.length === 0) return;
+    scheduleSave(mergeDraft(defaults, methods.getValues()));
+  }, [defaults, files, hydrated, methods, scheduleSave]);
+
   async function finalize() {
     suspended.current = true;
     clearTimeout(saveTimer.current);
@@ -93,14 +111,15 @@ export function useReportDraft({methods, defaults, locale, step, restoreStep, re
     methods.reset({...defaults, clientSubmissionId: crypto.randomUUID()});
     resetStep();
     setRestoredAt(undefined);
+    setMediaDraftError(false);
     await clearDraft().catch(() => undefined);
     suspended.current = false;
   }
 
-  return {restoredAt, discard, finalize};
+  return {restoredAt, mediaDraftError, discard, finalize};
 }
 
-function mergeDraft(defaults: ReportDraftValues, values: ReportDraftValues): ReportDraftValues {
+export function mergeDraft(defaults: ReportDraftValues, values: ReportDraftValues): ReportDraftValues {
   return {
     ...defaults,
     ...values,

@@ -1,51 +1,266 @@
 @import 'tailwindcss';
 @import 'maplibre-gl/dist/maplibre-gl.css';
 
-/* Markenfarben als Tailwind-Tokens (bg-cream, text-forest, …) statt
-   verstreuter Hex-Werte in den Komponenten.
-   Abgeleitet aus dem b*nature-Logo (Igel-Silhouette): Grün, Igel-Braun, Akzent-Pink. */
+/* Inter trägt Display und UI – dieselbe Schrift wie die Dachmarke b*nature.
+   Martian Mono bleibt ausschließlich den Messwerten vorbehalten; die
+   Dachmarke braucht sie nicht, das Igelprojekt schon (siehe DESIGN.md).
+   Beide werden lokal aus dem Paket geliefert; es gibt keine Verbindung zu
+   einem Font-CDN. */
+@import '@fontsource/inter/latin-400.css';
+@import '@fontsource/inter/latin-500.css';
+@import '@fontsource/inter/latin-600.css';
+@import '@fontsource/inter/latin-700.css';
+@import '@fontsource/martian-mono/latin-400.css';
+@import '@fontsource/martian-mono/latin-600.css';
+
+/* ─────────────────────────────────────────────────────────────
+   Farbwelt: Logo-Grün auf der Fläche der Dachmarke
+
+   Das Igelprojekt ist eine Untersite von b*nature (bnature.bz). Grund,
+   Schriftfarben, Sand, Typografie und Radien kommen von dort. Die
+   Handlungsfarbe kommt jedoch aus dem eigenen Projektlogo:
+
+     #1ea600  Blatt – Grün des Igelprojekt-Logos, die Handlungsfarbe
+     #2f6b3d / #ecf6ed   Moosgrün der Dachmarke (trägt „geprüft“)
+     #f3eee7             Sand – der ruhige Wechselgrund der Abschnitte
+     #374151 / #111827   neutrale Schriftfarben der Dachmarke
+
+   Dazu die zweite Eigenfarbe des Igelprojekts:
+
+     #fb8cdb  Blüte – Pink der Figur im Wortzeichen des Projektlogos
+
+   Die Rollen dahinter sind streng getrennt (Begründung in DESIGN.md):
+
+   - Handlungsfarbe ist das Blattgrün des Logos (`primary`, #1ea600),
+     unverändert. Es trägt **dunkle** Beschriftung, keine weiße: Weiß
+     erreicht darauf nur 3,23:1, das Braunschwarz `#14120d` dagegen 5,80:1.
+     Die Marke bleibt gezeichnet wie sie ist, die Schrift passt sich an.
+   - Als Fläche liegt dieses Grün gegen Weiß bei 3,23:1 und gegen den
+     Sandgrund bei nur 2,80:1 – unter der 3:1-Schwelle für die Umrisse von
+     Bedienelementen. Jede grüne Fläche auf hellem Grund trägt deshalb eine
+     Haarlinie in Textfarbe: Schaltflächen, der gefüllte Fortschrittsbalken
+     und das Häkchenfeld der Auswahlkacheln.
+   - `primary-deep` (#166f00) ist der abgedunkelte Ton, wo Grün selbst
+     Schrift, Symbol oder erste Überschrift ist: 6,35:1 auf Weiß.
+   - Sand ist kein Kartengrund, sondern der zweite Seitenton: Abschnitte
+     wechseln zwischen Weiß und Sand, genau wie auf der Dachmarke.
+   - Helles Blattgrün heißt handeln, tiefes Moosgrün (`success`, #2f6b3d)
+     heißt geprüft. Weil die beiden Töne nun weit auseinanderliegen, trennt
+     sie wieder der Farbton selbst und nicht nur die Form.
+   - Pink bringt als weiche Schmuckfläche Wärme in öffentliche Seiten und
+     kennzeichnet Kartendaten. Es trägt nie Text, ist niemals eine Warnung
+     und steht immer mit einem Umriss in Textfarbe – allein erreicht es
+     gegen Weiß nur 2,13:1.
+   - Warnungen haben eine eigene Rolle (`danger`), damit Pink und Grün
+     ihre Bedeutung behalten.
+
+   Die gestrichelte Straßenlinie aus dem Projektlogo ist im System die
+   sichtbare Auszeichnung für „vorläufig / noch kein Nachweis“.
+   ───────────────────────────────────────────────────────────── */
 @theme {
-  --color-cream: #f6faf2;
-  --color-sand: #dceec9;
-  --color-sand-light: #edf7e5;
-  --color-forest: #1ea600;
-  --color-forest-dark: #146600;
-  --color-moss: #5c8f3e;
-  --color-ink: #3e3625;
-  --color-brand-pink: #fb8cdb;
-  --color-danger: #b73d32;
+  --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
+  --font-mono: 'Martian Mono', ui-monospace, SFMono-Regular, monospace;
+
+  /* Blattgrün des Igelprojekt-Logos. Aus der Bildmarke abgetastet: 72 % der
+     grünen Pixel liegen auf #1da600, also auf dem in den Markenunterlagen
+     angegebenen #1ea600. Das ist die Handlungsfarbe der Anwendung. */
+  --color-leaf: #1ea600;
+
+  /* Grünleiter der Dachmarke. Sie trägt weiterhin „geprüft", die Tönungen
+     und den Sand – nur nicht mehr die Handlung. */
+  --color-bn-50: #ecf6ed;
+  --color-bn-600: #2f6b3d;
+  --color-sand: #f3eee7;
+  /* Eigenfarbe des Igelprojekts, aus dem Wortzeichen */
+  --color-blossom: #fb8cdb;
+
+  /* Rollen-Tokens. Die Werte kommen aus den Blöcken darunter, damit
+     helle und dunkle Fassung dieselben Klassennamen benutzen. */
+  --color-ground: var(--ground);
+  --color-band: var(--band);
+  --color-surface: var(--surface);
+  --color-well: var(--well);
+  --color-line: var(--line);
+  --color-line-strong: var(--line-strong);
+  --color-ink: var(--ink);
+  --color-ink-dim: var(--ink-dim);
+  --color-ink-faint: var(--ink-faint);
+  --color-primary: var(--primary);
+  --color-primary-strong: var(--primary-strong);
+  --color-primary-deep: var(--primary-deep);
+  --color-primary-ink: var(--primary-ink);
+  --color-primary-wash: var(--primary-wash);
+  --color-accent: var(--accent);
+  --color-accent-wash: var(--accent-wash);
+  --color-danger: var(--danger);
+  --color-danger-wash: var(--danger-wash);
+  --color-success: var(--success);
+  --color-success-wash: var(--success-wash);
+  --color-logo-plate: var(--logo-plate);
+
+  /* Typografische Leiter. Die Dachmarke ist bewusst zurückhaltend – ihre
+     größte Überschrift ist 2,25 rem. Diese Leiter bleibt in derselben
+     Tonlage und gönnt nur der Startseite eine Stufe darüber. */
+  --text-readout: 0.8125rem;
+  --text-readout--line-height: 1.4;
+  --text-readout--letter-spacing: -0.01em;
+  --text-caption: 0.875rem;
+  --text-caption--line-height: 1.5;
+  --text-body: 1rem;
+  --text-body--line-height: 1.6;
+  --text-lead: 1.125rem;
+  --text-lead--line-height: 1.55;
+  --text-title: 1.25rem;
+  --text-title--line-height: 1.3;
+  --text-title--letter-spacing: -0.015em;
+  --text-section: 1.5rem;
+  --text-section--line-height: 1.25;
+  --text-section--letter-spacing: -0.02em;
+  --text-display: 2.25rem;
+  --text-display--line-height: 1.1;
+  --text-display--letter-spacing: -0.025em;
+  --text-display-lg: 3rem;
+  --text-display-lg--line-height: 1.05;
+  --text-display-lg--letter-spacing: -0.025em;
+
+  /* Tiefe entsteht durch Helligkeit; Schatten sind neutral und flach wie
+     auf der Dachmarke – kein farbiger Halo mehr unter den Schaltflächen. */
+  --shadow-lifted: 0 1px 3px 0 rgb(17 24 39 / 10%), 0 1px 2px -1px rgb(17 24 39 / 10%);
+  --shadow-action: 0 4px 6px -1px rgb(17 24 39 / 10%), 0 2px 4px -2px rgb(17 24 39 / 10%);
+
+  /* Radienleiter der Dachmarke: Eingaben und Schaltflächen 0,75 rem,
+     Kacheln 1 rem, große Flächen und Bilder 1,5 rem. */
+  --radius-action: 0.75rem;
+  --radius-well: 0.75rem;
+  --radius-panel: 1rem;
+  --radius-card: 1.5rem;
 }
 
+/* Helle Fassung – Standard. Weiß und Sand wechseln sich als Seitengrund ab,
+   genau wie in den Abschnitten der Dachmarke. */
 :root {
-  --background: var(--color-cream);
-  --foreground: var(--color-ink);
+  --ground: #ffffff;
+  /* Sand 100 der Dachmarke: der zweite Seitengrund, nicht ein Inhaltselement */
+  --band: #f3eee7;
+  --surface: #ffffff;
+  /* Sand 200 – eine Spur heller als das Band, damit Eingaben auch dann
+     noch als Vertiefung lesbar bleiben, wenn sie in einem Band liegen. */
+  --well: #f5f1ea;
+  --line: rgb(55 65 81 / 16%);
+  --line-strong: rgb(55 65 81 / 34%);
+  --ink: #374151;
+  --ink-dim: #4b5563;
+  /* Gemessen gegen den hellsten Untergrund, auf dem dieser Ton steht
+     (--well, Sand): 5,04:1. Die Dachmarke selbst setzt hier eine
+     Transparenz ein, die nur 4,0:1 erreicht; eine öffentliche
+     Meldeplattform hält den höheren Wert. */
+  --ink-faint: #5d6673;
+  /* Blattgrün des Logos, unverändert. Entscheidend ist die Beschriftung:
+     Weiß darauf erreicht nur 3,23:1 und fällt durch, das dunkle Braunschwarz
+     dagegen 5,80:1. Die Marke bleibt also genau, wie sie gezeichnet ist, und
+     die Schrift passt sich ihr an. */
+  --primary: #1ea600;
+  /* Hover hellt auf statt abzudunkeln: Abdunkeln wirkt wie „gedrückt", und
+     die Beschriftung gewinnt dabei zusätzlich Kontrast (7,44:1). */
+  --primary-strong: #23bd00;
+  /* Abgedunkeltes Blattgrün, wo Grün selbst Schrift, Symbol oder erste
+     Überschrift ist: 6,35:1 auf Weiß, 5,50:1 auf Sand. */
+  --primary-deep: #166f00;
+  --primary-ink: #14120d;
+  --primary-wash: rgb(30 166 0 / 12%);
+  --accent: #fb8cdb;
+  --accent-wash: rgb(251 140 219 / 22%);
+  --danger: #b91c1c;
+  --danger-wash: rgb(185 28 28 / 8%);
+  /* Moosgrün = geprüft/bestätigt: 6,38:1 */
+  --success: #2f6b3d;
+  --success-wash: #ecf6ed;
+  /* Schutzraum des Projektlogos, in beiden Fassungen weiß. Die aktuelle
+     PNG-Bildmarke ist entgegen docs/BRANDING.md nicht freigestellt: sie ist
+     vollflächig deckend und bringt ihren eigenen weißen Grund mit. Die Platte
+     nimmt deshalb genau dieses Weiß auf – hell verschwindet sie im
+     Seitengrund, dunkel verschmilzt sie mit dem Grund der Bildmarke, statt
+     als zweites Rechteck darum herum zu stehen. Sobald ein echtes
+     freigestelltes SVG vorliegt, kann sie dunkel auf Sand wechseln. */
+  --logo-plate: #ffffff;
+  color-scheme: light;
 }
 
-* {
-  box-sizing: border-box;
-}
-
-html {
-  scroll-behavior: smooth;
+/* Optionale dunkle Fassung, ebenfalls von der Dachmarke übernommen: ein
+   sehr dunkles Blaugrau statt Schwarz, und eine gespiegelte Grünleiter.
+   Das Grün wird dort hell und trägt dunkle Beschriftung (11,57:1) – die
+   Handlungsfarbe bleibt also grün, nur die Rollen von Fläche und Schrift
+   tauschen. */
+:root[data-theme='dark'] {
+  --ground: #0d1016;
+  --band: #111318;
+  --surface: #171b25;
+  --well: #1e232c;
+  --line: rgb(226 232 240 / 16%);
+  --line-strong: rgb(226 232 240 / 34%);
+  --ink: #e4e4e7;
+  --ink-dim: #d4d4d8;
+  --ink-faint: #a1a1aa;
+  /* Auch dunkel bleibt das Blattgrün unverändert die Handlungsfläche
+     (5,90:1 gegen den Grund) und trägt dunkle Schrift (5,80:1). Als Schrift
+     selbst wechselt Grün auf den aufgehellten Ton. */
+  --primary: #1ea600;
+  --primary-strong: #28c208;
+  --primary-deep: #3fd41f;
+  --primary-ink: #0a1503;
+  --primary-wash: rgb(30 166 0 / 18%);
+  --accent: #fb8cdb;
+  --accent-wash: rgb(251 140 219 / 18%);
+  --danger: #fca5a5;
+  --danger-wash: rgb(252 165 165 / 14%);
+  --success: #71bf90;
+  --success-wash: #173122;
+  --logo-plate: #ffffff;
+  color-scheme: dark;
+  --shadow-lifted: 0 2px 4px -2px rgb(0 0 0 / 45%), 0 12px 28px -10px rgb(0 0 0 / 50%);
+  --shadow-action: 0 4px 6px -1px rgb(0 0 0 / 45%), 0 2px 4px -2px rgb(0 0 0 / 40%);
 }
 
 body {
   margin: 0;
-  background: var(--background);
-  color: var(--foreground);
-  font-family: var(--font-sans, system-ui), system-ui, sans-serif;
-  line-height: 1.55;
+  background: var(--ground);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  font-size: var(--text-body);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
 }
 
-a {
-  color: inherit;
+/* Eine leise Feldbuch-Textur verbindet Naturbeobachtung und Wissenschaft.
+   Sie erscheint nur auf ruhigen Flächen und nie hinter Formulareingaben. */
+.field-grid {
+  background-image:
+    linear-gradient(var(--line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--line) 1px, transparent 1px);
+  background-size: 2rem 2rem;
 }
 
-button,
-input,
-select,
-textarea {
-  font: inherit;
+.soft-rule {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--line-strong), transparent);
+}
+
+/* Browser-Grundwerte gehören in die Base-Ebene. Unlayered standen diese
+   Regeln nach Tailwinds Utilities und überschrieben dadurch unter anderem
+   `text-primary-ink` auf Links und Buttons – im dunklen Modus landete so
+   zu helle Schrift auf dem Blattgrün. */
+@layer base {
+  a {
+    color: inherit;
+  }
+
+  button,
+  input,
+  select,
+  textarea {
+    font: inherit;
+    color: inherit;
+  }
 }
 
 button,
@@ -53,9 +268,17 @@ a {
   -webkit-tap-highlight-color: transparent;
 }
 
+/* Fokus trägt die Handlungsfarbe – aber im abgedunkelten Ton. Das Blattgrün
+   selbst läge gegen Weiß bei 2,96:1; `primary-deep` erreicht 6,35:1 und
+   trägt den Ring damit allein. */
 :focus-visible {
-  outline: 3px solid var(--color-forest);
-  outline-offset: 3px;
+  outline: 2px solid var(--primary-deep);
+  outline-offset: 2px;
+  border-radius: 0.35rem;
+}
+
+::selection {
+  background: var(--primary-wash);
 }
 
 .container-page {
@@ -63,25 +286,160 @@ a {
   margin-inline: auto;
 }
 
-.card {
-  border: 1px solid rgb(62 54 37 / 16%);
-  border-radius: 1.25rem;
-  background: rgb(255 255 255 / 85%);
-  box-shadow: 0 12px 36px rgb(62 54 37 / 8%);
+.container-reading {
+  width: min(46rem, calc(100% - 2rem));
+  margin-inline: auto;
+}
+
+/* Messwerte: Koordinaten, Belegnummern, Zähler, Rasterreferenzen.
+   Nicht für Fließtext benutzen (siehe DESIGN.md). */
+.readout {
+  font-family: var(--font-mono);
+  font-size: var(--text-readout);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.01em;
+}
+
+.prose-simple > * + * {
+  margin-top: 1rem;
 }
 
 .prose-simple h2 {
-  margin-top: 2rem;
-  font-size: 1.5rem;
-  font-weight: 800;
-  color: var(--color-forest-dark);
+  margin-top: 2.5rem;
+  margin-bottom: 0.75rem;
+  font-size: var(--text-title);
+  font-weight: 700;
+  letter-spacing: -0.015em;
 }
 
 .prose-simple p,
 .prose-simple li {
-  max-width: 72ch;
+  max-width: 68ch;
+  color: var(--ink-dim);
 }
 
+/* Bewegung ist eine einzige inszenierte Geste, kein Streuen von Effekten.
+   Alles respektiert die Systemeinstellung. */
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  .step-in {
+    animation: step-in 420ms cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+}
+
+@keyframes step-in {
+  from {
+    opacity: 0.4;
+    transform: translateY(0.5rem);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* MapLibre an das System angleichen */
 .maplibregl-map {
   font: inherit;
+}
+
+.maplibregl-popup-content {
+  padding: 0.875rem 1rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-panel);
+  background: var(--surface);
+  color: var(--ink);
+  box-shadow: var(--shadow-lifted);
+}
+
+.maplibregl-popup-tip {
+  border-top-color: var(--surface);
+  border-bottom-color: var(--surface);
+}
+
+.maplibregl-popup-close-button {
+  width: 2.75rem;
+  height: 2.75rem;
+  color: var(--ink-dim);
+  font-size: 1.25rem;
+}
+
+.map-observation-popup {
+  padding-right: 1.75rem;
+}
+
+.map-observation-popup strong {
+  display: block;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.map-observation-popup p {
+  margin: 0.25rem 0 0;
+  color: var(--ink-dim);
+  font-size: var(--text-caption);
+}
+
+.map-observation-popup small {
+  display: block;
+  margin-top: 0.5rem;
+  color: var(--ink-faint);
+  font-size: var(--text-readout);
+  line-height: 1.4;
+}
+
+.maplibregl-ctrl-group {
+  border: 1px solid var(--line);
+  border-radius: var(--radius-action);
+  background: var(--surface);
+  box-shadow: var(--shadow-lifted);
+  overflow: hidden;
+}
+
+.maplibregl-ctrl-group button {
+  width: 2.75rem;
+  height: 2.75rem;
+}
+
+.maplibregl-ctrl-group button + button {
+  border-top-color: var(--line);
+}
+
+.maplibregl-ctrl-attrib.maplibregl-compact {
+  border-radius: var(--radius-well) 0 0 0;
+  background-color: color-mix(in srgb, var(--surface) 92%, transparent);
+  color: var(--ink-dim);
+}
+
+.maplibregl-ctrl-attrib a {
+  color: var(--primary-deep);
+}
+
+.maplibregl-marker {
+  display: flex;
+  min-width: 2.75rem;
+  min-height: 2.75rem;
+  align-items: center;
+  justify-content: center;
+}
+
+.maplibregl-ctrl-group button .maplibregl-ctrl-icon {
+  filter: var(--map-ctrl-filter, none);
+}
+
+:root[data-theme='dark'] .maplibregl-ctrl-group button .maplibregl-ctrl-icon {
+  --map-ctrl-filter: invert(1) hue-rotate(180deg);
 }

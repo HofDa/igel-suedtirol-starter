@@ -1,64 +1,134 @@
-import {ArrowRight, HeartHandshake, MapPinned, ShieldCheck, type LucideIcon} from 'lucide-react';
-import {getTranslations, setRequestLocale} from 'next-intl/server';
-import {Link} from '@/i18n/navigation';
-import {StatCard} from '@/components/layout/StatCard';
+import {
+  ArrowRight,
+  Binoculars,
+  Cross,
+  Leaf,
+  MapPinned,
+  ScanSearch,
+  ShieldCheck,
+  type LucideIcon,
+} from 'lucide-react';
+import { getTranslations, setRequestLocale } from 'next-intl/server';
+import { Link } from '@/i18n/navigation';
+import { buttonClass } from '@/components/ui/Button';
+import { BotanicalBackdrop } from '@/components/layout/BotanicalBackdrop';
 
-type Props = {params: Promise<{locale: string}>};
+type Props = { params: Promise<{ locale: string }> };
 
-export default async function HomePage({params}: Props) {
-  const {locale} = await params;
+/** Die Reihenfolge trägt hier Information: melden → prüfen → auswerten. */
+const stages: Array<{ key: string; Icon: LucideIcon }> = [
+  { key: 'report', Icon: MapPinned },
+  { key: 'check', Icon: ScanSearch },
+  { key: 'use', Icon: ShieldCheck },
+];
+
+export default async function HomePage({ params }: Props) {
+  const { locale } = await params;
   setRequestLocale(locale);
   const t = await getTranslations('home');
-  const features: Array<{Icon: LucideIcon; title: string; text: string}> = [
-    {Icon: MapPinned, title: 'features.mapTitle', text: 'features.mapText'},
-    {Icon: ShieldCheck, title: 'features.protectTitle', text: 'features.protectText'},
-    {Icon: HeartHandshake, title: 'features.scienceTitle', text: 'features.scienceText'}
-  ];
 
   return (
     <>
-      <section className="relative overflow-hidden bg-ink py-20 text-white md:py-28">
-        <div className="absolute inset-0 opacity-10" style={{backgroundImage: 'radial-gradient(circle at 20px 20px, white 2px, transparent 0)', backgroundSize: '40px 40px'}} />
-        <div className="container-page relative grid items-center gap-12 lg:grid-cols-[1.2fr_0.8fr]">
-          <div>
-            <p className="font-bold uppercase tracking-[0.2em] text-forest">{t('eyebrow')}</p>
-            <h1 className="mt-4 max-w-4xl text-5xl font-black leading-[1.03] md:text-7xl">{t('title')}</h1>
-            <p className="mt-6 max-w-2xl text-xl text-cream/80">{t('intro')}</p>
-            <div className="mt-9 flex flex-wrap gap-4">
-              <Link href="/melden" className="inline-flex min-h-14 items-center gap-2 rounded-full bg-forest-dark px-7 font-black text-white hover:bg-ink">
-                {t('reportButton')} <ArrowRight aria-hidden="true" />
+      <section className="relative isolate overflow-hidden border-b border-line bg-band">
+        <BotanicalBackdrop className="absolute inset-0 -z-10 h-full w-full opacity-80" />
+        <div className="container-page relative py-14 md:py-20 lg:py-24">
+          <div className="max-w-3xl">
+            <span className="mb-6 inline-flex min-h-11 items-center gap-2 rounded-full border border-line bg-surface/85 px-4 text-caption font-semibold text-ink shadow-lifted">
+              <Binoculars size={19} className="text-primary-deep" aria-hidden="true" />
+              {t('timeHint')}
+            </span>
+            <h1 className="max-w-[15ch] text-display font-semibold text-balance text-primary-deep md:text-display-lg">
+              {t('title')}
+            </h1>
+            <p className="mt-5 max-w-[54ch] text-lead text-ink-dim">{t('intro')}</p>
+          </div>
+
+          {/* Die beiden Wege stehen nebeneinander statt untereinander: das ist
+              die im DESIGN.md beschriebene erste Ansicht – zwei unverwechselbar
+              verschiedene Handlungen – und sie füllt die Breite, die früher die
+              Illustration belegt hat. Der Haarstrich zwischen den Feldern
+              trennt sie gestapelt waagerecht und nebeneinander senkrecht. */}
+          <div className="mt-10 overflow-hidden rounded-card border border-line bg-surface shadow-lifted lg:grid lg:grid-cols-[1.1fr_0.9fr]">
+            <div className="flex flex-col p-6 md:p-8">
+              <div className="flex flex-1 items-start gap-4">
+                <span className="grid size-11 shrink-0 place-items-center rounded-full bg-primary-wash text-primary-deep">
+                  <MapPinned size={21} aria-hidden="true" />
+                </span>
+                <div>
+                  <h2 className="text-title font-semibold text-ink">{t('science.title')}</h2>
+                  <p className="mt-1 max-w-[48ch] text-caption text-ink-dim">{t('science.text')}</p>
+                </div>
+              </div>
+              <Link
+                href="/melden"
+                className={buttonClass('primary', 'lg', 'mt-6 w-full sm:w-auto sm:self-start')}
+              >
+                {t('science.action')} <ArrowRight size={18} aria-hidden="true" />
               </Link>
-              <Link href="/hilfe" className="inline-flex min-h-14 items-center rounded-full border border-white/30 px-7 font-bold hover:bg-white/10">
-                {t('helpButton')}
+            </div>
+
+            {/* Der SOS-Weg trägt dieselbe Warnfläche wie auf der Meldeauswahl,
+                damit beide Einstiege überall gleich aussehen. */}
+            <div className="flex flex-col border-t border-line bg-danger-wash p-6 md:p-8 lg:border-l lg:border-t-0">
+              <div className="flex flex-1 items-start gap-4">
+                <span className="grid size-11 shrink-0 place-items-center rounded-full bg-surface text-danger">
+                  <Cross size={21} aria-hidden="true" />
+                </span>
+                <div>
+                  <h2 className="text-title font-semibold text-ink">{t('help.title')}</h2>
+                  <p className="mt-1 max-w-[44ch] text-caption text-ink-dim">{t('help.text')}</p>
+                </div>
+              </div>
+              <Link
+                href="/hilfe"
+                className={buttonClass('outline', 'lg', 'mt-6 w-full bg-surface sm:w-auto sm:self-start')}
+              >
+                {t('help.action')} <ArrowRight size={18} aria-hidden="true" />
               </Link>
             </div>
           </div>
-          <div className="mx-auto w-full max-w-md rounded-[2.5rem] bg-cream p-8 text-ink shadow-2xl">
-            <div className="text-8xl" aria-hidden="true">🦔</div>
-            <h2 className="mt-4 text-2xl font-black">{t('cardTitle')}</h2>
-            <p className="mt-2 text-ink/70">{t('cardText')}</p>
+
+          {/* Das Datenschutzversprechen steht als ruhige Zeile unter der
+              Auswahl – dieselbe Stelle, an der die Dachmarke ihren
+              Vertrauenshinweis unter die Handlungen setzt. */}
+          <p className="mt-5 max-w-[58ch] text-caption text-ink-dim">
+            <span className="font-semibold text-ink">{t('privacyNote.title')}</span>{' '}
+            {t('privacyNote.text')}
+          </p>
+        </div>
+      </section>
+
+      <section className="bg-surface py-20 md:py-28">
+        <div className="container-page">
+          <div className="mx-auto max-w-2xl text-center">
+            <Leaf className="mx-auto text-primary-deep" size={24} aria-hidden="true" />
+            <h2 className="mt-4 text-display font-semibold text-balance text-ink">{t('path.title')}</h2>
           </div>
-        </div>
-      </section>
-
-      <section className="container-page -mt-8 relative z-10">
-        <div className="grid gap-4 sm:grid-cols-3">
-          <StatCard value="486" label={t('stats.sightings')} />
-          <StatCard value="72" label={t('stats.municipalities')} />
-          <StatCard value="38" label={t('stats.roadkills')} />
-        </div>
-        <p className="mt-3 text-sm font-semibold text-ink/60">{t('stats.demoNote')}</p>
-      </section>
-
-      <section className="container-page py-20">
-        <div className="grid gap-6 md:grid-cols-3">
-          {features.map(({Icon, title, text}) => (
-            <article key={title} className="card p-7">
-              <Icon className="text-forest-dark" size={36} aria-hidden="true" />
-              <h2 className="mt-5 text-xl font-black text-ink">{t(title)}</h2>
-              <p className="mt-2 text-ink/70">{t(text)}</p>
-            </article>
-          ))}
+          <ol className="relative mx-auto mt-12 grid max-w-5xl gap-10 md:grid-cols-3 md:gap-12">
+            <span
+              aria-hidden="true"
+              className="absolute left-[16%] right-[16%] top-7 hidden border-t border-line md:block"
+            />
+            {stages.map(({ key, Icon }, index) => (
+              <li key={key} className="relative flex flex-col items-center text-center">
+                <span
+                  className={
+                    index === 0
+                      ? 'z-10 grid size-14 place-items-center rounded-full border border-line bg-ground text-primary-deep'
+                      : index === 1
+                        ? 'z-10 grid size-14 place-items-center rounded-full border border-line bg-ground text-ink'
+                        : 'z-10 grid size-14 place-items-center rounded-full border border-line bg-ground text-success'
+                  }
+                >
+                  <Icon size={24} aria-hidden="true" />
+                </span>
+                <h3 className="mt-5 text-title font-semibold text-ink">{t(`path.${key}.title`)}</h3>
+                <p className="mt-3 max-w-[31ch] text-caption text-ink-dim">
+                  {t(`path.${key}.text`)}
+                </p>
+              </li>
+            ))}
+          </ol>
         </div>
       </section>
     </>

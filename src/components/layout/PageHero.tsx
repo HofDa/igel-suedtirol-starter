@@ -1,18 +1,60 @@
+import type { ReactNode } from 'react';
+import { BotanicalBackdrop } from './BotanicalBackdrop';
+
 type Props = {
-  eyebrow?: string;
   title: string;
   description: string;
-  children?: React.ReactNode;
+  children?: ReactNode;
+  compact?: boolean;
 };
 
-export function PageHero({eyebrow, title, description, children}: Props) {
+/**
+ * Ruhiger, offener Seitenanfang mit organischen Formen aus der Logopalette.
+ * Die Überschrift steht im abgedunkelten Blattgrün des Projektlogos. Die
+ * Dachmarke färbt ihre erste Überschrift genauso grün; der Ton ist hier nur
+ * der eigene.
+ */
+export function PageHero({ title, description, children, compact = false }: Props) {
   return (
-    <section className="border-b border-ink/10 bg-gradient-to-br from-sand-light to-cream py-14 md:py-20">
-      <div className="container-page">
-        {eyebrow && <p className="mb-3 font-bold uppercase tracking-[0.18em] text-forest-dark">{eyebrow}</p>}
-        <h1 className="max-w-4xl text-4xl font-black leading-tight text-ink md:text-6xl">{title}</h1>
-        <p className="mt-5 max-w-3xl text-lg text-ink/75 md:text-xl">{description}</p>
-        {children && <div className="mt-8 flex flex-wrap gap-3">{children}</div>}
+    <section className="relative isolate overflow-hidden border-b border-line bg-band">
+      <BotanicalBackdrop
+        className="absolute inset-y-0 right-0 -z-10 h-full w-[min(62rem,90vw)]"
+        compact
+      />
+      <div
+        className={
+          compact
+            ? 'container-page relative py-9 md:py-12'
+            : 'container-page relative py-14 md:py-20'
+        }
+      >
+        <span
+          aria-hidden="true"
+          className={
+            compact
+              ? 'mb-4 block h-1 w-14 rounded-full bg-primary'
+              : 'mb-6 block h-1 w-14 rounded-full bg-primary'
+          }
+        />
+        <h1
+          className={
+            compact
+              ? 'max-w-3xl text-section font-semibold text-balance text-primary-deep md:text-display'
+              : 'max-w-3xl text-display font-semibold text-balance text-primary-deep md:text-display-lg'
+          }
+        >
+          {title}
+        </h1>
+        <p
+          className={
+            compact
+              ? 'mt-3 max-w-[58ch] text-body text-ink-dim'
+              : 'mt-5 max-w-[58ch] text-lead text-ink-dim'
+          }
+        >
+          {description}
+        </p>
+        {children && <div className="mt-7 flex flex-wrap gap-3">{children}</div>}
       </div>
     </section>
   );

@@ -1,16 +1,14 @@
 import {reportSchema, type ReportSubmission} from '@/lib/report/schema';
-
-const MAX_PHOTO_SIZE = 8 * 1024 * 1024;
-const MAX_REQUEST_SIZE = 9 * 1024 * 1024;
-const SUPPORTED_PHOTO_TYPES = ['image/jpeg', 'image/png', 'image/webp', 'image/heic'];
+import {REPORT_MEDIA_CONFIG, reportMediaType} from '@/lib/report/media-config';
+import {detectMediaMimeType} from './media';
 
 type ParsedRequest =
-  | {success: true; values: ReportSubmission; photo?: File}
+  | {success: true; values: ReportSubmission; media: File[]}
   | {success: false; error: string; status: number; issues?: unknown};
 
 export async function parseSightingRequest(request: Request): Promise<ParsedRequest> {
   const contentLength = Number(request.headers.get('content-length'));
-  if (Number.isFinite(contentLength) && contentLength > MAX_REQUEST_SIZE) {
+  if (Number.isFinite(contentLength) && contentLength > REPORT_MEDIA_CONFIG.maxRequestBytes) {
     return {success: false, error: 'request-too-large', status: 413};
   }
 
@@ -34,14 +32,19 @@ export async function parseSightingRequest(request: Request): Promise<ParsedRequ
     return {success: false, error: 'validation-failed', status: 400, issues: parsed.error.issues};
   }
 
-  const candidate = formData.get('photo');
-  const photo = candidate instanceof File && candidate.size > 0 ? candidate : undefined;
-  if (photo && photo.size > MAX_PHOTO_SIZE) return {success: false, error: 'file-too-large', status: 413};
-  if (photo && !SUPPORTED_PHOTO_TYPES.includes(photo.type)) {
-    return {success: false, error: 'unsupported-file', status: 415};
+  const media = formData.getAll('media').filter((candidate): candidate is File => candidate instanceof File && candidate.size > 0);
+  if (media.length > REPORT_MEDIA_CONFIG.maxFiles) return {success: false, error: 'too-many-files', status: 400};
+  for (const file of media) {
+    const declaredType = reportMediaType(file.type);
+    if (!declaredType) return {success: false, error: 'unsupported-file', status: 415};
+    const maxSize = declaredType === 'video' ? REPORT_MEDIA_CONFIG.maxVideoBytes : REPORT_MEDIA_CONFIG.maxImageBytes;
+    if (file.size > maxSize) return {success: false, error: 'file-too-large', status: 413};
+    const detectedMime = detectMediaMimeType(new Uint8Array(await file.slice(0, 32).arrayBuffer()));
+    if (!detectedMime || detectedMime !== file.type) return {success: false, error: 'unsupported-file', status: 415};
   }
+  if (media.length > 0 && !parsed.data.scientificMediaUseApproved) return {success: false, error: 'media-consent-required', status: 400};
 
-  return {success: true, values: parsed.data, photo};
+  return {success: true, values: parsed.data, media};
 }
 
 async function readLimitedBody(stream: ReadableStream<Uint8Array> | null) {
@@ -54,7 +57,7 @@ async function readLimitedBody(stream: ReadableStream<Uint8Array> | null) {
     const {done, value} = await reader.read();
     if (done) break;
     size += value.byteLength;
-    if (size > MAX_REQUEST_SIZE) {
+    if (size > REPORT_MEDIA_CONFIG.maxRequestBytes) {
       await reader.cancel();
       return null;
     }

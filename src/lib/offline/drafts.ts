@@ -5,10 +5,11 @@ const DB_NAME = 'igel-suedtirol';
 const STORE_NAME = 'report-drafts';
 const DRAFT_KEY = 'active-report';
 
-type StoredDraft = {
+export type StoredDraft = {
   values: ReportDraftValues;
   step: number;
   updatedAt: string;
+  mediaFiles?: File[];
 };
 
 async function getDatabase() {

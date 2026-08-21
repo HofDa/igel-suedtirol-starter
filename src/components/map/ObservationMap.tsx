@@ -1,11 +1,36 @@
 'use client';
 
-import maplibregl, {type GeoJSONSource, type Map} from 'maplibre-gl';
-import {Loader2} from 'lucide-react';
-import {useLocale, useTranslations} from 'next-intl';
-import {useEffect, useRef, useState} from 'react';
-import {publicSightingsResponseSchema} from '@/lib/sightings/public-schema';
-import type {PublicSighting} from '@/types/sighting';
+import maplibregl, { type GeoJSONSource, type Map } from 'maplibre-gl';
+import { Loader2, RotateCcw } from 'lucide-react';
+import { useLocale, useTranslations } from 'next-intl';
+import { useCallback, useEffect, useRef, useState } from 'react';
+import { Alert } from '@/components/ui/Alert';
+import { Button } from '@/components/ui/Button';
+import { publicEnv } from '@/lib/env';
+import { MAP_MAX_BOUNDS, buildBasemapStyle } from '@/lib/map/basemap';
+import {
+  PUBLIC_GRID_METRES,
+  toClusterPoints,
+  toPublicGridCells,
+} from '@/lib/map/public-observations';
+import { publicSightingsResponseSchema } from '@/lib/sightings/public-schema';
+import { demoSightings } from '@/lib/sightings/demo';
+import type { PublicSighting } from '@/types/sighting';
+
+const SOUTH_TYROL_CENTER: [number, number] = [11.35, 46.5];
+const INITIAL_ZOOM = 7.2;
+
+function mapColour(container: HTMLElement, token: string) {
+  return getComputedStyle(container).getPropertyValue(token).trim();
+}
+
+async function fetchPublicSightings(signal?: AbortSignal) {
+  if (publicEnv.staticExport) return demoSightings;
+  const response = await fetch('/api/sightings', { signal });
+  if (!response.ok) throw new Error();
+  const data: unknown = await response.json();
+  return publicSightingsResponseSchema.parse(data).sightings;
+}
 
 export function ObservationMap() {
   const t = useTranslations('map');
@@ -16,86 +41,150 @@ export function ObservationMap() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
 
-  useEffect(() => {
-    fetch('/api/sightings')
-      .then((response) => {
-        if (!response.ok) throw new Error();
-        return response.json();
-      })
-      .then((data) => setSightings(publicSightingsResponseSchema.parse(data).sightings))
+  const loadSightings = useCallback(() => {
+    setLoading(true);
+    setError(false);
+
+    fetchPublicSightings()
+      .then(setSightings)
       .catch(() => setError(true))
       .finally(() => setLoading(false));
   }, []);
 
   useEffect(() => {
+    const controller = new AbortController();
+
+    fetchPublicSightings(controller.signal)
+      .then(setSightings)
+      .catch((loadError: unknown) => {
+        if (!(loadError instanceof DOMException && loadError.name === 'AbortError')) setError(true);
+      })
+      .finally(() => {
+        if (!controller.signal.aborted) setLoading(false);
+      });
+
+    return () => controller.abort();
+  }, []);
+
+  // Als String aus dem Effekt herausgezogen: `t` ist zwischen Renderdurchläufen
+  // nicht garantiert identisch, die Zeichenkette schon. Sonst würde die Karte
+  // bei jedem Render neu aufgebaut.
+  const attribution = t('attribution');
+
+  useEffect(() => {
     if (!container.current || mapRef.current) return;
     const map = new maplibregl.Map({
       container: container.current,
-      style: process.env.NEXT_PUBLIC_MAP_STYLE_URL ?? 'https://demotiles.maplibre.org/style.json',
-      center: [11.35, 46.5],
-      zoom: 7.2
+      style: buildBasemapStyle(attribution),
+      center: SOUTH_TYROL_CENTER,
+      zoom: INITIAL_ZOOM,
+      // Außerhalb Südtirols hat der Provinzdienst keine Kacheln – und eine
+      // Meldung dort wäre ohnehin ungültig.
+      maxBounds: MAP_MAX_BOUNDS,
+      attributionControl: false,
     });
-    map.addControl(new maplibregl.NavigationControl(), 'top-right');
+    map.addControl(new maplibregl.NavigationControl({ showCompass: false }), 'top-right');
+    map.addControl(new maplibregl.AttributionControl({ compact: true }), 'bottom-right');
     mapRef.current = map;
     return () => {
       map.remove();
       mapRef.current = null;
     };
-  }, []);
+  }, [attribution]);
 
   useEffect(() => {
     const map = mapRef.current;
     if (!map) return;
-    const data: GeoJSON.FeatureCollection = {
-      type: 'FeatureCollection',
-      features: sightings.map((sighting) => ({
-        type: 'Feature',
-        geometry: {type: 'Point', coordinates: [sighting.longitude, sighting.latitude]},
-        properties: sighting
-      }))
-    };
+    const clusterData = toClusterPoints(sightings);
+    const cellData = toPublicGridCells(sightings);
 
     const render = () => {
-      const existing = map.getSource('sightings') as GeoJSONSource | undefined;
-      if (existing) {
-        existing.setData(data);
+      const clusterSource = map.getSource('sightings') as GeoJSONSource | undefined;
+      const cellSource = map.getSource('sighting-cells') as GeoJSONSource | undefined;
+      if (clusterSource && cellSource) {
+        clusterSource.setData(clusterData);
+        cellSource.setData(cellData);
         return;
       }
-      map.addSource('sightings', {type: 'geojson', data, cluster: true, clusterMaxZoom: 13, clusterRadius: 45});
+
+      map.addSource('sightings', {
+        type: 'geojson',
+        data: clusterData,
+        cluster: true,
+        clusterMaxZoom: 12,
+        clusterRadius: 45,
+      });
+      map.addSource('sighting-cells', { type: 'geojson', data: cellData });
+
+      const accent = mapColour(map.getContainer(), '--accent');
+      const outline = mapColour(map.getContainer(), '--ink');
+
+      // Ab Zoom 12 die tatsächliche 500-m-Zelle, darunter Bündelungen.
+      map.addLayer({
+        id: 'cells-fill',
+        type: 'fill',
+        source: 'sighting-cells',
+        minzoom: 12,
+        paint: { 'fill-color': accent, 'fill-opacity': 0.22 },
+      });
+      map.addLayer({
+        id: 'cells-outline',
+        type: 'line',
+        source: 'sighting-cells',
+        minzoom: 12,
+        paint: { 'line-color': outline, 'line-width': 1.5 },
+      });
+
       map.addLayer({
         id: 'clusters',
         type: 'circle',
         source: 'sightings',
         filter: ['has', 'point_count'],
-        paint: {'circle-color': '#fb8cdb', 'circle-radius': ['step', ['get', 'point_count'], 17, 10, 23, 50, 30], 'circle-stroke-color': '#ffffff', 'circle-stroke-width': 2}
+        paint: {
+          'circle-color': accent,
+          'circle-opacity': 0.85,
+          'circle-radius': ['step', ['get', 'point_count'], 16, 10, 22, 50, 29],
+          'circle-stroke-color': outline,
+          'circle-stroke-width': 1.5,
+        },
       });
       map.addLayer({
         id: 'cluster-count',
         type: 'symbol',
         source: 'sightings',
         filter: ['has', 'point_count'],
-        layout: {'text-field': ['get', 'point_count_abbreviated'], 'text-size': 13}
+        layout: { 'text-field': ['get', 'point_count_abbreviated'], 'text-size': 12 },
+        paint: { 'text-color': outline },
       });
       map.addLayer({
         id: 'unclustered',
         type: 'circle',
         source: 'sightings',
         filter: ['!', ['has', 'point_count']],
-        paint: {'circle-color': '#146600', 'circle-radius': 8, 'circle-stroke-color': '#ffffff', 'circle-stroke-width': 2}
+        maxzoom: 12,
+        paint: {
+          'circle-color': accent,
+          'circle-radius': 7,
+          'circle-stroke-color': outline,
+          'circle-stroke-width': 1.5,
+        },
       });
+
       map.on('click', 'clusters', (event) => {
         const feature = event.features?.[0];
         if (!feature || feature.geometry.type !== 'Point') return;
         const source = map.getSource('sightings') as GeoJSONSource;
         source.getClusterExpansionZoom(feature.properties?.cluster_id).then((zoom) => {
-          map.easeTo({center: (feature.geometry as GeoJSON.Point).coordinates as [number, number], zoom});
+          map.easeTo({
+            center: (feature.geometry as GeoJSON.Point).coordinates as [number, number],
+            zoom,
+          });
         });
       });
-      map.on('click', 'unclustered', (event) => {
-        const feature = event.features?.[0];
-        if (!feature || feature.geometry.type !== 'Point') return;
-        const props = feature.properties as PublicSighting;
+
+      const openPopup = (props: PublicSighting, coordinates: [number, number]) => {
         const node = document.createElement('div');
+        node.className = 'map-observation-popup';
         const strong = document.createElement('strong');
         strong.textContent = props.municipality || t('unknownMunicipality');
         const paragraph = document.createElement('p');
@@ -103,9 +192,27 @@ export function ObservationMap() {
         const notice = document.createElement('small');
         notice.textContent = t('blurNotice');
         node.append(strong, paragraph, notice);
-        new maplibregl.Popup().setLngLat(feature.geometry.coordinates as [number, number]).setDOMContent(node).addTo(map);
+        new maplibregl.Popup({ maxWidth: '280px' })
+          .setLngLat(coordinates)
+          .setDOMContent(node)
+          .addTo(map);
+      };
+
+      map.on('click', 'unclustered', (event) => {
+        const feature = event.features?.[0];
+        if (!feature || feature.geometry.type !== 'Point') return;
+        openPopup(
+          feature.properties as PublicSighting,
+          feature.geometry.coordinates as [number, number],
+        );
       });
-      for (const layer of ['clusters', 'unclustered']) {
+      map.on('click', 'cells-fill', (event) => {
+        const feature = event.features?.[0];
+        if (!feature) return;
+        openPopup(feature.properties as PublicSighting, [event.lngLat.lng, event.lngLat.lat]);
+      });
+
+      for (const layer of ['clusters', 'unclustered', 'cells-fill']) {
         map.on('mouseenter', layer, () => {
           map.getCanvas().style.cursor = 'pointer';
         });
@@ -121,40 +228,108 @@ export function ObservationMap() {
 
   const listed = sightings.slice(0, 8);
 
+  const resetMap = () => {
+    mapRef.current?.easeTo({ center: SOUTH_TYROL_CENTER, zoom: INITIAL_ZOOM });
+  };
+
   return (
-    <div>
-      <div className="relative">
-        <div ref={container} className="h-[420px] overflow-hidden rounded-3xl border border-ink/15 bg-sand-light md:h-[520px]" aria-label={t('ariaLabel')} />
-        {loading && (
-          <div className="absolute inset-0 flex items-center justify-center rounded-3xl bg-sand-light/70" role="status">
-            <span className="inline-flex items-center gap-2 rounded-full bg-white px-5 py-3 font-bold text-ink shadow">
-              <Loader2 className="animate-spin" size={18} aria-hidden="true" /> {t('loading')}
-            </span>
+    <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_20rem] lg:items-start">
+      <div className="min-w-0">
+        <div className="mb-4 flex flex-wrap items-end justify-between gap-3">
+          <div>
+            <h2 className="text-title font-semibold text-ink">{t('mapTitle')}</h2>
+            <p className="mt-1 text-caption text-ink-dim">{t('mapHint')}</p>
           </div>
-        )}
-        {!loading && error && (
-          <div className="absolute inset-x-4 top-4 rounded-xl bg-brand-pink/20 p-4 font-semibold shadow" role="alert">{t('loadError')}</div>
-        )}
-        {!loading && !error && sightings.length === 0 && (
-          <div className="absolute inset-x-4 top-4 rounded-xl bg-white/95 p-4 font-semibold shadow" role="status">{t('empty')}</div>
-        )}
+          <Button tone="outline" size="md" onClick={resetMap}>
+            <RotateCcw size={16} aria-hidden="true" />
+            {t('resetView')}
+          </Button>
+        </div>
+
+        <div className="relative overflow-hidden rounded-card border border-line bg-well shadow-lifted">
+          <div
+            ref={container}
+            className="h-[min(62svh,34rem)] min-h-[24rem] w-full"
+            aria-label={t('ariaLabel')}
+          />
+
+          {loading && (
+            <div
+              className="absolute inset-0 flex items-center justify-center bg-ground/70"
+              role="status"
+            >
+              <span className="inline-flex items-center gap-2 rounded-full border border-line bg-surface px-4 py-2.5 text-caption font-medium shadow-lifted">
+                <Loader2 className="animate-spin text-primary-deep" size={16} aria-hidden="true" />{' '}
+                {t('loading')}
+              </span>
+            </div>
+          )}
+
+          {!loading && error && (
+            <Alert
+              tone="danger"
+              live="alert"
+              className="absolute inset-x-4 top-4 shadow-lifted"
+              action={
+                <Button tone="outline" size="md" onClick={loadSightings}>
+                  {t('retry')}
+                </Button>
+              }
+            >
+              {t('loadError')}
+            </Alert>
+          )}
+
+          {!loading && !error && sightings.length === 0 && (
+            <Alert tone="note" live="status" className="absolute inset-x-4 top-4 shadow-lifted">
+              {t('empty')}
+            </Alert>
+          )}
+        </div>
+
+        {/* Die Legende macht die absichtliche Ortsunschärfe unmittelbar sichtbar. */}
+        <div className="mt-4 grid gap-3 rounded-panel bg-well px-4 py-4 sm:grid-cols-2">
+          <span className="inline-flex items-center gap-2 text-caption text-ink-dim">
+            <span aria-hidden="true" className="size-4 rounded-full border border-ink bg-accent" />
+            {t('legend.cluster')}
+          </span>
+          <span className="inline-flex items-center gap-2 text-caption text-ink-dim">
+            <span aria-hidden="true" className="size-4 border border-ink bg-accent/30" />
+            {t('legend.cell', { metres: PUBLIC_GRID_METRES })}
+          </span>
+          <span className="text-caption text-ink-faint sm:col-span-2">{t('legend.note')}</span>
+        </div>
       </div>
-      <div className="mt-5" aria-live="polite">
-        <strong>{t('listTitle')}</strong>
-        {listed.length > 0 && (
+
+      <section className="lg:sticky lg:top-24" aria-live="polite">
+        <h2 className="text-title font-semibold text-ink">{t('listTitle')}</h2>
+        {listed.length > 0 ? (
           <>
-            <p className="mt-1 text-sm text-ink/65">{t('listCount', {shown: listed.length, total: sightings.length})}</p>
-            <ul className="mt-2 grid gap-2 sm:grid-cols-2">
+            <p className="mt-1 text-caption text-ink-faint">
+              {t('listCount', { shown: listed.length, total: sightings.length })}
+            </p>
+            <ul className="mt-4 divide-y divide-line overflow-hidden rounded-panel border border-line bg-surface">
               {listed.map((sighting) => (
-                <li key={sighting.id} className="rounded-xl bg-white p-3 text-sm">
-                  {sighting.municipality || t('unknownMunicipality')} · {t(`types.${sighting.observationType}`)} ·{' '}
-                  {new Date(sighting.observedAt).toLocaleDateString(locale)}
+                <li key={sighting.id} className="grid gap-1 px-4 py-3">
+                  <span className="font-semibold text-ink">
+                    {sighting.municipality || t('unknownMunicipality')}
+                  </span>
+                  <span className="flex flex-wrap items-baseline justify-between gap-x-3 gap-y-1">
+                    <span className="text-caption text-ink-dim">
+                      {t(`types.${sighting.observationType}`)}
+                    </span>
+                    <span className="readout text-ink-faint">
+                      {new Date(sighting.observedAt).toLocaleDateString(locale)}
+                    </span>
+                  </span>
                 </li>
               ))}
             </ul>
           </>
+        ) : (
+          !loading && <p className="mt-2 text-caption text-ink-dim">{t('listEmpty')}</p>
         )}
-      </div>
+      </section>
     </div>
   );
 }

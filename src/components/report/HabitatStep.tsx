@@ -2,34 +2,60 @@
 
 import {useTranslations} from 'next-intl';
 import {useFormContext} from 'react-hook-form';
+import {ChoiceCard} from '@/components/ui/ChoiceCard';
 import type {ReportDraftValues} from '@/lib/report/schema';
 import {habitats} from '@/lib/report/schema';
 
-const features = ['robotMowerNearby', 'fenceNearby', 'roadNearby', 'poolOrShaftNearby', 'gardenPassagePresent', 'shelterPresent', 'waterSourcePresent'] as const;
+const features = [
+  'robotMowerNearby',
+  'fenceNearby',
+  'roadNearby',
+  'poolOrShaftNearby',
+  'gardenPassagePresent',
+  'shelterPresent',
+  'waterSourcePresent',
+  'artificialLightingNearby',
+  'dogOrCatNearby'
+] as const;
 
 export function HabitatStep() {
   const t = useTranslations('report');
-  const {register} = useFormContext<ReportDraftValues>();
+  const {register, formState: {errors}} = useFormContext<ReportDraftValues>();
 
   return (
     <div>
-      <h2 className="text-2xl font-black text-ink">{t('steps.habitat.title')}</h2>
-      <div className="mt-6 grid gap-3 sm:grid-cols-2">
-        {habitats.map((habitat) => (
-          <label key={habitat} className="flex min-h-12 items-center gap-3 rounded-xl border border-ink/10 bg-white px-4">
-            <input type="radio" value={habitat} {...register('habitat')} className="h-5 w-5" />
-            {t(`habitats.${habitat}`)}
-          </label>
-        ))}
-      </div>
-      <fieldset className="mt-7">
-        <legend className="font-bold">{t('steps.habitat.features')}</legend>
-        <div className="mt-3 grid gap-3 sm:grid-cols-2">
+      <h2 className="text-section font-semibold text-ink">{t('steps.habitat.title')}</h2>
+      <p className="mt-2 max-w-prose text-ink-dim">{t('steps.habitat.text')}</p>
+
+      <fieldset className="mt-6">
+        <legend className="font-semibold text-ink">{t('steps.habitat.surroundings')}</legend>
+        <div className="mt-3 grid gap-2 sm:grid-cols-2">
+          {habitats.map((habitat) => (
+            <ChoiceCard
+              key={habitat}
+              type="radio"
+              compact
+              value={habitat}
+              label={t(`habitats.${habitat}`)}
+              {...register('habitat')}
+            />
+          ))}
+        </div>
+        {errors.habitat && <p role="alert" className="mt-3 text-caption font-medium text-danger">{t('validation.habitat')}</p>}
+      </fieldset>
+
+      <fieldset className="mt-8">
+        <legend className="font-semibold text-ink">{t('steps.habitat.features')}</legend>
+        <p className="mt-1 text-caption text-ink-dim">{t('steps.habitat.featuresHint')}</p>
+        <div className="mt-3 grid gap-2 sm:grid-cols-2">
           {features.map((feature) => (
-            <label key={feature} className="flex min-h-12 items-center gap-3 rounded-xl bg-sand-light px-4">
-              <input type="checkbox" {...register(`features.${feature}`)} className="h-5 w-5" />
-              {t(`features.${feature}`)}
-            </label>
+            <ChoiceCard
+              key={feature}
+              type="checkbox"
+              compact
+              label={t(`features.${feature}`)}
+              {...register(`features.${feature}`)}
+            />
           ))}
         </div>
       </fieldset>

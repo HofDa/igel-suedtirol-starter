@@ -8,5 +8,5 @@ export default async function Page({params}: Props) {
   setRequestLocale(locale);
   const t = await getTranslations('protectionPage');
   const items = t.raw('items') as Array<{title: string; text: string}>;
-  return <InfoPage eyebrow={t('eyebrow')} title={t('title')} description={t('description')} items={items} />;
+  return <InfoPage title={t('title')} description={t('description')} items={items} />;
 }

@@ -2,20 +2,17 @@ const PROJECT_TIME_ZONE = 'Europe/Rome';
 
 type ObservationDateTime = {
   observedDate: string;
-  observedTime?: string;
-  timeUnknown: boolean;
+  observedTimeFrom?: string;
+  timeAccuracy: 'exact' | 'range' | 'date_only';
 };
 
-export function getDefaultObservationDateTime(now = new Date()) {
+export function getTodayInProjectTimeZone(now = new Date()) {
   const parts = getZonedParts(now);
-  return {
-    date: `${parts.year}-${parts.month}-${parts.day}`,
-    time: `${parts.hour}:${parts.minute}`
-  };
+  return `${parts.year}-${parts.month}-${parts.day}`;
 }
 
 export function toObservationTimestamp(values: ObservationDateTime) {
-  const time = values.timeUnknown || !values.observedTime ? '12:00' : values.observedTime;
+  const time = values.timeAccuracy === 'date_only' || !values.observedTimeFrom ? '12:00' : values.observedTimeFrom;
   const [year, month, day] = values.observedDate.split('-').map(Number);
   const [hour, minute] = time.split(':').map(Number);
   const utcGuess = Date.UTC(year, month - 1, day, hour, minute);
@@ -29,7 +26,7 @@ export function toObservationTimestamp(values: ObservationDateTime) {
   }
 
   const timestamp = `${values.observedDate}T${time}:00${formatOffset(getOffsetMinutes(instant))}`;
-  if (!values.timeUnknown && !matchesProjectLocalTime(new Date(timestamp), values.observedDate, time)) {
+  if (values.timeAccuracy !== 'date_only' && !matchesProjectLocalTime(new Date(timestamp), values.observedDate, time)) {
     throw new RangeError('invalid-project-local-time');
   }
   return timestamp;
@@ -37,7 +34,7 @@ export function toObservationTimestamp(values: ObservationDateTime) {
 
 export function isValidProjectLocalDateTime(observedDate: string, observedTime: string) {
   try {
-    toObservationTimestamp({observedDate, observedTime, timeUnknown: false});
+    toObservationTimestamp({observedDate, observedTimeFrom: observedTime, timeAccuracy: 'exact'});
     return true;
   } catch {
     return false;

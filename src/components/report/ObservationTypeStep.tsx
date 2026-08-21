@@ -4,8 +4,11 @@ import {ArrowRight, Bandage, CircleHelp, HeartPulse, PawPrint, Skull, type Lucid
 import {useTranslations} from 'next-intl';
 import {useFormContext} from 'react-hook-form';
 import {Link} from '@/i18n/navigation';
+import {Alert} from '@/components/ui/Alert';
+import {buttonClass} from '@/components/ui/Button';
+import {ChoiceCard} from '@/components/ui/ChoiceCard';
 import type {ReportDraftValues} from '@/lib/report/schema';
-import {observationTypes} from '@/lib/report/schema';
+import {observationTypes, requiresSosNotice} from '@/lib/report/schema';
 
 const icons: Record<(typeof observationTypes)[number], LucideIcon> = {
   alive: HeartPulse,
@@ -17,34 +20,51 @@ const icons: Record<(typeof observationTypes)[number], LucideIcon> = {
 
 export function ObservationTypeStep() {
   const t = useTranslations('report');
-  const {register, watch, formState: {errors}} = useFormContext<ReportDraftValues>();
+  const {
+    register,
+    watch,
+    formState: {errors}
+  } = useFormContext<ReportDraftValues>();
   const value = watch('observationType');
 
   return (
     <fieldset>
-      <legend className="text-2xl font-black text-ink">{t('steps.type.title')}</legend>
+      <legend className="text-section font-semibold text-ink">{t('steps.type.title')}</legend>
+      <p className="mt-2 max-w-prose text-ink-dim">{t('steps.type.text')}</p>
+
       <div className="mt-6 grid gap-3 sm:grid-cols-2">
-        {observationTypes.map((type) => {
-          const Icon = icons[type];
-          return (
-            <label key={type} className={`flex min-h-20 cursor-pointer items-center gap-4 rounded-2xl border-2 p-4 font-bold transition ${value === type ? 'border-brand-pink bg-brand-pink/15' : 'border-ink/10 bg-white hover:border-forest-dark/30'}`}>
-              <input type="radio" value={type} {...register('observationType')} className="sr-only" />
-              <Icon size={30} className={value === type ? 'text-forest-dark' : 'text-ink/50'} aria-hidden="true" />
-              {t(`observationTypes.${type}`)}
-            </label>
-          );
-        })}
+        {observationTypes.map((type) => (
+          <ChoiceCard
+            key={type}
+            type="radio"
+            value={type}
+            icon={icons[type]}
+            label={t(`observationTypes.${type}`)}
+            aria-invalid={errors.observationType ? true : undefined}
+            {...register('observationType')}
+          />
+        ))}
       </div>
+
       {errors.observationType && (
-        <p className="mt-3 text-sm font-bold text-red-700" role="alert">{t('validation.observationType')}</p>
+        <Alert tone="danger" live="alert" className="mt-4">
+          {t('validation.observationType')}
+        </Alert>
       )}
-      {value === 'injured' && (
-        <div className="mt-5 rounded-xl border border-red-700/20 bg-red-50 p-4 text-red-900" role="alert">
-          <p className="font-semibold">{t('steps.type.injuredNotice')}</p>
-          <Link href="/hilfe" className="mt-3 inline-flex min-h-11 items-center gap-2 rounded-full bg-red-700 px-5 font-bold text-white hover:bg-red-800">
-            {t('steps.type.injuredLink')} <ArrowRight size={18} aria-hidden="true" />
-          </Link>
-        </div>
+
+      {requiresSosNotice(value) && (
+        <Alert
+          tone="danger"
+          live="alert"
+          className="mt-5"
+          action={
+            <Link href="/hilfe" className={buttonClass('danger', 'md')}>
+              {t('steps.type.injuredLink')} <ArrowRight size={16} aria-hidden="true" />
+            </Link>
+          }
+        >
+          <p className="font-semibold text-ink">{t('steps.type.injuredNotice')}</p>
+        </Alert>
       )}
     </fieldset>
   );

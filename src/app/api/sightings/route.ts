@@ -20,18 +20,18 @@ export async function POST(request: Request) {
     if (!parsed.success) return NextResponse.json({error: parsed.error, issues: parsed.issues}, {status: parsed.status});
 
     if (publicEnv.demoMode) {
-      return NextResponse.json({occurrenceId: `DEMO-${Date.now()}`, persisted: false, photoStored: true});
+      return NextResponse.json({occurrenceId: `DEMO-${Date.now()}`, persisted: false, mediaStored: true});
     }
 
     const security = getSubmissionSecurity(request);
     if (!security.success) return NextResponse.json({error: security.error}, {status: 503});
 
-    const result = await createSighting(parsed.values, security.sourceHash, parsed.photo);
+    const result = await createSighting(parsed.values, security.sourceHash, parsed.media);
     if (!result.success) {
       const status = result.error === 'backend-not-configured' ? 503 : result.error === 'rate-limit-exceeded' ? 429 : 500;
       return NextResponse.json({error: result.error}, {status});
     }
-    return NextResponse.json({occurrenceId: result.data.occurrenceId, persisted: true, photoStored: result.data.photoStored}, {status: 201});
+    return NextResponse.json({occurrenceId: result.data.occurrenceId, persisted: true, mediaStored: result.data.mediaStored}, {status: 201});
   } catch {
     return NextResponse.json({error: 'unexpected-error'}, {status: 500});
   }

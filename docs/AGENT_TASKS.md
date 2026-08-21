@@ -6,10 +6,11 @@ Jedes Paket sollte auf einem eigenen Branch bearbeitet werden.
 
 ### TASK-001: Supabase-E2E-Verbindung
 
-- Migration lokal ausführen
-- echte Meldung inklusive Foto speichern
-- Fehlerzustände testen
-- RLS und Storage-Policies verifizieren
+- [x] wiederholbaren lokalen Migrationstest bereitstellen
+- [x] echte synthetische Meldung inklusive Foto speichern
+- [x] Validierungs- und Idempotenzfehler testen
+- [x] Rollen-RLS, Kontakttrennung und private Storage-Policies verifizieren
+- [x] denselben Test gegen einen freigegebenen Supabase-Staging-Klon ausführen
 
 ### TASK-002: Moderationsdetailseite
 

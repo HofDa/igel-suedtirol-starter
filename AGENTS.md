@@ -4,7 +4,7 @@ Diese Datei ist die primäre Arbeitsanweisung für alle Coding-Agenten.
 
 ## Produktziel
 
-Die Anwendung ist eine mobile Citizen-Science-Plattform für Igelbeobachtungen in Südtirol. Sie muss für Laien einfach, für Fachleute auswertbar und datenschutzrechtlich defensiv sein.
+Die Anwendung ist eine mobile Citizen-Science-Plattform für Igelbeobachtungen und Straßenrisiken in Südtirol mit einem strikt getrennten SOS-Einstieg. Sie muss für Laien einfach, für Fachleute auswertbar und datenschutzrechtlich defensiv sein.
 
 ## Unverhandelbare Regeln
 
@@ -12,7 +12,7 @@ Die Anwendung ist eine mobile Citizen-Science-Plattform für Igelbeobachtungen i
 2. **Keine exakten Koordinaten öffentlich.** Öffentliche Karten und APIs verwenden ausschließlich `public_location` oder Aggregationen.
 3. **Service-Role-Key nie im Client.** Dateien mit `'use client'` dürfen keine Server-Umgebungsvariablen importieren.
 4. **Kontaktdaten getrennt halten.** Persönliche Daten gehören in `reporter_contacts`, nicht in `sightings`.
-5. **Keine direkte anonyme Tabellenmutation.** Öffentliche Meldungen laufen über `/api/sightings` oder eine kontrollierte Edge Function.
+5. **Keine direkte anonyme Tabellenmutation.** Öffentliche Meldungen laufen über `/api/sightings`, `/api/road-hazards` oder eine kontrollierte Edge Function.
 6. **Migrationen statt manueller Datenbankänderungen.** Änderungen unter `supabase/migrations/` dokumentieren.
 7. **Mobile first und barrierearm.** Touch-Ziele mindestens 44 × 44 px; Formulare müssen per Tastatur funktionieren.
 8. **Offline ohne Blocker-Popups.** Entwürfe lokal sichern; Verbindungsprobleme ruhig und nicht-modal anzeigen.
@@ -49,4 +49,6 @@ Server- und Client-Code strikt trennen. Eine Client-Komponente darf keine Admin-
 
 ## Priorisierte nächste Aufgaben
 
-Siehe `docs/AGENT_TASKS.md`.
+Siehe `docs/AGENT_TASKS.md`. Vorrang haben die redaktionelle Freigabe realer
+Hilfskontakte, ein produktiver Migrationstest gegen Supabase und die vollständige
+rollenbasierte Admin-Detailansicht.

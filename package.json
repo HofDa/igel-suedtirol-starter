@@ -2,26 +2,47 @@
   "name": "igel-suedtirol-starter",
   "version": "0.1.0",
   "private": true,
-  "packageManager": "npm@12.0.1",
+  "packageManager": "npm@10.9.7",
   "engines": {
-    "node": ">=22.0.0"
+    "node": ">=22.0.0",
+    "npm": "10.9.7"
+  },
+  "devEngines": {
+    "runtime": {
+      "name": "node",
+      "version": ">=22.0.0",
+      "onFail": "error"
+    },
+    "packageManager": {
+      "name": "npm",
+      "version": "10.9.7",
+      "onFail": "error"
+    }
   },
   "scripts": {
-    "dev": "next dev",
+    "dev": "next dev --webpack",
+    "dev:staging": "node scripts/run-staging-dev.mjs",
     "build": "next build",
+    "build:pages": "node scripts/build-github-pages.mjs",
     "start": "next start",
     "lint": "eslint .",
     "typecheck": "tsc --noEmit -p tsconfig.typecheck.json",
     "test": "vitest run",
+    "test:supabase": "node scripts/run-supabase-e2e.mjs",
+    "test:supabase:local": "node scripts/run-supabase-e2e.mjs --reset-local",
+    "test:supabase:staging": "node scripts/run-supabase-e2e.mjs --linked-staging",
+    "configure:staging": "node scripts/configure-linked-staging.mjs",
     "test:watch": "vitest",
     "format": "prettier --write .",
-    "check": "npm run lint && npm run typecheck && npm run test",
+    "check": "eslint . && tsc --noEmit -p tsconfig.typecheck.json && vitest run",
     "supabase:start": "npx supabase start",
     "supabase:stop": "npx supabase stop",
     "supabase:reset": "npx supabase db reset",
     "supabase:types": "npx supabase gen types typescript --local > src/types/database.generated.ts"
   },
   "dependencies": {
+    "@fontsource/inter": "^5.3.0",
+    "@fontsource/martian-mono": "^5.3.0",
     "@hookform/resolvers": "5.4.0",
     "@supabase/ssr": "0.12.3",
     "@supabase/supabase-js": "2.110.7",
@@ -35,6 +56,7 @@
     "react-dom": "19.2.7",
     "react-hook-form": "7.81.0",
     "server-only": "0.0.1",
+    "sharp": "0.34.5",
     "tailwind-merge": "3.6.0",
     "zod": "4.4.3"
   },
