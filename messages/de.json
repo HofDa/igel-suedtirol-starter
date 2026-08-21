@@ -270,7 +270,7 @@
         "title": "Wer meldet den Fund?",
         "label": "Kontakt",
         "text": "Name und mindestens eine Kontaktmöglichkeit helfen bei fachlichen Rückfragen.",
-        "privacy": "Diese Angaben werden getrennt von der wissenschaftlichen Meldung in reporter_contacts gespeichert und nie öffentlich ausgegeben.",
+        "privacy": "Deine Kontaktdaten werden getrennt von der Beobachtung gespeichert und nie veröffentlicht.",
         "firstName": "Vorname",
         "lastName": "Nachname",
         "email": "E-Mail",

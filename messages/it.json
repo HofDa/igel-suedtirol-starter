@@ -270,7 +270,7 @@
         "title": "Chi segnala il ritrovamento?",
         "label": "Contatto",
         "text": "Nome e almeno un recapito aiutano in caso di domande tecniche.",
-        "privacy": "Questi dati sono conservati separatamente in reporter_contacts e non compaiono mai nei dati pubblici.",
+        "privacy": "I tuoi recapiti vengono salvati separatamente dall’osservazione e non vengono mai pubblicati.",
         "firstName": "Nome",
         "lastName": "Cognome",
         "email": "E-mail",
